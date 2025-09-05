@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./icon.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Load RDKit -->
+    <script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"></script>
+    <title>Drug Discovery Assistant</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Initialize RDKit and set a global flag -->
+    <script>
+      // Initialize RDKit and set a global flag when it's ready
+      window.rdkitLoading = true; // Flag to indicate RDKit is loading
+      window.initRDKitModule().then(function (RDKit) {
+        console.log('RDKit initialized successfully');
+        window.RDKit = RDKit;
+        window.rdkitLoading = false; // RDKit is ready
+      }).catch((error) => {
+        console.error('Failed to initialize RDKit:', error);
+        window.rdkitLoading = false; // Even if it fails, set the flag to false
+      });
+    </script>
+
+    <!-- Main app script -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

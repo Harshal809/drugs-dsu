@@ -1,0 +1,16 @@
+# Flask server & utils
+Flask==2.3.3
+flask-cors==3.0.10
+python-dotenv==1.0.1
+
+# Chemistry & molecule processing
+rdkit-pypi==2022.9.5
+rdchiral==1.1.0
+rxn4chemistry==1.0.1  # or latest version
+
+# MongoDB
+pymongo==4.6.1
+
+# Math & utility
+numpy==1.26.4
+pydantic==2.7.1
