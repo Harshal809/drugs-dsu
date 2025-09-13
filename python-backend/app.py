@@ -1231,7 +1231,7 @@ def get_research_papers():
         
         if len(parsed_papers) > 0:
             return jsonify({
-                "papers": citations_text,  # Keep original text for frontend parsing
+                "papers": citations_text,  
                 "message": None,
                 "parsed_papers": parsed_papers,  # Also include parsed version for debugging
                 "count": len(parsed_papers)
