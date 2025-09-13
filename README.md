@@ -1,5 +1,13 @@
 # Drugs Assistant - Full Stack Application
+**Problem Statement**
 
+The process of drug discovery is time-consuming, expensive, and often inefficient, with a high rate of failure in clinical trials. Traditional methods rely heavily on trial and error, requiring years of research and significant financial investment. Additionally, the complexity of biological systems and the vast chemical space make it challenging to identify promising drug candidates efficiently.
+Generative AI, with its ability to analyze large datasets, predict molecular interactions, and generate novel compounds, has the potential to revolutionize this process. However, there is a lack of accessible, user-friendly tools that leverage generative AI to assist researchers in accelerating drug discovery while reducing costs and improving success rates.
+This application addresses these challenges by providing:
+AI-Augmented Discovery: Integration with Google Gemini and specialized chemistry APIs to predict compound properties and generate novel structures
+Visualization Tools: Interactive molecular viewers and editors to intuitively explore chemical space
+Collaboration Features: Real-time sharing of research findings among team members
+Knowledge Integration: Aggregation of relevant pharmaceutical news and research
 A comprehensive full-stack application for AI-powered drug discovery and pharmaceutical research, featuring molecular visualization, predictive analytics, and real-time collaboration tools.
 
 ![image](https://github.com/user-attachments/assets/a770845b-aefb-4295-9480-196e4e219bbe)
@@ -49,13 +57,28 @@ Use below login cerdentials [Since we have use Twilio Demo so otp will come to o
 
 ## Technologies Used
 
-### Problem Statement
-The process of drug discovery is time-consuming, expensive, and often inefficient, with a high rate of failure in clinical trials. Traditional methods rely heavily on trial and error, requiring years of research and significant financial investment. Additionally, the complexity of biological systems and the vast chemical space make it challenging to identify promising drug candidates efficiently. 
+Gemini Integration
 
-Generative AI, with its ability to analyze large datasets, predict molecular interactions, and generate novel compounds, has the potential to revolutionize this process. However, there is a lack of accessible, user-friendly tools that leverage generative AI to assist researchers in accelerating drug discovery while reducing costs and improving success rates.
+Gemini serves as the core LLM powering intelligence across the Drugs Assistant application. We have tightly integrated Gemini 2.5 Flash with an agentic MCP (Model Control Protocol) server, enabling automated task orchestration and reducing the need for manual interventions by researchers.
 
-This application addresses these challenges by providing:
+**Key Enhancements**
+Agentic Workflow with MCP Server
+A custom-built MCP server manages multi-step reasoning pipelines and delegates subtasks to Gemini.
+Enables autonomous decision-making for repetitive research processes such as molecule property lookups, drug cost estimations, and workflow validations.
+Retrieval-Augmented Generation (RAG)
+Gemini 2.5 Flash acts as the primary reasoning engine, supported by RAG pipelines.
+Seamless integration with Google Embeddings API improves semantic search, contextual memory, and retrieval of relevant drug data and biomedical research.
+Applied Use Cases
+Drug Cost Analysis: Automated estimation and comparison of pharmaceutical costs.
+Research Paper Citations: Smart citation generation for compounds and related studies, ensuring traceability and credibility.
+AI Naming Suggestions: Intuitive name generation for molecules, compounds, and research projects.
+Jarvis Assistant for Researchers: An AI-driven mentor that guides newbie researchers, detects workflow gaps, and ensures smooth progression through the discovery pipeline.
 
+**Benefits**
+By integrating Gemini in this multi-layered approach, we deliver:
+Increased automation in the drug discovery workflow.
+Reduced human intervention, freeing researchers from repetitive manual tasks.
+Scalable intelligence that supports both early-stage research and advanced pharmaceutical analysis.
 1. **AI-Augmented Discovery**: Integration with Google Gemini and specialized chemistry APIs to predict compound properties and generate novel structures
 2. **Visualization Tools**: Interactive molecular viewers and editors to intuitively explore chemical space
 3. **Collaboration Features**: Real-time sharing of research findings among team members
