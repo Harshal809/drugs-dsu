@@ -1,1948 +1,354 @@
-import { PredictDisease, TargetProtein } from "../models/newdrug.model.js";
-import fs from "fs";
-import path from "path";
-import mongoose from "mongoose";
-import {MongoClient} from 'mongodb';
-import { fileURLToPath } from "url";
-import { GoogleGenAI } from "@google/genai";
+// backend/controllers/finalnewdrug.controller.js
+import { spawn } from 'child_process';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import os from 'os';
 
-// Get __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Initialize Google Gemini AI
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-});
-const config = {
-  responseMimeType: "application/json", // Changed to JSON to match the new prompt output
-};
-const model = "gemini-2.5-flash-preview-05-20";
+// Resolve repo root from backend/controllers -> repo root
+const repoRoot = path.resolve(__dirname, '..', '..');
 
-// Helper function to call Gemini API
-const callGemini = async (prompt) => {
-  const contents = [
-    {
-      role: "user",
-      parts: [
-        {
-          text: prompt,
-        },
-      ],
-    },
-  ];
+// Path to your Python MCP server entry
+const pyEntry = path.join(repoRoot, 'mcpserver', 'main.py');
 
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
+// Choose python binary (allow override through env)
+const PYTHON_BIN = process.env.PYTHON_BIN || (os.platform() === 'win32' ? 'python' : 'python3');
 
-  let fullText = "";
-  for await (const chunk of response) {
-    fullText += chunk.text || "";
+/***********************
+ * Minimal MCP Client
+ ***********************/
+class MCPClient {
+  constructor() {
+    this.proc = null;
+    this.nextId = 1;
+    this.pending = new Map(); // id -> {resolve, reject, timeout}
+    this.buffer = Buffer.alloc(0);
+    this.ready = null;
+    this._starting = false;
   }
-  return fullText;
-};
 
-// Helper function to parse CSV data
-const parseCSV = (filePath) => {
-  const fileContent = fs.readFileSync(filePath, "utf-8");
-  const lines = fileContent.split("\n").filter((line) => line.trim() !== "");
-  const headers = lines[0].split(",").map((header) => header.trim());
-  const rows = lines.slice(1).map((line) => {
-    const values = line.split(",").map((value) => value.trim());
-    const row = {};
-    headers.forEach((header, index) => {
-      row[header] = values[index] || "";
-    });
-    return row;
-  });
-  return rows;
-};
-
-// Helper function to parse structured Gemini JSON response
-const parseStructuredResponse = (response, category) => {
-  try {
-    const jsonResponse = JSON.parse(response);
-    const items = jsonResponse[category] || [];
-
-    if (category === "knownOrPotentialTargetProteins") {
-      return items.map((item) => ({
-        protein: item.protein || "Unknown Protein",
-        source: item.source || "N/A",
-        summary: item.summary || "No summary available.",
-        url: item.url || "",
-      }));
-    }
-
-    return items.map((item) => ({
-      source: item.source || "N/A",
-      summary: item.summary || "No summary available.",
-      url: item.url || "",
-    }));
-  } catch (error) {
-    console.error(`Error parsing ${category}:`, error);
-    return [
-      {
-        source: "N/A",
-        summary: "No data available due to parsing error.",
-        url: "",
-      },
-    ];
-  }
-};
-
-// export const predictDisease = async (req, res) => {
-//   try {
-//     const { symptoms } = req.body;
-
-//     if (!symptoms || !Array.isArray(symptoms) || symptoms.length === 0) {
-//       return res.status(400).json({ error: "Symptoms array is required" });
-//     }
-
-//     // Load and parse DiseaseAndSymptoms.csv
-//     const diseaseSymptomPath = path.join(
-//       __dirname,
-//       "../Datasets/DiseaseAndSymptoms.csv"
-//     );
-//     if (!fs.existsSync(diseaseSymptomPath)) {
-//       return res
-//         .status(500)
-//         .json({ error: "DiseaseAndSymptoms.csv file not found" });
-//     }
-//     const diseaseSymptomData = parseCSV(diseaseSymptomPath);
-
-//     // Group symptom sets by disease (handle multiple rows for the same disease)
-//     const diseaseSymptomSets = {};
-//     diseaseSymptomData.forEach((row) => {
-//       const disease = row.Disease;
-//       if (!disease) return;
-
-//       const diseaseSymptoms = Object.values(row)
-//         .slice(1)
-//         .filter((symptom) => symptom && symptom !== "");
-
-//       if (diseaseSymptoms.length === 0) return;
-
-//       if (!diseaseSymptomSets[disease]) {
-//         diseaseSymptomSets[disease] = [];
-//       }
-//       diseaseSymptomSets[disease].push(diseaseSymptoms);
-//     });
-
-//     // Convert input symptoms to a set for comparison
-//     const inputSymptomSet = new Set(symptoms);
-
-//     // Find exact matches and calculate match percentages
-//     const diseaseMatches = [];
-//     for (const [disease, symptomSets] of Object.entries(diseaseSymptomSets)) {
-//       let bestMatch = { percentage: 0, matchedSymptoms: [], allSymptoms: [] };
-
-//       // Check each symptom set for the disease
-//       for (const diseaseSymptoms of symptomSets) {
-//         const diseaseSymptomSet = new Set(diseaseSymptoms);
-
-//         // Check for exact match (same symptoms, same count, ignoring order)
-//         if (
-//           inputSymptomSet.size === diseaseSymptomSet.size &&
-//           [...inputSymptomSet].every((symptom) => diseaseSymptomSet.has(symptom))
-//         ) {
-//           bestMatch = {
-//             percentage: 100,
-//             matchedSymptoms: diseaseSymptoms,
-//             allSymptoms: diseaseSymptoms,
-//           };
-//           break; // Exact match found, no need to check other sets for this disease
-//         }
-
-//         // Calculate partial match
-//         const matchedSymptoms = diseaseSymptoms.filter((symptom) =>
-//           symptoms.includes(symptom)
-//         );
-//         // Match percentage: proportion of input symptoms matched and disease symptoms matched
-//         const inputMatchRatio = matchedSymptoms.length / symptoms.length;
-//         const diseaseMatchRatio = matchedSymptoms.length / diseaseSymptoms.length;
-//         // Use the minimum of the two ratios to ensure balanced matching
-//         const matchPercentage = Math.min(inputMatchRatio, diseaseMatchRatio) * 100;
-
-//         if (matchPercentage > bestMatch.percentage) {
-//           bestMatch = {
-//             percentage: matchPercentage,
-//             matchedSymptoms,
-//             allSymptoms: diseaseSymptoms,
-//           };
-//         }
-//       }
-
-//       diseaseMatches.push({
-//         disease,
-//         matchPercentage: bestMatch.percentage.toFixed(2) + "%",
-//         matchedSymptoms: bestMatch.matchedSymptoms,
-//         allSymptoms: bestMatch.allSymptoms,
-//       });
-//     }
-
-//     // Sort diseases by match percentage (descending)
-//     const sortedDiseases = diseaseMatches.sort(
-//       (a, b) => parseFloat(b.matchPercentage) - parseFloat(a.matchPercentage)
-//     );
-
-//     const topDisease = sortedDiseases[0];
-//     if (!topDisease) {
-//       return res.status(404).json({ error: "No matching disease found" });
-//     }
-
-//     // Fetch precautions if 100% match
-//     let precautions = [];
-//     if (parseFloat(topDisease.matchPercentage) === 100) {
-//       const precautionPath = path.join(
-//         __dirname,
-//         "../Datasets/DiseasePrecaution.csv"
-//       );
-//       if (!fs.existsSync(precautionPath)) {
-//         console.warn("DiseasePrecaution.csv file not found");
-//       } else {
-//         const precautionData = parseCSV(precautionPath);
-//         const precautionRow = precautionData.find(
-//           (row) => row.Disease === topDisease.disease
-//         );
-//         if (precautionRow) {
-//           precautions = [
-//             precautionRow.Precaution_1,
-//             precautionRow.Precaution_2,
-//             precautionRow.Precaution_3,
-//             precautionRow.Precaution_4,
-//           ].filter((precaution) => precaution && precaution !== "");
-//         }
-//       }
-//     }
-
-//     // If no precautions found, set a default to satisfy the schema
-//     if (precautions.length === 0) {
-//       precautions = ["No specific precautions available"];
-//     }
-
-//     // Gemini prompt and response (unchanged for brevity)
-//     const geminiPrompt = `Prompt Title: AI-Assisted Biomedical Disease Mapping and Target Discovery Using Web-Scraped Evidence
-
-// Objective:
-// You are an advanced biomedical AI assistant integrated within an AI drug discovery platform. Your task is to analyze a set of symptoms and a predicted disease and produce a **comprehensive biological and molecular analysis**. Your analysis should be **deeply researched and backed by web scraping or web search**, using authoritative sources like PubMed, UniProt, KEGG, Reactome, DisGeNET, DrugBank, Ensembl, GO Ontology, Human Cell Atlas, and FDA biomarker databases.
-
-// Input:
-// - Comma-separated list of patient symptoms: "${symptoms.join(", ")}"
-// - Top-matched disease based on local ML model: "${topDisease.disease}"
-
-// Your output will be used to:
-// - Drive downstream protein-ligand mapping
-// - Identify potential targets for AI-based SMILES generation
-// - Guide molecular docking and drug design simulations
-
-// ### MANDATORY TASKS (All Based on Live Web Scraping or Smart Web Search):
-
-// For **each of the following categories**, you must:
-
-// - **Search and scrape real biomedical sources**
-// - **Write long, detailed, medically sound summaries of the scraped data as you can **
-// - **Always include the source name and exact working URL**
-// - If no credible data is found after scraping, say: "No reliable data found after attempted web search." — but only after trying.
-
-// ### Output Format (JSON, No Markdown or Extra Text):
-
-// {
-//   "likelyDiseasesOrDisorders": [
-//     {
-//       "source": "PubMed / WHO / CDC / Mayo Clinic / MedlinePlus",
-//       "summary": "Describe diseases or disorders linked to the given symptoms. Include prevalence, etiology, and disease mechanism. Write 2–4 medical-grade sentences summarizing current research.",
-//       "url": "Direct source link"
-//     }
-//   ],
-//   "associatedBiologicalPathways": [
-//     {
-//       "source": "KEGG / Reactome / WikiPathways",
-//       "summary": "Describe cellular or metabolic pathways affected by the disease. Include pathway name, function, and how it is disrupted. Minimum 3 lines.",
-//       "url": "Exact working link"
-//     }
-//   ],
-//   "affectedBiologicalProcesses": [
-//     {
-//       "source": "GO Ontology / Reactome / PubMed",
-//       "summary": "Explain key biological processes affected—like inflammation, apoptosis, synaptic signaling, etc. Describe how these are impaired or dysregulated in the disease context. Use proper terminology.",
-//       "url": "Relevant scientific link"
-//     }
-//   ],
-//   "involvedOrgansAndTissues": [
-//     {
-//       "source": "Human Protein Atlas / Biomedical Literature",
-//       "summary": "List and describe affected organs or tissues. Explain how symptoms map to these body systems (e.g., vestibular apparatus in vertigo). Be anatomical and precise.",
-//       "url": "Source link to anatomical/biomedical data"
-//     }
-//   ],
-//   "relevantCellTypes": [
-//     {
-//       "source": "Human Cell Atlas / Research Articles",
-//       "summary": "Name immune, neural, or structural cell types affected. Describe their normal role and what goes wrong in the disease. Include 2+ sentences.",
-//       "url": "Working link to source"
-//     }
-//   ],
-//   "molecularCellularMechanismDisruptions": [
-//     {
-//       "source": "PubMed / Medline / Molecular Biology Databases",
-//       "summary": "Describe in detail the molecular mechanisms disrupted (e.g., ion channel malfunction, oxidative stress, neurotransmitter imbalance). Be mechanistic, not vague.",
-//       "url": "Precise research link"
-//     }
-//   ],
-//   "associatedGenes": [
-//     {
-//       "source": "DisGeNET / Ensembl / NCBI Gene / OMIM",
-//       "summary": "List genes implicated in the disease. For each, explain gene function and how mutations or dysregulation relate to symptoms or pathogenesis. 2–3 sentences minimum.",
-//       "url": "Gene-specific reference link"
-//     }
-//   ],
-//   "knownOrPotentialTargetProteins": [
-//     {
-//       "source": "UniProt / ChEMBL / DrugBank / STRING DB",
-//       "summary": "List known or predicted druggable proteins. For each, explain its function, role in the disease, and why it is therapeutically relevant. Link to official database entry.",
-//       "url": "Exact UniProt/DrugBank link"
-//     }
-//   ],
-//   "biomarkers": [
-//     {
-//       "source": "FDA / PubMed / ClinicalTrials / Biomarker Databases",
-//       "summary": "List validated or investigational biomarkers. Describe what is being measured (gene/protein/metabolite), its clinical significance, and current research status.",
-//       "url": "Direct link to biomarker data"
-//     }
-//   ],
-//   "relevantTherapeuticClassesOrDrugExamples": [
-//     {
-//       "source": "DrugBank / RxNorm / Medscape / PubMed",
-//       "summary": "Provide examples of drugs or drug classes used to treat the disease. For each, explain its mechanism of action and clinical use. Include generics and brand names if relevant.",
-//       "url": "Working medical or pharmacological source"
-//     }
-//   ]
-// }
-
-// ### FINAL INSTRUCTIONS:
-// - All responses MUST be accurate and verifiable with scientific citations.
-// - Do NOT use placeholder text like "N/A" unless web search **explicitly fails**.
-// - DO NOT hallucinate knowledge—back it up with web content.
-// - JSON output only. No extra text, markdown, or explanation outside JSON.
-// - This will feed into a biomedical target-ligand pipeline. Scientific precision is critical.
-// `;
-
-//     const geminiResponse = (await callGemini(geminiPrompt)) || "{}";
-
-//     // Parse the Gemini response to match the DiseaseAnalysis schema
-//     const diseaseAnalysis = {
-//       likelyDiseasesOrDisorders: parseStructuredResponse(
-//         geminiResponse,
-//         "likelyDiseasesOrDisorders"
-//       ),
-//       associatedBiologicalPathways: parseStructuredResponse(
-//         geminiResponse,
-//         "associatedBiologicalPathways"
-//       ),
-//       affectedBiologicalProcesses: parseStructuredResponse(
-//         geminiResponse,
-//         "affectedBiologicalProcesses"
-//       ),
-//       involvedOrgansAndTissues: parseStructuredResponse(
-//         geminiResponse,
-//         "involvedOrgansAndTissues"
-//       ),
-//       relevantCellTypes: parseStructuredResponse(
-//         geminiResponse,
-//         "relevantCellTypes"
-//       ),
-//       molecularCellularMechanismDisruptions: parseStructuredResponse(
-//         geminiResponse,
-//         "molecularCellularMechanismDisruptions"
-//       ),
-//       associatedGenes: parseStructuredResponse(
-//         geminiResponse,
-//         "associatedGenes"
-//       ),
-//       knownOrPotentialTargetProteins: parseStructuredResponse(
-//         geminiResponse,
-//         "knownOrPotentialTargetProteins"
-//       ),
-//       biomarkers: parseStructuredResponse(geminiResponse, "biomarkers"),
-//       relevantTherapeuticClassesOrDrugExamples: parseStructuredResponse(
-//         geminiResponse,
-//         "relevantTherapeuticClassesOrDrugExamples"
-//       ),
-//     };
-
-//     // Ensure all DiseaseAnalysis fields have at least one entry
-//     Object.keys(diseaseAnalysis).forEach((key) => {
-//       if (diseaseAnalysis[key].length === 0) {
-//         diseaseAnalysis[key] = [
-//           {
-//             source: "N/A",
-//             summary: "No data available from web sources.",
-//             url: "",
-//           },
-//         ];
-//       }
-//     });
-
-//     // Save to MongoDB
-//     const prediction = new PredictDisease({
-//       symptoms,
-//       predictedDiseases: [
-//         {
-//           diseaseName: topDisease.disease,
-//           DiseaseMatchness: topDisease.matchPercentage,
-//           diseaseCautions: precautions,
-//         },
-//       ],
-//       DiseaseAnalysis: diseaseAnalysis,
-//     });
-
-//     await prediction.save();
-
-//     // Respond with the result
-//     res.status(200).json({
-//       symptoms,
-//       predictedDiseases: [
-//         {
-//           diseaseName: topDisease.disease,
-//           DiseaseMatchness: topDisease.matchPercentage,
-//           diseaseCautions: precautions,
-//         },
-//       ],
-//       DiseaseAnalysis: diseaseAnalysis,
-//     });
-//   } catch (error) {
-//     console.error("Error in predictDisease:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
-
-// Controller for predictDisease route
-// export const predictDisease = async (req, res) => {
-//   try {
-//     const { symptoms } = req.body;
-
-//     if (!symptoms || !Array.isArray(symptoms) || symptoms.length === 0) {
-//       return res.status(400).json({ error: "Symptoms array is required" });
-//     }
-
-//     // Load and parse DiseaseAndSymptoms.csv
-//     const diseaseSymptomPath = path.join(
-//       __dirname,
-//       "../Datasets/DiseaseAndSymptoms.csv"
-//     );
-//     if (!fs.existsSync(diseaseSymptomPath)) {
-//       return res
-//         .status(500)
-//         .json({ error: "DiseaseAndSymptoms.csv file not found" });
-//     }
-//     const diseaseSymptomData = parseCSV(diseaseSymptomPath);
-
-//     // Group symptom sets by disease (handle multiple rows for the same disease)
-//     const diseaseSymptomSets = {};
-//     diseaseSymptomData.forEach((row) => {
-//       const disease = row.Disease;
-//       if (!disease) return;
-
-//       const diseaseSymptoms = Object.values(row)
-//         .slice(1)
-//         .filter((symptom) => symptom && symptom !== "");
-
-//       if (diseaseSymptoms.length === 0) return;
-
-//       if (!diseaseSymptomSets[disease]) {
-//         diseaseSymptomSets[disease] = [];
-//       }
-//       diseaseSymptomSets[disease].push(diseaseSymptoms);
-//     });
-
-//     // Convert input symptoms to a set for comparison
-//     const inputSymptomSet = new Set(symptoms);
-
-//     // Find exact matches and calculate match percentages
-//     const diseaseMatches = [];
-//     for (const [disease, symptomSets] of Object.entries(diseaseSymptomSets)) {
-//       let bestMatch = { percentage: 0, matchedSymptoms: [], allSymptoms: [] };
-
-//       // Check each symptom set for the disease
-//       for (const diseaseSymptoms of symptomSets) {
-//         const diseaseSymptomSet = new Set(diseaseSymptoms);
-
-//         // Check for exact match (same symptoms, same count, ignoring order)
-//         if (
-//           inputSymptomSet.size === diseaseSymptomSet.size &&
-//           [...inputSymptomSet].every((symptom) => diseaseSymptomSet.has(symptom))
-//         ) {
-//           bestMatch = {
-//             percentage: 100,
-//             matchedSymptoms: diseaseSymptoms,
-//             allSymptoms: diseaseSymptoms,
-//           };
-//           break; // Exact match found, no need to check other sets for this disease
-//         }
-
-//         // Calculate partial match
-//         const matchedSymptoms = diseaseSymptoms.filter((symptom) =>
-//           symptoms.includes(symptom)
-//         );
-//         // Match percentage: proportion of input symptoms matched and disease symptoms matched
-//         const inputMatchRatio = matchedSymptoms.length / symptoms.length;
-//         const diseaseMatchRatio = matchedSymptoms.length / diseaseSymptoms.length;
-//         // Use the minimum of the two ratios to ensure balanced matching
-//         const matchPercentage = Math.min(inputMatchRatio, diseaseMatchRatio) * 100;
-
-//         if (matchPercentage > bestMatch.percentage) {
-//           bestMatch = {
-//             percentage: matchPercentage,
-//             matchedSymptoms,
-//             allSymptoms: diseaseSymptoms,
-//           };
-//         }
-//       }
-
-//       diseaseMatches.push({
-//         disease,
-//         matchPercentage: bestMatch.percentage.toFixed(2) + "%",
-//         matchedSymptoms: bestMatch.matchedSymptoms,
-//         allSymptoms: bestMatch.allSymptoms,
-//       });
-//     }
-
-//     // Sort diseases by match percentage (descending)
-//     const sortedDiseases = diseaseMatches.sort(
-//       (a, b) => parseFloat(b.matchPercentage) - parseFloat(a.matchPercentage)
-//     );
-
-//     const topDisease = sortedDiseases[0];
-//     if (!topDisease) {
-//       return res.status(404).json({ error: "No matching disease found" });
-//     }
-
-//     // Check if the top match is 0.00%
-//     let predictedDisease;
-//     let diseaseAnalysis = {};
-//     let precautions = [];
-
-//     if (parseFloat(topDisease.matchPercentage) === 0) {
-//       // No match found in the dataset
-//       predictedDisease = {
-//         diseaseName: "NO disease found on datasets its a new disease",
-//         DiseaseMatchness: "0.00%",
-//         diseaseCautions: ["No precautions available as this may be a new disease"],
-//       };
-
-//       // Populate DiseaseAnalysis with a placeholder
-//       diseaseAnalysis = {
-//         likelyDiseasesOrDisorders: [
-//           {
-//             source: "N/A",
-//             summary: "No matching disease found in the dataset. The symptoms may indicate a new or uncharacterized disease.",
-//             url: "",
-//           },
-//         ],
-//         associatedBiologicalPathways: [
-//           {
-//             source: "N/A",
-//             summary: "No pathways identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         affectedBiologicalProcesses: [
-//           {
-//             source: "N/A",
-//             summary: "No biological processes identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         involvedOrgansAndTissues: [
-//           {
-//             source: "N/A",
-//             summary: "No organs or tissues identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         relevantCellTypes: [
-//           {
-//             source: "N/A",
-//             summary: "No cell types identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         molecularCellularMechanismDisruptions: [
-//           {
-//             source: "N/A",
-//             summary: "No molecular mechanisms identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         associatedGenes: [
-//           {
-//             source: "N/A",
-//             summary: "No genes identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         knownOrPotentialTargetProteins: [
-//           {
-//             source: "N/A",
-//             summary: "No target proteins identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         biomarkers: [
-//           {
-//             source: "N/A",
-//             summary: "No biomarkers identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         relevantTherapeuticClassesOrDrugExamples: [
-//           {
-//             source: "N/A",
-//             summary: "No therapeutic classes or drugs identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//       };
-//     } else {
-//       // Proceed with normal matching
-//       // Fetch precautions if 100% match
-//       if (parseFloat(topDisease.matchPercentage) === 100) {
-//         const precautionPath = path.join(
-//           __dirname,
-//           "../Datasets/DiseasePrecaution.csv"
-//         );
-//         if (!fs.existsSync(precautionPath)) {
-//           console.warn("DiseasePrecaution.csv file not found");
-//         } else {
-//           const precautionData = parseCSV(precautionPath);
-//           const precautionRow = precautionData.find(
-//             (row) => row.Disease === topDisease.disease
-//           );
-//           if (precautionRow) {
-//             precautions = [
-//               precautionRow.Precaution_1,
-//               precautionRow.Precaution_2,
-//               precautionRow.Precaution_3,
-//               precautionRow.Precaution_4,
-//             ].filter((precaution) => precaution && precaution !== "");
-//           }
-//         }
-//       }
-
-//       // If no precautions found, set a default to satisfy the schema
-//       if (precautions.length === 0) {
-//         precautions = ["No specific precautions available"];
-//       }
-
-//       predictedDisease = {
-//         diseaseName: topDisease.disease,
-//         DiseaseMatchness: topDisease.matchPercentage,
-//         diseaseCautions: precautions,
-//       };
-
-//       // Gemini prompt for DiseaseAnalysis
-//       const geminiPrompt = `Prompt Title: AI-Assisted Biomedical Disease Mapping and Target Discovery Using Web-Scraped Evidence
-
-// Objective:
-// You are an advanced biomedical AI assistant integrated within an AI drug discovery platform. Your task is to analyze a set of symptoms and a predicted disease and produce a **comprehensive biological and molecular analysis**. Your analysis should be **deeply researched and backed by web scraping or web search**, using authoritative sources like PubMed, UniProt, KEGG, Reactome, DisGeNET, DrugBank, Ensembl, GO Ontology, Human Cell Atlas, and FDA biomarker databases.
-
-// Input:
-// - Comma-separated list of patient symptoms: "${symptoms.join(", ")}"
-// - Top-matched disease based on local ML model: "${topDisease.disease}"
-
-// Your output will be used to:
-// - Drive downstream protein-ligand mapping
-// - Identify potential targets for AI-based SMILES generation
-// - Guide molecular docking and drug design simulations
-
-// ### MANDATORY TASKS (All Based on Live Web Scraping or Smart Web Search):
-
-// For **each of the following categories**, you must:
-
-// - **Search and scrape real biomedical sources**
-// - **Write long, detailed, medically sound summaries of the scraped data as you can **
-// - **Always include the source name and exact working URL**
-// - If no credible data is found after scraping, say: "No reliable data found after attempted web search." — but only after trying.
-
-// ### Output Format (JSON, No Markdown or Extra Text):
-
-// {
-//   "likelyDiseasesOrDisorders": [
-//     {
-//       "source": "PubMed / WHO / CDC / Mayo Clinic / MedlinePlus",
-//       "summary": "Describe diseases or disorders linked to the given symptoms. Include prevalence, etiology, and disease mechanism. Write 2–4 medical-grade sentences summarizing current research.",
-//       "url": "Direct source link"
-//     }
-//   ],
-//   "associatedBiologicalPathways": [
-//     {
-//       "source": "KEGG / Reactome / WikiPathways",
-//       "summary": "Describe cellular or metabolic pathways affected by the disease. Include pathway name, function, and how it is disrupted. Minimum 3 lines.",
-//       "url": "Exact working link"
-//     }
-//   ],
-//   "affectedBiologicalProcesses": [
-//     {
-//       "source": "GO Ontology / Reactome / PubMed",
-//       "summary": "Explain key biological processes affected—like inflammation, apoptosis, synaptic signaling, etc. Describe how these are impaired or dysregulated in the disease context. Use proper terminology.",
-//       "url": "Relevant scientific link"
-//     }
-//   ],
-//   "involvedOrgansAndTissues": [
-//     {
-//       "source": "Human Protein Atlas / Biomedical Literature",
-//       "summary": "List and describe affected organs or tissues. Explain how symptoms map to these body systems (e.g., vestibular apparatus in vertigo). Be anatomical and precise.",
-//       "url": "Source link to anatomical/biomedical data"
-//     }
-//   ],
-//   "relevantCellTypes": [
-//     {
-//       "source": "Human Cell Atlas / Research Articles",
-//       "summary": "Name immune, neural, or structural cell types affected. Describe their normal role and what goes wrong in the disease. Include 2+ sentences.",
-//       "url": "Working link to source"
-//     }
-//   ],
-//   "molecularCellularMechanismDisruptions": [
-//     {
-//       "source": "PubMed / Medline / Molecular Biology Databases",
-//       "summary": "Describe in detail the molecular mechanisms disrupted (e.g., ion channel malfunction, oxidative stress, neurotransmitter imbalance). Be mechanistic, not vague.",
-//       "url": "Precise research link"
-//     }
-//   ],
-//   "associatedGenes": [
-//     {
-//       "source": "DisGeNET / Ensembl / NCBI Gene / OMIM",
-//       "summary": "List genes implicated in the disease. For each, explain gene function and how mutations or dysregulation relate to symptoms or pathogenesis. 2–3 sentences minimum.",
-//       "url": "Gene-specific reference link"
-//     }
-//   ],
-//   "knownOrPotentialTargetProteins": [
-//     {
-//       "source": "UniProt / ChEMBL / DrugBank / STRING DB",
-//       "summary": "List known or predicted druggable proteins. For each, explain its function, role in the disease, and why it is therapeutically relevant. Link to official database entry.",
-//       "url": "Exact UniProt/DrugBank link"
-//     }
-//   ],
-//   "biomarkers": [
-//     {
-//       "source": "FDA / PubMed / ClinicalTrials / Biomarker Databases",
-//       "summary": "List validated or investigational biomarkers. Describe what is being measured (gene/protein/metabolite), its clinical significance, and current research status.",
-//       "url": "Direct link to biomarker data"
-//     }
-//   ],
-//   "relevantTherapeuticClassesOrDrugExamples": [
-//     {
-//       "source": "DrugBank / RxNorm / Medscape / PubMed",
-//       "summary": "Provide examples of drugs or drug classes used to treat the disease. For each, explain its mechanism of action and clinical use. Include generics and brand names if relevant.",
-//       "url": "Working medical or pharmacological source"
-//     }
-//   ]
-// }
-
-// ### FINAL INSTRUCTIONS:
-// - All responses MUST be accurate and verifiable with scientific citations.
-// - Do NOT use placeholder text like "N/A" unless web search **explicitly fails**.
-// - DO NOT hallucinate knowledge—back it up with web content.
-// - JSON output only. No extra text, markdown, or explanation outside JSON.
-// - This will feed into a biomedical target-ligand pipeline. Scientific precision is critical.
-// `;
-
-//       const geminiResponse = (await callGemini(geminiPrompt)) || "{}";
-
-//       // Parse the Gemini response to match the DiseaseAnalysis schema
-//       diseaseAnalysis = {
-//         likelyDiseasesOrDisorders: parseStructuredResponse(
-//           geminiResponse,
-//           "likelyDiseasesOrDisorders"
-//         ),
-//         associatedBiologicalPathways: parseStructuredResponse(
-//           geminiResponse,
-//           "associatedBiologicalPathways"
-//         ),
-//         affectedBiologicalProcesses: parseStructuredResponse(
-//           geminiResponse,
-//           "affectedBiologicalProcesses"
-//         ),
-//         involvedOrgansAndTissues: parseStructuredResponse(
-//           geminiResponse,
-//           "involvedOrgansAndTissues"
-//         ),
-//         relevantCellTypes: parseStructuredResponse(
-//           geminiResponse,
-//           "relevantCellTypes"
-//         ),
-//         molecularCellularMechanismDisruptions: parseStructuredResponse(
-//           geminiResponse,
-//           "molecularCellularMechanismDisruptions"
-//         ),
-//         associatedGenes: parseStructuredResponse(
-//           geminiResponse,
-//           "associatedGenes"
-//         ),
-//         knownOrPotentialTargetProteins: parseStructuredResponse(
-//           geminiResponse,
-//           "knownOrPotentialTargetProteins"
-//         ),
-//         biomarkers: parseStructuredResponse(geminiResponse, "biomarkers"),
-//         relevantTherapeuticClassesOrDrugExamples: parseStructuredResponse(
-//           geminiResponse,
-//           "relevantTherapeuticClassesOrDrugExamples"
-//         ),
-//       };
-
-//       // Ensure all DiseaseAnalysis fields have at least one entry
-//       Object.keys(diseaseAnalysis).forEach((key) => {
-//         if (diseaseAnalysis[key].length === 0) {
-//           diseaseAnalysis[key] = [
-//             {
-//               source: "N/A",
-//               summary: "No data available from web sources.",
-//               url: "",
-//             },
-//           ];
-//         }
-//       });
-//     }
-
-//     // Save to MongoDB
-//     const prediction = new PredictDisease({
-//       symptoms,
-//       predictedDiseases: [predictedDisease],
-//       DiseaseAnalysis: diseaseAnalysis,
-//     });
-
-//     await prediction.save();
-
-//     // Respond with the result
-//     res.status(200).json({
-//       symptoms,
-//       predictedDiseases: [predictedDisease],
-//       DiseaseAnalysis: diseaseAnalysis,
-//     });
-//   } catch (error) {
-//     console.error("Error in predictDisease:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
-
-// Controller for predictDisease route
-
-// export const predictDisease = async (req, res) => {
-//   try {
-//     const { symptoms } = req.body;
-
-//     if (!symptoms || !Array.isArray(symptoms) || symptoms.length === 0) {
-//       return res.status(400).json({ error: "Symptoms array is required" });
-//     }
-
-//     // Load and parse DiseaseAndSymptoms.csv
-//     const diseaseSymptomPath = path.join(
-//       __dirname,
-//       "../Datasets/DiseaseAndSymptoms.csv"
-//     );
-//     if (!fs.existsSync(diseaseSymptomPath)) {
-//       return res
-//         .status(500)
-//         .json({ error: "DiseaseAndSymptoms.csv file not found" });
-//     }
-//     const diseaseSymptomData = parseCSV(diseaseSymptomPath);
-
-//     // Group symptom sets by disease (handle multiple rows for the same disease)
-//     const diseaseSymptomSets = {};
-//     diseaseSymptomData.forEach((row) => {
-//       const disease = row.Disease;
-//       if (!disease) return;
-
-//       const diseaseSymptoms = Object.values(row)
-//         .slice(1)
-//         .filter((symptom) => symptom && symptom !== "");
-
-//       if (diseaseSymptoms.length === 0) return;
-
-//       if (!diseaseSymptomSets[disease]) {
-//         diseaseSymptomSets[disease] = [];
-//       }
-//       diseaseSymptomSets[disease].push(diseaseSymptoms);
-//     });
-
-//     // Convert input symptoms to a set for comparison
-//     const inputSymptomSet = new Set(symptoms);
-
-//     // Find exact matches and calculate match percentages
-//     const diseaseMatches = [];
-//     for (const [disease, symptomSets] of Object.entries(diseaseSymptomSets)) {
-//       let bestMatch = { percentage: 0, matchedSymptoms: [], allSymptoms: [] };
-
-//       // Check each symptom set for the disease
-//       for (const diseaseSymptoms of symptomSets) {
-//         const diseaseSymptomSet = new Set(diseaseSymptoms);
-
-//         // Check for exact match (same symptoms, same count, ignoring order)
-//         if (
-//           inputSymptomSet.size === diseaseSymptomSet.size &&
-//           [...inputSymptomSet].every((symptom) => diseaseSymptomSet.has(symptom))
-//         ) {
-//           bestMatch = {
-//             percentage: 100,
-//             matchedSymptoms: diseaseSymptoms,
-//             allSymptoms: diseaseSymptoms,
-//           };
-//           break; // Exact match found, no need to check other sets for this disease
-//         }
-
-//         // Calculate partial match
-//         const matchedSymptoms = diseaseSymptoms.filter((symptom) =>
-//           symptoms.includes(symptom)
-//         );
-//         // Match percentage: proportion of input symptoms matched and disease symptoms matched
-//         const inputMatchRatio = matchedSymptoms.length / symptoms.length;
-//         const diseaseMatchRatio = matchedSymptoms.length / diseaseSymptoms.length;
-//         // Use the minimum of the two ratios to ensure balanced matching
-//         const matchPercentage = Math.min(inputMatchRatio, diseaseMatchRatio) * 100;
-
-//         if (matchPercentage > bestMatch.percentage) {
-//           bestMatch = {
-//             percentage: matchPercentage,
-//             matchedSymptoms,
-//             allSymptoms: diseaseSymptoms,
-//           };
-//         }
-//       }
-
-//       diseaseMatches.push({
-//         disease,
-//         matchPercentage: bestMatch.percentage.toFixed(2) + "%",
-//         matchedSymptoms: bestMatch.matchedSymptoms,
-//         allSymptoms: bestMatch.allSymptoms,
-//       });
-//     }
-
-//     // Sort diseases by match percentage (descending)
-//     const sortedDiseases = diseaseMatches.sort(
-//       (a, b) => parseFloat(b.matchPercentage) - parseFloat(a.matchPercentage)
-//     );
-
-//     const topDisease = sortedDiseases[0];
-//     if (!topDisease) {
-//       return res.status(404).json({ error: "No matching disease found" });
-//     }
-
-//     // Check if the top match is 0.00%, and adjust match percentage if > 0.00%
-//     let predictedDisease;
-//     let diseaseAnalysis = {};
-//     let precautions = [];
-
-//     const topMatchPercentage = parseFloat(topDisease.matchPercentage);
-//     let adjustedMatchPercentage = topMatchPercentage;
-
-//     // Adjust match percentage: if > 0.00%, set to 100.00%
-//     if (topMatchPercentage > 0) {
-//       adjustedMatchPercentage = 100.00;
-//       topDisease.matchPercentage = "100.00%"; // Update for use in Gemini prompt
-//     }
-
-//     if (topMatchPercentage === 0) {
-//       // No match found in the dataset
-//       predictedDisease = {
-//         diseaseName: "NO disease found on datasets its a new disease",
-//         DiseaseMatchness: "0.00%",
-//         diseaseCautions: ["No precautions available as this may be a new disease"],
-//       };
-
-//       // Populate DiseaseAnalysis with a placeholder
-//       diseaseAnalysis = {
-//         likelyDiseasesOrDisorders: [
-//           {
-//             source: "N/A",
-//             summary: "No matching disease found in the dataset. The symptoms may indicate a new or uncharacterized disease.",
-//             url: "",
-//           },
-//         ],
-//         associatedBiologicalPathways: [
-//           {
-//             source: "N/A",
-//             summary: "No pathways identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         affectedBiologicalProcesses: [
-//           {
-//             source: "N/A",
-//             summary: "No biological processes identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         involvedOrgansAndTissues: [
-//           {
-//             source: "N/A",
-//             summary: "No organs or tissues identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         relevantCellTypes: [
-//           {
-//             source: "N/A",
-//             summary: "No cell types identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         molecularCellularMechanismDisruptions: [
-//           {
-//             source: "N/A",
-//             summary: "No molecular mechanisms identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         associatedGenes: [
-//           {
-//             source: "N/A",
-//             summary: "No genes identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         knownOrPotentialTargetProteins: [
-//           {
-//             source: "N/A",
-//             summary: "No target proteins identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         biomarkers: [
-//           {
-//             source: "N/A",
-//             summary: "No biomarkers identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//         relevantTherapeuticClassesOrDrugExamples: [
-//           {
-//             source: "N/A",
-//             summary: "No therapeutic classes or drugs identified due to lack of matched disease in the dataset.",
-//             url: "",
-//           },
-//         ],
-//       };
-//     } else {
-//       // Proceed with normal matching, with adjusted match percentage
-//       // Fetch precautions (now always fetched since match is treated as 100%)
-//       const precautionPath = path.join(
-//         __dirname,
-//         "../Datasets/DiseasePrecaution.csv"
-//       );
-//       if (!fs.existsSync(precautionPath)) {
-//         console.warn("DiseasePrecaution.csv file not found");
-//       } else {
-//         const precautionData = parseCSV(precautionPath);
-//         const precautionRow = precautionData.find(
-//           (row) => row.Disease === topDisease.disease
-//         );
-//         if (precautionRow) {
-//           precautions = [
-//             precautionRow.Precaution_1,
-//             precautionRow.Precaution_2,
-//             precautionRow.Precaution_3,
-//             precautionRow.Precaution_4,
-//           ].filter((precaution) => precaution && precaution !== "");
-//         }
-//       }
-
-//       // If no precautions found, set a default to satisfy the schema
-//       if (precautions.length === 0) {
-//         precautions = ["No specific precautions available"];
-//       }
-
-//       predictedDisease = {
-//         diseaseName: topDisease.disease,
-//         DiseaseMatchness: "100.00%", // Adjusted to 100%
-//         diseaseCautions: precautions,
-//       };
-
-//       // Gemini prompt for DiseaseAnalysis
-//       const geminiPrompt = `Prompt Title: AI-Assisted Biomedical Disease Mapping and Target Discovery Using Web-Scraped Evidence
-
-// Objective:
-// You are an advanced biomedical AI assistant integrated within an AI drug discovery platform. Your task is to analyze a set of symptoms and a predicted disease and produce a **comprehensive biological and molecular analysis**. Your analysis should be **deeply researched and backed by web scraping or web search**, using authoritative sources like PubMed, UniProt, KEGG, Reactome, DisGeNET, DrugBank, Ensembl, GO Ontology, Human Cell Atlas, and FDA biomarker databases.
-
-// Input:
-// - Comma-separated list of patient symptoms: "${symptoms.join(", ")}"
-// - Top-matched disease based on local ML model: "${topDisease.disease}"
-
-// Your output will be used to:
-// - Drive downstream protein-ligand mapping
-// - Identify potential targets for AI-based SMILES generation
-// - Guide molecular docking and drug design simulations
-
-// ### MANDATORY TASKS (All Based on Live Web Scraping or Smart Web Search):
-
-// For **each of the following categories**, you must:
-
-// - **Search and scrape real biomedical sources**
-// - **Write long, detailed, medically sound summaries of the scraped data as you can **
-// - **Always include the source name and exact working URL**
-// - If no credible data is found after scraping, say: "No reliable data found after attempted web search." — but only after trying.
-
-// ### Output Format (JSON, No Markdown or Extra Text):
-
-// {
-//   "likelyDiseasesOrDisorders": [
-//     {
-//       "source": "PubMed / WHO / CDC / Mayo Clinic / MedlinePlus",
-//       "summary": "Describe diseases or disorders linked to the given symptoms. Include prevalence, etiology, and disease mechanism. Write 2–4 medical-grade sentences summarizing current research.",
-//       "url": "Direct source link"
-//     }
-//   ],
-//   "associatedBiologicalPathways": [
-//     {
-//       "source": "KEGG / Reactome / WikiPathways",
-//       "summary": "Describe cellular or metabolic pathways affected by the disease. Include pathway name, function, and how it is disrupted. Minimum 3 lines.",
-//       "url": "Exact working link"
-//     }
-//   ],
-//   "affectedBiologicalProcesses": [
-//     {
-//       "source": "GO Ontology / Reactome / PubMed",
-//       "summary": "Explain key biological processes affected—like inflammation, apoptosis, synaptic signaling, etc. Describe how these are impaired or dysregulated in the disease context. Use proper terminology.",
-//       "url": "Relevant scientific link"
-//     }
-//   ],
-//   "involvedOrgansAndTissues": [
-//     {
-//       "source": "Human Protein Atlas / Biomedical Literature",
-//       "summary": "List and describe affected organs or tissues. Explain how symptoms map to these body systems (e.g., vestibular apparatus in vertigo). Be anatomical and precise.",
-//       "url": "Source link to anatomical/biomedical data"
-//     }
-//   ],
-//   "relevantCellTypes": [
-//     {
-//       "source": "Human Cell Atlas / Research Articles",
-//       "summary": "Name immune, neural, or structural cell types affected. Describe their normal role and what goes wrong in the disease. Include 2+ sentences.",
-//       "url": "Working link to source"
-//     }
-//   ],
-//   "molecularCellularMechanismDisruptions": [
-//     {
-//       "source": "PubMed / Medline / Molecular Biology Databases",
-//       "summary": "Describe in detail the molecular mechanisms disrupted (e.g., ion channel malfunction, oxidative stress, neurotransmitter imbalance). Be mechanistic, not vague.",
-//       "url": "Precise research link"
-//     }
-//   ],
-//   "associatedGenes": [
-//     {
-//       "source": "DisGeNET / Ensembl / NCBI Gene / OMIM",
-//       "summary": "List genes implicated in the disease. For each, explain gene function and how mutations or dysregulation relate to symptoms or pathogenesis. 2–3 sentences minimum.",
-//       "url": "Gene-specific reference link"
-//     }
-//   ],
-//   "knownOrPotentialTargetProteins": [
-//     {
-//       "source": "UniProt / ChEMBL / DrugBank / STRING DB",
-//       "summary": "List known or predicted druggable proteins. For each, explain its function, role in the disease, and why it is therapeutically relevant. Link to official database entry.",
-//       "url": "Exact UniProt/DrugBank link"
-//     }
-//   ],
-//   "biomarkers": [
-//     {
-//       "source": "FDA / PubMed / ClinicalTrials / Biomarker Databases",
-//       "summary": "List validated or investigational biomarkers. Describe what is being measured (gene/protein/metabolite), its clinical significance, and current research status.",
-//       "url": "Direct link to biomarker data"
-//     }
-//   ],
-//   "relevantTherapeuticClassesOrDrugExamples": [
-//     {
-//       "source": "DrugBank / RxNorm / Medscape / PubMed",
-//       "summary": "Provide examples of drugs or drug classes used to treat the disease. For each, explain its mechanism of action and clinical use. Include generics and brand names if relevant.",
-//       "url": "Working medical or pharmacological source"
-//     }
-//   ]
-// }
-
-// ### FINAL INSTRUCTIONS:
-// - All responses MUST be accurate and verifiable with scientific citations.
-// - Do NOT use placeholder text like "N/A" unless web search **explicitly fails**.
-// - DO NOT hallucinate knowledge—back it up with web content.
-// - JSON output only. No extra text, markdown, or explanation outside JSON.
-// - This will feed into a biomedical target-ligand pipeline. Scientific precision is critical.
-// `;
-
-//       const geminiResponse = (await callGemini(geminiPrompt)) || "{}";
-
-//       // Parse the Gemini response to match the DiseaseAnalysis schema
-//       diseaseAnalysis = {
-//         likelyDiseasesOrDisorders: parseStructuredResponse(
-//           geminiResponse,
-//           "likelyDiseasesOrDisorders"
-//         ),
-//         associatedBiologicalPathways: parseStructuredResponse(
-//           geminiResponse,
-//           "associatedBiologicalPathways"
-//         ),
-//         affectedBiologicalProcesses: parseStructuredResponse(
-//           geminiResponse,
-//           "affectedBiologicalProcesses"
-//         ),
-//         involvedOrgansAndTissues: parseStructuredResponse(
-//           geminiResponse,
-//           "involvedOrgansAndTissues"
-//         ),
-//         relevantCellTypes: parseStructuredResponse(
-//           geminiResponse,
-//           "relevantCellTypes"
-//         ),
-//         molecularCellularMechanismDisruptions: parseStructuredResponse(
-//           geminiResponse,
-//           "molecularCellularMechanismDisruptions"
-//         ),
-//         associatedGenes: parseStructuredResponse(
-//           geminiResponse,
-//           "associatedGenes"
-//         ),
-//         knownOrPotentialTargetProteins: parseStructuredResponse(
-//           geminiResponse,
-//           "knownOrPotentialTargetProteins"
-//         ),
-//         biomarkers: parseStructuredResponse(geminiResponse, "biomarkers"),
-//         relevantTherapeuticClassesOrDrugExamples: parseStructuredResponse(
-//           geminiResponse,
-//           "relevantTherapeuticClassesOrDrugExamples"
-//         ),
-//       };
-
-//       // Ensure all DiseaseAnalysis fields have at least one entry
-//       Object.keys(diseaseAnalysis).forEach((key) => {
-//         if (diseaseAnalysis[key].length === 0) {
-//           diseaseAnalysis[key] = [
-//             {
-//               source: "N/A",
-//               summary: "No data available from web sources.",
-//               url: "",
-//             },
-//           ];
-//         }
-//       });
-//     }
-
-//     // Save to MongoDB
-//     const prediction = new PredictDisease({
-//       symptoms,
-//       predictedDiseases: [predictedDisease],
-//       DiseaseAnalysis: diseaseAnalysis,
-//     });
-
-//     await prediction.save();
-
-//     // Respond with the result
-//     res.status(200).json({
-//       symptoms,
-//       predictedDiseases: [predictedDisease],
-//       DiseaseAnalysis: diseaseAnalysis,
-//     });
-//   } catch (error) {
-//     console.error("Error in predictDisease:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
-
-export const predictDisease = async (req, res) => {
-  try {
-    const { symptoms } = req.body;
-    const userId = req.params.id; // Use req.params.id as defined in the route // Extract userId (adjust based on your auth middleware or route)
-
-    // Validate userId
-    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ error: 'Invalid or missing user ID' });
-    }
-
-    // Validate symptoms
-    if (!symptoms || !Array.isArray(symptoms) || symptoms.length === 0) {
-      return res.status(400).json({ error: 'Symptoms array is required' });
-    }
-
-    // Load and parse DiseaseAndSymptoms.csv
-    const diseaseSymptomPath = path.join(
-      __dirname,
-      '../Datasets/DiseaseAndSymptoms.csv'
-    );
-    if (!fs.existsSync(diseaseSymptomPath)) {
-      return res.status(500).json({ error: 'DiseaseAndSymptoms.csv file not found' });
-    }
-    const diseaseSymptomData = parseCSV(diseaseSymptomPath);
-
-    // Group symptom sets by disease
-    const diseaseSymptomSets = {};
-    diseaseSymptomData.forEach((row) => {
-      const disease = row.Disease;
-      if (!disease) return;
-
-      const diseaseSymptoms = Object.values(row)
-        .slice(1)
-        .filter((symptom) => symptom && symptom !== '');
-
-      if (diseaseSymptoms.length === 0) return;
-
-      if (!diseaseSymptomSets[disease]) {
-        diseaseSymptomSets[disease] = [];
+  async start() {
+    if (this.ready) return this.ready;
+    if (this._starting) return this._starting;
+
+    this._starting = new Promise((resolve, reject) => {
+      try {
+        this.proc = spawn(PYTHON_BIN, [pyEntry], {
+          cwd: repoRoot,
+          stdio: ['pipe', 'pipe', 'pipe'],
+          env: { ...process.env },
+        });
+
+        this.proc.on('error', (err) => {
+          reject(new Error(`Failed to start MCP server: ${err.message}`));
+        });
+
+        this.proc.stderr.on('data', (data) => {
+          // Optional: log for debugging
+          // console.error('[MCP STDERR]', data.toString());
+        });
+
+        this.proc.stdout.on('data', (chunk) => {
+          this._onData(chunk);
+        });
+
+        this.proc.on('exit', (code, signal) => {
+          const err = new Error(`MCP server exited with code=${code} signal=${signal || ''}`);
+          for (const [, p] of this.pending.entries()) {
+            clearTimeout(p.timeout);
+            p.reject(err);
+          }
+          this.pending.clear();
+          this.proc = null;
+          this.buffer = Buffer.alloc(0);
+          this.ready = null;
+          this._starting = false;
+        });
+
+        // Once process is up, send initialize
+        this.initialize()
+          .then(() => {
+            this.ready = Promise.resolve(true);
+            resolve(true);
+          })
+          .catch(reject);
+      } catch (e) {
+        reject(e);
       }
-      diseaseSymptomSets[disease].push(diseaseSymptoms);
     });
 
-    // Convert input symptoms to a set for comparison
-    const inputSymptomSet = new Set(symptoms);
+    return this._starting;
+  }
 
-    // Find exact matches and calculate match percentages
-    const diseaseMatches = [];
-    for (const [disease, symptomSets] of Object.entries(diseaseSymptomSets)) {
-      let bestMatch = { percentage: 0, matchedSymptoms: [], allSymptoms: [] };
+  stop() {
+    if (this.proc) {
+      this.proc.kill();
+      this.proc = null;
+    }
+  }
 
-      for (const diseaseSymptoms of symptomSets) {
-        const diseaseSymptomSet = new Set(diseaseSymptoms);
+  _onData(chunk) {
+    this.buffer = Buffer.concat([this.buffer, chunk]);
 
-        // Check for exact match
-        if (
-          inputSymptomSet.size === diseaseSymptomSet.size &&
-          [...inputSymptomSet].every((symptom) => diseaseSymptomSet.has(symptom))
-        ) {
-          bestMatch = {
-            percentage: 100,
-            matchedSymptoms: diseaseSymptoms,
-            allSymptoms: diseaseSymptoms,
-          };
-          break;
-        }
+    // Parse LSP-style headers
+    while (true) {
+      const headerEnd = this.buffer.indexOf('\r\n\r\n');
+      if (headerEnd === -1) break;
 
-        // Calculate partial match
-        const matchedSymptoms = diseaseSymptoms.filter((symptom) =>
-          symptoms.includes(symptom)
-        );
-        const inputMatchRatio = matchedSymptoms.length / symptoms.length;
-        const diseaseMatchRatio = matchedSymptoms.length / diseaseSymptoms.length;
-        const matchPercentage = Math.min(inputMatchRatio, diseaseMatchRatio) * 100;
-
-        if (matchPercentage > bestMatch.percentage) {
-          bestMatch = {
-            percentage: matchPercentage,
-            matchedSymptoms,
-            allSymptoms: diseaseSymptoms,
-          };
+      const headerStr = this.buffer.slice(0, headerEnd).toString('utf8');
+      const headers = {};
+      for (const line of headerStr.split('\r\n')) {
+        const idx = line.indexOf(':');
+        if (idx > -1) {
+          const k = line.slice(0, idx).trim().toLowerCase();
+          const v = line.slice(idx + 1).trim();
+          headers[k] = v;
         }
       }
 
-      diseaseMatches.push({
-        disease,
-        matchPercentage: bestMatch.percentage.toFixed(2) + '%',
-        matchedSymptoms: bestMatch.matchedSymptoms,
-        allSymptoms: bestMatch.allSymptoms,
-      });
+      const contentLength = parseInt(headers['content-length'] || '0', 10);
+      const totalLen = headerEnd + 4 + contentLength;
+      if (this.buffer.length < totalLen) break;
+
+      const bodyBuf = this.buffer.slice(headerEnd + 4, totalLen);
+      this.buffer = this.buffer.slice(totalLen);
+
+      let msg = null;
+      try {
+        msg = JSON.parse(bodyBuf.toString('utf8'));
+      } catch {
+        continue;
+      }
+
+      this._dispatch(msg);
     }
+  }
 
-    // Sort diseases by match percentage
-    const sortedDiseases = diseaseMatches.sort(
-      (a, b) => parseFloat(b.matchPercentage) - parseFloat(a.matchPercentage)
-    );
-
-    const topDisease = sortedDiseases[0];
-    if (!topDisease) {
-      return res.status(404).json({ error: 'No matching disease found' });
+  _dispatch(msg) {
+    const id = msg.id;
+    if (id == null) {
+      // unsolicited or error without id
+      return;
     }
+    const pending = this.pending.get(id);
+    if (!pending) return;
 
-    let predictedDisease;
-    let diseaseAnalysis = {};
-    let precautions = [];
+    clearTimeout(pending.timeout);
+    this.pending.delete(id);
 
-    const topMatchPercentage = parseFloat(topDisease.matchPercentage);
-    let adjustedMatchPercentage = topMatchPercentage;
-
-    if (topMatchPercentage > 0) {
-      adjustedMatchPercentage = 100.00;
-      topDisease.matchPercentage = '100.00%';
-    }
-
-    if (topMatchPercentage === 0) {
-      predictedDisease = {
-        diseaseName: 'NO disease found on datasets its a new disease',
-        DiseaseMatchness: '0.00%',
-        diseaseCautions: ['No precautions available as this may be a new disease'],
-      };
-
-      diseaseAnalysis = {
-        likelyDiseasesOrDisorders: [
-          {
-            source: 'N/A',
-            summary: 'No matching disease found in the dataset. The symptoms may indicate a new or uncharacterized disease.',
-            url: '',
-          },
-        ],
-        associatedBiologicalPathways: [
-          {
-            source: 'N/A',
-            summary: 'No pathways identified due to lack of matched disease in the dataset.',
-            url: '',
-          },
-        ],
-        affectedBiologicalProcesses: [
-          {
-            source: 'N/A',
-            summary: 'No biological processes identified due to lack of matched disease in the dataset.',
-            url: '',
-          },
-        ],
-        involvedOrgansAndTissues: [
-          {
-            source: 'N/A',
-            summary: 'No organs or tissues identified due to lack of matched disease in the dataset.',
-            url: '',
-          },
-        ],
-        relevantCellTypes: [
-          {
-            source: 'N/A',
-            summary: 'No cell types identified due to lack of matched disease in the dataset.',
-            url: '',
-          },
-        ],
-        molecularCellularMechanismDisruptions: [
-          {
-            source: 'N/A',
-            summary: 'No molecular mechanisms identified due to lack of matched disease in the dataset.',
-            url: '',
-          },
-        ],
-        associatedGenes: [
-          {
-            source: 'N/A',
-            summary: 'No genes identified due to lack of matched disease in the dataset.',
-            url: '',
-          },
-        ],
-        knownOrPotentialTargetProteins: [
-          {
-            source: 'N/A',
-            summary: 'No target proteins identified due to lack of matched disease in the dataset.',
-            url: '',
-          },
-        ],
-        biomarkers: [
-          {
-            source: 'N/A',
-            summary: 'No biomarkers identified due to lack of matched disease in the dataset.',
-            url: '',
-          },
-        ],
-        relevantTherapeuticClassesOrDrugExamples: [
-          {
-            source: 'N/A',
-            summary: 'No therapeutic classes or drugs identified due to lack of matched disease in the dataset.',
-            url: '',
-          },
-        ],
-      };
+    if (msg.error) {
+      pending.reject(new Error(`${msg.error.code || ''} ${msg.error.message || 'Unknown MCP error'}`));
     } else {
-      // Fetch precautions
-      const precautionPath = path.join(
-        __dirname,
-        '../Datasets/DiseasePrecaution.csv'
-      );
-      if (!fs.existsSync(precautionPath)) {
-        console.warn('DiseasePrecaution.csv file not found');
-      } else {
-        const precautionData = parseCSV(precautionPath);
-        const precautionRow = precautionData.find(
-          (row) => row.Disease === topDisease.disease
-        );
-        if (precautionRow) {
-          precautions = [
-            precautionRow.Precaution_1,
-            precautionRow.Precaution_2,
-            precautionRow.Precaution_3,
-            precautionRow.Precaution_4,
-          ].filter((precaution) => precaution && precaution !== '');
-        }
+      pending.resolve(msg.result);
+    }
+  }
+
+  _send(payload, timeoutMs = 60000) {
+    return new Promise((resolve, reject) => {
+      if (!this.proc || !this.proc.stdin.writable) {
+        return reject(new Error('MCP server is not running'));
       }
 
-      if (precautions.length === 0) {
-        precautions = ['No specific precautions available'];
+      const id = payload.id ?? this.nextId++;
+      payload.id = id;
+
+      const data = Buffer.from(JSON.stringify(payload), 'utf8');
+      const header = Buffer.from(`Content-Length: ${data.length}\r\n\r\n`, 'utf8');
+      const toWrite = Buffer.concat([header, data]);
+
+      const to = setTimeout(() => {
+        this.pending.delete(id);
+        reject(new Error(`MCP request timeout (id=${id}, method=${payload.method})`));
+      }, timeoutMs);
+
+      this.pending.set(id, { resolve, reject, timeout: to });
+
+      try {
+        this.proc.stdin.write(toWrite);
+      } catch (e) {
+        clearTimeout(to);
+        this.pending.delete(id);
+        reject(e);
       }
+    });
+  }
 
-      predictedDisease = {
-        diseaseName: topDisease.disease,
-        DiseaseMatchness: '100.00%',
-        diseaseCautions: precautions,
-      };
+  async initialize() {
+    await this.start();
+    return this._send(
+      {
+        method: 'initialize',
+        params: {},
+      },
+      15000
+    );
+  }
 
-      // Gemini prompt for DiseaseAnalysis (unchanged)
-      const geminiPrompt = `Prompt Title: AI-Assisted Biomedical Disease Mapping and Target Discovery Using Web-Scraped Evidence
+  async toolsCall(name, args = {}, timeoutMs = 90000) {
+    await this.start();
+    const res = await this._send(
+      {
+        method: 'tools/call',
+        params: { name, arguments: args },
+      },
+      timeoutMs
+    );
+    return res; // Typically { content: [...] }
+  }
 
-Objective:
-You are an advanced biomedical AI assistant integrated within an AI drug discovery platform. Your task is to analyze a set of symptoms and a predicted disease and produce a *comprehensive biological and molecular analysis. Your analysis should be **deeply researched and backed by web scraping or web search*, using authoritative sources like PubMed, UniProt, KEGG, Reactome, DisGeNET, DrugBank, Ensembl, GO Ontology, Human Cell Atlas, and FDA biomarker databases.
 
-Input:
-- Comma-separated list of patient symptoms: "${symptoms.join(", ")}"
-- Top-matched disease based on local ML model: "${topDisease.disease}"
+  async analyzeTargets(symptoms, max_targets = 3) {
+    return this.toolsCall('analyze_targets', {
+      symptoms: String(symptoms || ''),
+      max_targets: Number(max_targets || 3),
+    });
+  }
 
-Your output will be used to:
-- Drive downstream protein-ligand mapping
-- Identify potential targets for AI-based SMILES generation
-- Guide molecular docking and drug design simulations
+  async ligandsForProtein({ protein_id = '', protein_name = '', max_ligands = 5, include_admet = true }) {
+    return this.toolsCall('get_ligands_for_protein', {
+      protein_id: String(protein_id || ''),
+      protein_name: String(protein_name || ''),
+      max_ligands: Number(max_ligands || 5),
+      include_admet: Boolean(include_admet),
+    });
+  }
 
-### MANDATORY TASKS (All Based on Live Web Scraping or Smart Web Search):
-
-For *each of the following categories*, you must:
-
-- *Search and scrape real biomedical sources*
-- *Write long, detailed, medically sound summaries (minimum 2–4 sentences each)*
-- *Always include the source name and exact working URL*
-- If no credible data is found after scraping, say: "No reliable data found after attempted web search." — but only after trying.
-
-### Output Format (JSON, No Markdown or Extra Text):
-
-{
-  "likelyDiseasesOrDisorders": [
-    {
-      "source": "PubMed / WHO / CDC / Mayo Clinic / MedlinePlus",
-      "summary": "Describe diseases or disorders linked to the given symptoms. Include prevalence, etiology, and disease mechanism. Write 2–4 medical-grade sentences summarizing current research.",
-      "url": "Direct source link"
-    }
-  ],
-  "associatedBiologicalPathways": [
-    {
-      "source": "KEGG / Reactome / WikiPathways",
-      "summary": "Describe cellular or metabolic pathways affected by the disease. Include pathway name, function, and how it is disrupted. Minimum 3 lines.",
-      "url": "Exact working link"
-    }
-  ],
-  "affectedBiologicalProcesses": [
-    {
-      "source": "GO Ontology / Reactome / PubMed",
-      "summary": "Explain key biological processes affected—like inflammation, apoptosis, synaptic signaling, etc. Describe how these are impaired or dysregulated in the disease context. Use proper terminology.",
-      "url": "Relevant scientific link"
-    }
-  ],
-  "involvedOrgansAndTissues": [
-    {
-      "source": "Human Protein Atlas / Biomedical Literature",
-      "summary": "List and describe affected organs or tissues. Explain how symptoms map to these body systems (e.g., vestibular apparatus in vertigo). Be anatomical and precise.",
-      "url": "Source link to anatomical/biomedical data"
-    }
-  ],
-  "relevantCellTypes": [
-    {
-      "source": "Human Cell Atlas / Research Articles",
-      "summary": "Name immune, neural, or structural cell types affected. Describe their normal role and what goes wrong in the disease. Include 2+ sentences.",
-      "url": "Working link to source"
-    }
-  ],
-  "molecularCellularMechanismDisruptions": [
-    {
-      "source": "PubMed / Medline / Molecular Biology Databases",
-      "summary": "Describe in detail the molecular mechanisms disrupted (e.g., ion channel malfunction, oxidative stress, neurotransmitter imbalance). Be mechanistic, not vague.",
-      "url": "Precise research link"
-    }
-  ],
-  "associatedGenes": [
-    {
-      "source": "DisGeNET / Ensembl / NCBI Gene / OMIM",
-      "summary": "List genes implicated in the disease. For each, explain gene function and how mutations or dysregulation relate to symptoms or pathogenesis. 2–3 sentences minimum.",
-      "url": "Gene-specific reference link"
-    }
-  ],
-  "knownOrPotentialTargetProteins": [
-    {
-      "source": "UniProt / ChEMBL / DrugBank / STRING DB",
-      "summary": "List known or predicted druggable proteins. For each, explain its function, role in the disease, and why it is therapeutically relevant. Link to official database entry.",
-      "url": "Exact UniProt/DrugBank link"
-    }
-  ],
-  "biomarkers": [
-    {
-      "source": "FDA / PubMed / ClinicalTrials / Biomarker Databases",
-      "summary": "List validated or investigational biomarkers. Describe what is being measured (gene/protein/metabolite), its clinical significance, and current research status.",
-      "url": "Direct link to biomarker data"
-    }
-  ],
-  "relevantTherapeuticClassesOrDrugExamples": [
-    {
-      "source": "DrugBank / RxNorm / Medscape / PubMed",
-      "summary": "Provide examples of drugs or drug classes used to treat the disease. For each, explain its mechanism of action and clinical use. Include generics and brand names if relevant.",
-      "url": "Working medical or pharmacological source"
-    }
-  ]
+  async health() {
+    return this.toolsCall('health', {});
+  }
 }
 
-### FINAL INSTRUCTIONS:
-- All responses MUST be accurate and verifiable with scientific citations.
-- Do NOT use placeholder text like "N/A" unless web search *explicitly fails*.
-- DO NOT hallucinate knowledge—back it up with web content.
-- JSON output only. No extra text, markdown, or explanation outside JSON.
-- This will feed into a biomedical target-ligand pipeline. Scientific precision is critical.
-`;
-      const geminiResponse = (await callGemini(geminiPrompt)) || '{}';
+export const mcp = new MCPClient();
 
-      diseaseAnalysis = {
-        likelyDiseasesOrDisorders: parseStructuredResponse(
-          geminiResponse,
-          'likelyDiseasesOrDisorders'
-        ),
-        associatedBiologicalPathways: parseStructuredResponse(
-          geminiResponse,
-          'associatedBiologicalPathways'
-        ),
-        affectedBiologicalProcesses: parseStructuredResponse(
-          geminiResponse,
-          'affectedBiologicalProcesses'
-        ),
-        involvedOrgansAndTissues: parseStructuredResponse(
-          geminiResponse,
-          'involvedOrgansAndTissues'
-        ),
-        relevantCellTypes: parseStructuredResponse(
-          geminiResponse,
-          'relevantCellTypes'
-        ),
-        molecularCellularMechanismDisruptions: parseStructuredResponse(
-          geminiResponse,
-          'molecularCellularMechanismDisruptions'
-        ),
-        associatedGenes: parseStructuredResponse(
-          geminiResponse,
-          'associatedGenes'
-        ),
-        knownOrPotentialTargetProteins: parseStructuredResponse(
-          geminiResponse,
-          'knownOrPotentialTargetProteins'
-        ),
-        biomarkers: parseStructuredResponse(geminiResponse, 'biomarkers'),
-        relevantTherapeuticClassesOrDrugExamples: parseStructuredResponse(
-          geminiResponse,
-          'relevantTherapeuticClassesOrDrugExamples'
-        ),
-      };
+// Graceful stop on process exit
+process.on('exit', () => mcp.stop());
+process.on('SIGINT', () => { mcp.stop(); process.exit(0); });
+process.on('SIGTERM', () => { mcp.stop(); process.exit(0); });
 
-      Object.keys(diseaseAnalysis).forEach((key) => {
-        if (diseaseAnalysis[key].length === 0) {
-          diseaseAnalysis[key] = [
-            {
-              source: 'N/A',
-              summary: 'No data available from web sources.',
-              url: '',
-            },
-          ];
-        }
-      });
-    }
+// Optional: pre-warm so first request is fast (non-blocking)
+mcp.start().catch((e) => console.error('MCP start failed:', e));
 
-    // Save to MongoDB with userId
-    const prediction = new PredictDisease({
-      userId: new mongoose.Types.ObjectId(userId), // Ensure userId is stored
-      symptoms,
-      predictedDiseases: [predictedDisease],
-      DiseaseAnalysis: diseaseAnalysis,
-    });
+/***********************
+ * Controllers
+ ***********************/
 
-    await prediction.save();
-
-    // Respond with the result
-    res.status(200).json({
-      symptoms,
-      predictedDiseases: [predictedDisease],
-      DiseaseAnalysis: diseaseAnalysis,
-    });
-  } catch (error) {
-    console.error('Error in predictDisease:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
-export const predictTargetProtein = async (req, res) => {
+// Helper to unwrap MCP tool JSON content
+function extractToolJson(result) {
   try {
-    // Fetch the latest PredictDisease entry from MongoDB
-    const latestPrediction = await PredictDisease.findOne()
-      .sort({ createdAt: -1 })
-      .exec();
-
-    if (!latestPrediction) {
-      return res
-        .status(404)
-        .json({
-          error: "No previous disease prediction found in the database",
-        });
-    }
-
-    const { symptoms, predictedDiseases } = latestPrediction;
-    if (!predictedDiseases || predictedDiseases.length === 0) {
-      return res
-        .status(400)
-        .json({ error: "No predicted diseases found in the database entry" });
-    }
-
-    const disease = predictedDiseases[0].diseaseName;
-    if (!symptoms || !disease) {
-      return res
-        .status(400)
-        .json({
-          error:
-            "Required fields (symptoms, diseaseName) are missing in the database entry",
-        });
-    }
-
-    // Use Gemini to identify target proteins and ligands, matching the TargetProteinSchema
-   const geminiPrompt = `Act as a biomedical, bioinformatics, and drug discovery expert.
-
-Objective:
-For the associated symptoms (${symptoms.join(
-  ", "
-)}), identify and present **comprehensive**, **evidence-based**, and **multi-entity** information about all relevant target proteins and their associated therapeutic ligands.
-Instructions:
-
-1. Perform an exhaustive search using authoritative biomedical databases and public repositories, including but not limited to:
-   - UniProt
-   - Protein Data Bank (PDB)
-   - PubMed
-   - DrugBank
-   - ChEMBL
-   - DisGeNET
-   - GeneCards
-   - STRING-DB
-   - KEGG
-   - Open Targets Platform
-
-2. Search and extract accurate, verifiable, and biologically relevant information from these databases using live queries, scraping, or API access. Use only reliable, peer-reviewed, or curated biomedical sources.
-
-3. For each **target protein** involved in the pathophysiology or biological mechanism of the symptom(s)/disease(s), return greater than 4 unique and scientifically validated proteins**. For **each**, provide:
-   - Full name of the protein
-   - Detailed biological function and its relevance to the entered symptoms/disease mechanism
-   - List of associated diseases or pathological conditions
-   - Gene symbol or identifier
-   - UniProt ID (if available)
-   - PDB ID (if available, otherwise state "Not available")
-   - Brief protein description (1–2 sentences) as "ProtienDiscription"
-   - Detailed functional and structural description (3–5 sentences), including its cellular localization, pathway involvement, molecular interactions, and relevance to the symptom or condition under investigation (field: "proteinDetailedDiscription")
-   - Data source links for traceability
-   - Note: Proteins **do not** have SMILES; include "Not applicable" under "ProteinSmile"
-
-4. For each identified target protein, return a minimum of **one therapeutic ligand or drug compound**, with a greater than  4 or more distinct ligands**. For each ligand, provide:
-   - Ligand name and type (e.g., antagonist, agonist, inhibitor, modulator)
-   - Full pharmacological or biological function in relation to the target protein and symptoms
-   - Mechanism of action
-   - Associated diseases or symptoms the ligand is known to treat
-   - LigandDiscription: A concise (1–2 sentence) overview
-   - LigandDetailedDiscription: An expanded (3–5 sentence) description covering mechanism of action, therapeutic relevance, pharmacodynamics/pharmacokinetics, and any clinical insights
-   - Valid SMILES string (from DrugBank, PubChem, or ChEMBL); if unavailable, state "Not applicable"
-   - DrugBank ID (or state "Not available")
-   - Source links used
-
-5. Ensure factual scientific clarity, use domain-specific nomenclature, and provide traceable source links for every field. Avoid summarization — prioritize depth, citation, and comprehensiveness.
-
- Output JSON Format:
-{
-  "TargetProteins": [
-    {
-      "proteinName": "...",
-      "proteinFunction": "...",
-      "associatedDiseases": ["..."],
-      "associatedGene": "...",
-      "proteinUniport": "...",
-      "pdbID": "...",
-      "ProtienDiscription": "...",
-      "proteinDetailedDiscription": "...",
-      "ProteinSmile": "Not applicable",
-      "dataSources": ["..."]
-    }
-    // Minimum of 4 target proteins required
-  ],
-  "TargetLigands": [
-    {
-      "ligandName": "...",
-      "ligandFunction": "...",
-      "ligandType": "...",
-      "associatedDiseases": ["..."],
-      "LigandDiscription": "...",
-      "LigandDetailedDiscription": "...",
-      "LigandSmile": "...",
-      "ligandDrugBankID": "...",
-      "dataSources": ["..."]
-    }
-    // Minimum of 4 therapeutic ligands required
-  ]
+    const item = (result?.content || []).find((c) => c?.type === 'json');
+    return item?.json ?? null;
+  } catch {
+    return null;
+  }
 }
 
- Additional Requirements:
-- Do not leave fields blank — if data is missing, use "Not available"
-- Do not provide SMILES for proteins
-- Include complete citations/URLs for verification
-- Do not simplify or generalize any descriptions — be thorough
-- All entries should be relevant to the symptom(s) provided
-- Provide **at least 4 well-validated entries each** for both proteins and ligands to ensure rich scientific value
-`;
-
-
-    // Call Gemini API with the updated prompt
-    const geminiResponse = (await callGemini(geminiPrompt)) || "{}";
-
-    // Parse the Gemini JSON response
-    let targetProteins = [];
-    let targetLigands = [];
-
-    try {
-      const jsonResponse = JSON.parse(geminiResponse);
-
-      // Parse TargetProteins
-      targetProteins =
-        jsonResponse.TargetProteins?.map((item) => ({
-          proteinName: item.proteinName || "Unknown Protein",
-          proteinFunction: item.proteinFunction || "Not available",
-          associatedDiseases: item.associatedDiseases?.length
-            ? item.associatedDiseases
-            : [disease],
-          ProtienDiscription: item.ProtienDiscription || "Not available",
-          proteinDetailedDiscription:
-            item.proteinDetailedDiscription || "Not available",
-          ProteinSmile: item.ProteinSmile || "Not applicable",
-          proteinUniport: item.proteinUniport || "Not available",
-        })) || [];
-
-      // Parse TargetLigands
-      targetLigands =
-        jsonResponse.TargetLigands?.map((item) => ({
-          ligandName: item.ligandName || "Unknown Ligand",
-          ligandFunction: item.ligandFunction || "Not available",
-          associatedDiseases: item.associatedDiseases?.length
-            ? item.associatedDiseases
-            : [disease],
-          LigandDiscription: item.LigandDiscription || "Not available",
-          LigandDetailedDiscription:
-            item.LigandDetailedDiscription || "Not available",
-          LigandSmile: item.LigandSmile || "Not applicable",
-          ligandDrugBankID: item.ligandDrugBankID || "Not available",
-        })) || [];
-    } catch (error) {
-      console.error("Error parsing Gemini response:", error);
-    }
-
-    // Ensure at least one entry for each section to satisfy the schema
-    if (targetProteins.length === 0) {
-      targetProteins.push({
-        proteinName: "Unknown Protein",
-        proteinFunction: "Not available",
-        associatedDiseases: [disease],
-        ProtienDiscription: "No description available from web sources.",
-        proteinDetailedDiscription:
-          "No detailed description available from web sources.",
-        ProteinSmile: "Not applicable",
-        proteinUniport: "Not available",
-      });
-    }
-
-    if (targetLigands.length === 0) {
-      targetLigands.push({
-        ligandName: "Unknown Ligand",
-        ligandFunction: "Not available",
-        associatedDiseases: [disease],
-        LigandDiscription: "No description available from web sources.",
-        LigandDetailedDiscription:
-          "No detailed description available from web sources.",
-        LigandSmile: "Not applicable",
-        ligandDrugBankID: "Not available",
-      });
-    }
-
-    // Save to MongoDB
-    const targetProteinEntry = new TargetProtein({
-      TargetProteins: targetProteins,
-      TargetLigands: targetLigands,
-      userId: req.user ? req.user._id : null, // Assuming user authentication middleware sets req.user
-    });
-
-    await targetProteinEntry.save();
-
-    // Respond with the result
-    res.status(200).json({
-      disease,
-      symptoms,
-      TargetProteins: targetProteins,
-      TargetLigands: targetLigands,
-    });
-  } catch (error) {
-    console.error("Error in predictTargetProtein:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
-
-
-// Controller to fetch product_smiles from reaction_responses collection
-export const getnewdrug = async (req, res) => {
-    try {
-        // MongoDB connection (update URI as per your setup)
-        const client = new MongoClient(process.env.MONGODB_URI);
-        await client.connect();
-        
-        const db = client.db('test'); // Replace with your database name
-        const collection = db.collection('reaction_responses');
-        
-        // Query to fetch product_smiles field
-        const products = await collection
-            .find({}, { projection: { product_smiles: 1, _id: 0 } })
-            .toArray();
-        
-        // Extract product_smiles arrays and flatten them
-        const productSmiles = products
-            .flatMap(doc => doc.product_smiles)
-            .filter(smiles => smiles); // Remove any null/undefined entries
-        
-        // Close the MongoDB connection
-        await client.close();
-        
-        // Send response
-        res.status(200).json({
-            success: true,
-            data: productSmiles
-        });
-        console.log('Product smiles fetched successfully:', productSmiles);
-    } catch (error) {
-        console.error('Error fetching product smiles:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error fetching product smiles',
-            error: error.message
-        });
-    }
-};
-
-
-export const getSymptoms = async (req, res) => {
+// POST /predictDisease/:id
+// Body: { symptoms: "fever, cough", use_llm?: boolean }
+export async function predictDisease(req, res, next) {
   try {
-    const userId = req.params.id;
+    const userId = req.params.id || null;
+    const { symptoms, use_llm = true } = req.body || {};
 
-    // Validate ObjectId
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ message: 'Invalid user ID format' });
+    if (!symptoms || !String(symptoms).trim()) {
+      return res.status(400).json({ ok: false, error: 'symptoms is required' });
     }
 
-    // Find documents by userId and select symptoms field
-    const predictions = await PredictDisease.find({ userId }, 'symptoms');
-
-    if (!predictions || predictions.length === 0) {
-      return res.status(404).json({ message: 'No symptoms found for this user' });
+    const result = await mcp.diagnose(symptoms, use_llm !== false);
+    const data = extractToolJson(result);
+    if (!data) {
+      return res.status(502).json({ ok: false, error: 'Empty response from MCP diagnose tool', raw: result });
     }
 
-    // Map predictions to an array of symptom arrays and deduplicate
-    const seen = new Set();
-    const symptoms = predictions
-      .map(prediction => prediction.symptoms)
-      .filter(symptomArray => {
-        // Convert symptom array to a sorted string for comparison
-        const key = symptomArray.sort().join(',');
-        if (!seen.has(key)) {
-          seen.add(key);
-          return true;
-        }
-        return false;
-      });
-
-    res.status(200).json({ symptoms });
-  } catch (error) {
-    console.error('Error fetching symptoms:', error);
-    res.status(500).json({ message: 'Server error while fetching symptoms' });
+    return res.status(200).json({ ok: true, userId, data });
+  } catch (err) {
+    next(err);
   }
-};
+}
+
+// POST /predictTargetProtein
+// Body: { symptoms: "fever, cough", max_targets?: number }
+export async function predictTargetProtein(req, res, next) {
+  try {
+    const { symptoms, max_targets = 3 } = req.body || {};
+    if (!symptoms || !String(symptoms).trim()) {
+      return res.status(400).json({ ok: false, error: 'symptoms is required' });
+    }
+
+    const result = await mcp.analyzeTargets(symptoms, max_targets);
+    const data = extractToolJson(result);
+    if (!data) {
+      return res.status(502).json({ ok: false, error: 'Empty response from MCP analyze_targets tool', raw: result });
+    }
+
+    // data shape: { target_protein_1: {...}, target_protein_2: {...}, ... }
+    return res.status(200).json({ ok: true, targets: data });
+  } catch (err) {
+    next(err);
+  }
+}
+
+// GET /getnewdrug/:id
+// Query: ?name=EGFR&max=5&include_admet=true
+export async function getnewdrug(req, res, next) {
+  try {
+    const protein_id = req.params.id || '';
+    const {
+      name: protein_name = '',
+      max = 5,
+      include_admet = 'true',
+    } = req.query || {};
+
+    if (!protein_id && !protein_name) {
+      return res.status(400).json({ ok: false, error: 'Provide protein_id as path param or name as query (?name=)' });
+    }
+
+    const result = await mcp.ligandsForProtein({
+      protein_id,
+      protein_name,
+      max_ligands: Number(max || 5),
+      include_admet: String(include_admet).toLowerCase() !== 'false',
+    });
+
+    const data = extractToolJson(result);
+    if (!data) {
+      return res.status(502).json({ ok: false, error: 'Empty response from MCP get_ligands_for_protein tool', raw: result });
+    }
+
+    // data shape: { ligands: [...] }
+    return res.status(200).json({ ok: true, protein_id, protein_name, ...data });
+  } catch (err) {
+    next(err);
+  }
+}
+
+// GET /symptoms/:id
+// Path param is a URL-encoded symptoms string. Example: /symptoms/headache%2C%20fever
+export async function getSymptoms(req, res, next) {
+  try {
+    let encoded = req.params.id || '';
+    let symptoms = '';
+    try {
+      symptoms = decodeURIComponent(encoded);
+    } catch {
+      symptoms = encoded;
+    }
+
+    const use_llm = String(req.query.use_llm || 'true').toLowerCase() !== 'false';
+
+    if (!symptoms || !symptoms.trim()) {
+      return res.status(400).json({ ok: false, error: 'Provide symptoms in the path as a URL-encoded string' });
+    }
+
+    const result = await mcp.diagnose(symptoms, use_llm);
+    const data = extractToolJson(result);
+    if (!data) {
+      return res.status(502).json({ ok: false, error: 'Empty response from MCP diagnose tool', raw: result });
+    }
+
+    return res.status(200).json({ ok: true, input: symptoms, data });
+  } catch (err) {
+    next(err);
+  }
+}

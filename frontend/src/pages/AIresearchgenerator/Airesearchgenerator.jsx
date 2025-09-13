@@ -4,23 +4,25 @@ import { toast } from "react-hot-toast";
 import { useAuthStore } from "../../Store/auth.store.js";
 import jsPDF from "jspdf";
 
-
-
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+const PY_API_BASE_URL = import.meta.env.VITE_PY_API_BASE_URL || "http://10.1.40.155:5001";
+
 const axiosInstance = axios.create({
   baseURL: import.meta.env.mode === "development" ? API_BASE_URL : "/api",
   withCredentials: true,
 });
 
-
-
-
+const pythonAxios = axios.create({
+  baseURL: PY_API_BASE_URL,
+  withCredentials: false,
+  timeout: 30000, // 30 second timeout
+});
 
 // Utility functions
 const cleanAbstract = (abstract) => {
   if (!abstract || abstract === "Abstract not available.") return abstract;
   return abstract
-    .replace(/<\/?[^>]+(>|$)/g, "")
+    .replace(/<[^>]+>/g, "")
     .replace(/\s+/g, " ")
     .trim();
 };
@@ -44,9 +46,207 @@ const isValidPaper = (paper) => {
 // Clean Gemini response to extract valid JSON
 const cleanGeminiResponse = (response) => {
   let cleaned = response.replace(/```json|```/g, "").trim();
-  cleaned = cleaned.replace(/^`+|`+$/g, "").trim();
-  const jsonMatch = cleaned.match(/(\[.*?\]|\{.*?\})/s);
+  cleaned = cleaned.replace(/^```+|```$/g, "").trim();
+  const jsonMatch = cleaned.match(/({.*?})/s);
   return jsonMatch ? jsonMatch[0] : cleaned;
+};
+
+// Enhanced parsing function for LLM output with markdown-like formatting
+const parseCitationsText = (text) => {
+  if (!text || typeof text !== "string") return [];
+  
+  // Split by --- separated papers
+  const paperBlocks = text.split(/\n?-{3,}\n?/g)
+    .map(block => block.trim())
+    .filter(Boolean);
+  
+  const papers = [];
+  
+  for (const block of paperBlocks) {
+    if (!block.trim()) continue;
+    
+    const paper = {
+      title: "",
+      authors: "",
+      year: "",
+      abstract: "",
+      doi: "",
+      url: "",
+      rawContent: block.trim(),
+      number: "",
+      relatedTo: ""
+    };
+    
+    // Extract header **Paper N: Related to ...**
+    const headerMatch = block.match(/^\*\*Paper (\d+): Related to (.+?)\*\*/);
+    if (headerMatch) {
+      paper.number = headerMatch[1];
+      paper.relatedTo = headerMatch[2].trim();
+    }
+    
+    // Extract title: after "Title\n"
+    const titleMatch = block.match(/Title\s*\n(.+?)(?=\nAuthors:|\n-{3,}|$)/s);
+    if (titleMatch) {
+      paper.title = titleMatch[1].trim();
+    }
+    
+    // Extract authors
+    const authorsMatch = block.match(/Authors:\s*(.+?)(?=\nPublished:|\nAbstract:|\n-{3,}|$)/s);
+    if (authorsMatch) {
+      paper.authors = authorsMatch[1].trim();
+    }
+    
+    // Extract publication year
+    const yearMatch = block.match(/Published:\s*(.+?)(?=\nAbstract:|\nLink|\n-{3,}|$)/s);
+    if (yearMatch) {
+      paper.year = yearMatch[1].trim();
+    }
+    
+    // Extract abstract
+    const abstractMatch = block.match(/Abstract:\s*(.+?)(?=\nLink|\n-{3,}|$)/s);
+    if (abstractMatch) {
+      paper.abstract = cleanAbstract(abstractMatch[1].trim());
+    }
+    
+    // Extract URL/Link
+    const urlMatch = block.match(/Link of the research paper:\s*(https?:\/\/[^\s\n]+)/i);
+    if (urlMatch) {
+      paper.url = urlMatch[1].trim();
+    } else {
+      // Fallback: Look for any URL in the text
+      const fallbackUrlMatch = block.match(/(https?:\/\/[^\s\n]+)/);
+      if (fallbackUrlMatch) {
+        paper.url = fallbackUrlMatch[1].trim();
+      } else {
+        paper.url = "No URL available";
+      }
+    }
+    
+    // Only add paper if it has at least a title
+    if (paper.title) {
+      papers.push(paper);
+    }
+  }
+  
+  return papers;
+};
+
+// Component to render formatted text with markdown-like styling
+const FormattedText = ({ text, className = "" }) => {
+  if (!text) return null;
+  
+  const processText = (inputText) => {
+    const parts = inputText.split(/(\*\*[^*]+\*\*|https?:\/\/[^\s]+|\n|•|\*\s+)/g);
+    
+    return parts.map((part, index) => {
+      if (!part) return null;
+      
+      // Handle bold text
+      if (part.match(/^\*\*(.+)\*\*$/)) {
+        const boldText = part.replace(/^\*\*|\*\*$/g, '');
+        return (
+          <strong key={`bold-${index}`} className="font-bold text-text-primary">
+            {boldText}
+          </strong>
+        );
+      }
+      
+      // Handle URLs
+      if (part.match(/^https?:\/\//)) {
+        return (
+          <a
+            key={`link-${index}`}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:text-accent-secondary underline transition-colors duration-300"
+          >
+            {part}
+          </a>
+        );
+      }
+      
+      // Handle line breaks
+      if (part === '\n') {
+        return <br key={`br-${index}`} />;
+      }
+      
+      // Handle bullet points
+      if (part === '•' || part.match(/^\*\s+/)) {
+        return (
+          <span key={`bullet-${index}`} className="text-accent font-bold">
+            • 
+          </span>
+        );
+      }
+      
+      // Regular text
+      return <span key={`text-${index}`}>{part}</span>;
+    });
+  };
+  
+  return (
+    <div className={`formatted-text ${className}`}>
+      {processText(text)}
+    </div>
+  );
+};
+
+// Component to render a research paper card
+const ResearchPaperCard = ({ paper, index }) => {
+  return (
+    <div
+      className="border-l-4 border-accent pl-4 transform transition-all duration-500 animate-slide-up bg-white/5 p-4 rounded-lg"
+      style={{ animationDelay: `${index * 100}ms` }}
+    >
+      {/* Title */}
+      {paper.title && (
+        <h5 className="text-lg sm:text-xl font-heading font-bold text-text-primary mb-3">
+          <FormattedText text={paper.title} />
+        </h5>
+      )}
+      
+      {/* Authors */}
+      {paper.authors && (
+        <div className="mb-2">
+          <span className="font-bold text-text-primary">Authors: </span>
+          <FormattedText text={paper.authors} className="text-text-secondary" />
+        </div>
+      )}
+      
+      {/* Publication Year */}
+      {paper.year && (
+        <div className="mb-2">
+          <span className="font-bold text-text-primary">Published: </span>
+          <FormattedText text={paper.year} className="text-text-secondary" />
+        </div>
+      )}
+      
+      {/* Abstract */}
+      {paper.abstract && (
+        <div className="mb-3">
+          <span className="font-bold text-text-primary">Abstract: </span>
+          <FormattedText text={paper.abstract} className="text-text-secondary leading-relaxed" />
+        </div>
+      )}
+      
+      {/* DOI */}
+      {paper.doi && (
+        <div className="mb-2">
+          <span className="font-bold text-text-primary">DOI: </span>
+          <FormattedText text={paper.doi} className="text-text-secondary" />
+        </div>
+      )}
+      
+      {/* URL/Link */}
+      {paper.url && paper.url !== "No URL available" && (
+        <div className="mb-2">
+          <span className="font-bold text-text-primary">Link: </span>
+          <FormattedText text={paper.url} />
+        </div>
+      )}
+    </div>
+  );
 };
 
 function Airesearchgenerator() {
@@ -210,78 +410,64 @@ function Airesearchgenerator() {
     }
   };
 
- const fetchResearchPapers = async (symptoms, smiles) => {
+const fetchResearchPapers = async (symptoms, smiles) => {
   try {
-    const prompt = `
-You are a biomedical research assistant. Given the symptoms: "${symptoms}", your tasks are:
+    console.log("Making request to Python API:", {
+      url: `${pythonAxios.defaults.baseURL}/api/research-papers`,
+      data: { symptom_group: symptoms, smiles_string: smiles }
+    });
 
-1. Generate intelligent academic search queries relevant to these symptoms and potential SMILES-derived compounds.
-2. Search for highly relevant, peer-reviewed research articles using official APIs or scraping of trusted sources such as IEEE Xplore, PubMed, and CrossRef.
-3. Extract and return real-time research data in strict JSON format with the following keys:
+    const response = await pythonAxios.post("/api/research-papers", {
+      symptom_group: symptoms,
+      smiles_string: smiles,
+    });
 
-[
-  {
-    "title": "Research paper title",
-    "authors": "Author1, Author2, ...",
-    "year": "Publication year (YYYY)",
-    "abstract": "Full abstract content of the paper",
-    "doi": "Digital Object Identifier (DOI)",
-    "url": "Direct link to the research paper",
-    "is_simulated": false
-  }
-]
-
-⚠️ Important Guidelines:
-- Do NOT return any hardcoded, static, or example content.
-- If no actual papers are found after querying all sources, only then return 3–5 realistic simulated entries with "is_simulated": true.
-- Ensure each result is verifiable and highly relevant to the symptoms.
-
-Make sure all metadata is accurate and based on **real-time** web search or API/scraping.
-`;
-
-    const response = await axiosInstance.post("/researchPaper/proxy/gemini", { prompt });
-    const content = response.data.content;
-
-    try {
-      const cleanedContent = cleanGeminiResponse(content);
-      const papers = JSON.parse(cleanedContent);
-
-      if (!Array.isArray(papers)) {
-        throw new Error("Invalid papers format");
-      }
-
-      return papers.map(paper => ({
-        ...paper,
-        is_simulated: paper.is_simulated || false,
-        abstract: cleanAbstract(paper.abstract),
-      }));
-    } catch (parseError) {
-      console.error("Error parsing Gemini response:", parseError);
-      return generateFallbackPapers(smiles, symptoms);
+    console.log("Python API Response:", response.data);
+    
+    const data = response.data;
+    
+    // Use parsed_papers if available (from new backend)
+    if (data.parsed_papers && Array.isArray(data.parsed_papers) && data.parsed_papers.length > 0) {
+      return {
+        papers: data.parsed_papers,
+        message: data.message
+      };
+    }
+    // Fallback to old parsing method
+    else if (data.papers && typeof data.papers === 'string' && data.papers.length > 0) {
+      const parsedPapers = parseCitationsText(data.papers);
+      return {
+        papers: parsedPapers,
+        message: data.message
+      };
+    } else if (Array.isArray(data.papers)) {
+      return {
+        papers: data.papers,
+        message: data.message
+      };
+    } else {
+      return {
+        papers: [],
+        message: data.message || "No research papers found"
+      };
     }
   } catch (err) {
-    console.error("Error fetching research papers:", err.response?.data || err.message);
-    return generateFallbackPapers(smiles, symptoms);
+    console.error("Error calling Python API:", err);
+    
+    if (err.response) {
+      const errorMsg = err.response.data?.message || err.response.statusText || 'Server error';
+      throw new Error(`API Error (${err.response.status}): ${errorMsg}`);
+    } else if (err.request) {
+      throw new Error("No response from server. Please check if the Python backend is running on http://10.1.40.155:5001");
+    } else {
+      throw new Error(`Request setup error: ${err.message}`);
+    }
   }
 };
 
-
   const generateResearchPaper = async (symptoms, smiles) => {
     try {
-      const prompt = `
-        You are an expert in chemical informatics and academic writing. Given the SMILES string "${smiles}" and associated symptoms "${symptoms}", generate a high-quality research paper in IEEE format. The paper should be structured with the following sections: Title, Authors, Abstract, Keywords, I. Introduction, II. Methodology, III. Results and Discussion, IV. Conclusion, References. Ensure the content is scientifically accurate, relevant to the compound's therapeutic applications for the symptoms, and includes realistic data and references. Return the paper in clean JSON format (no Markdown or code fences) with fields: title (string), authors (string), abstract (string), keywords (array of strings), introduction (string), methodology (string), resultsAndDiscussion (string), conclusion (string), references (array of strings). Example output:
-        {
-          "title": "Therapeutic Applications of Compound X",
-          "authors": "Test",
-          "abstract": "This paper investigates...",
-          "keywords": ["compound X", "therapeutics", "symptoms"],
-          "introduction": "Introduction text...",
-          "methodology": "Methodology text...",
-          "resultsAndDiscussion": "Results text...",
-          "conclusion": "Conclusion text...",
-          "references": ["Ref 1", "Ref 2"]
-        }
-      `;
+      const prompt = `You are an expert in chemical informatics and academic writing. Given the SMILES string "${smiles}" and associated symptoms "${symptoms}", generate a high-quality research paper in IEEE format. The paper should be structured with the following sections: Title, Authors, Abstract, Keywords, I. Introduction, II. Methodology, III. Results and Discussion, IV. Conclusion, References. Ensure the content is scientifically accurate, relevant to the compound's therapeutic applications for the symptoms, and includes realistic data and references. Return the paper in clean JSON format (no Markdown or code fences) with fields: title (string), authors (string), abstract (string), keywords (array of strings), introduction (string), methodology (string), resultsAndDiscussion (string), conclusion (string), references (array of strings). Example output: { "title": "Therapeutic Applications of Compound X", "authors": "Test", "abstract": "This paper investigates...", "keywords": ["compound X", "therapeutics", "symptoms"], "introduction": "Introduction text...", "methodology": "Methodology text...", "resultsAndDiscussion": "Results text...", "conclusion": "Conclusion text...", "references": ["Ref 1", "Ref 2"] }`;
       const response = await axiosInstance.post("/researchPaper/proxy/gemini", { prompt });
       const content = response.data.content;
       try {
@@ -304,7 +490,9 @@ Make sure all metadata is accurate and based on **real-time** web search or API/
       toast.error("Please select both a symptom group and SMILES string");
       return;
     }
+
     const selectedSymptoms = symptomGroups[selectedSymptomGroupIndex]?.join(", ") || "";
+
     const papersExist = await checkIfPapersExist(selectedSymptoms, selectedSmiles);
     if (papersExist) {
       toast("Research papers already saved. Redirecting to Saved Research Papers.", {
@@ -314,19 +502,32 @@ Make sure all metadata is accurate and based on **real-time** web search or API/
       await fetchSavedPapers();
       return;
     }
+
     setLoading(true);
     setError(null);
     setResearchPapers([]);
     setResearchSummary("");
 
     try {
-      const papers = await fetchResearchPapers(selectedSymptoms, selectedSmiles);
-      setResearchPapers(papers);
-      setResearchSummary(`Found ${papers.length} research papers related to the compound with SMILES "${selectedSmiles}" for treating symptoms: ${selectedSymptoms}.`);
-      await savePapers(selectedSymptoms, selectedSmiles, papers);
+      const result = await fetchResearchPapers(selectedSymptoms, selectedSmiles);
+
+      if (result.papers.length === 0) {
+        setError(
+          result.message ||
+          "No research papers found for the selected combination. Please try a different selection."
+        );
+        return;
+      }
+
+      setResearchPapers(result.papers);
+      setResearchSummary(
+        `Found ${result.papers.length} research papers related to the compound with SMILES "${selectedSmiles}" for treating symptoms: ${selectedSymptoms}.`
+      );
+
+      await savePapers(selectedSymptoms, selectedSmiles, result.papers);
     } catch (err) {
-      setError("Failed to fetch research papers. Please try again.");
-      toast.error("Failed to fetch research papers");
+      setError(err.message || "Failed to fetch research papers from AI service. Please try again.");
+      toast.error(err.message || "Failed to fetch research papers");
     } finally {
       setLoading(false);
     }
@@ -372,41 +573,6 @@ Make sure all metadata is accurate and based on **real-time** web search or API/
     } finally {
       setLoading(false);
     }
-  };
-
-  const constructIeeeUrl = (doi) => {
-    if (!doi) return `https://ieeexplore.ieee.org/document/${generateUniqueDoi()}`;
-    const doiSuffix = doi.includes("10.") ? doi.split("/").pop() : doi.replace(/[^0-9]/g, "");
-    return `https://ieeexplore.ieee.org/document/${doiSuffix}`;
-  };
-
-  const generateUniqueDoi = (year = 2025, index = 0) => {
-    const randomId = Math.floor(Math.random() * 1000000) + index;
-    return `10.1109/TBME.${year}.${randomId}`;
-  };
-
-  const generateFallbackPapers = (smiles, symptoms) => {
-    const inferredFeatures = smiles.includes("c") ? "aromatic rings" : "aliphatic chains";
-    return [
-      {
-        title: `Computational Analysis of ${inferredFeatures} for ${symptoms} Treatment`,
-        authors: "R. Johnson, S. Lee, T. Brown",
-        year: "2022",
-        abstract: `This paper explores the role of ${inferredFeatures} derived from SMILES structures like ${smiles.substring(0, 10)}... in predicting drug efficacy for symptoms including ${symptoms}.`,
-        doi: "10.1109/TBME.2022.987654",
-        url: "https://ieeexplore.ieee.org/document/987654",
-        is_simulated: true,
-      },
-      {
-        title: `Synthesis and Properties of Novel ${inferredFeatures} Compounds for ${symptoms}`,
-        authors: "M. Davis, P. Kim, Q. Zhang",
-        year: "2020",
-        abstract: `Investigates synthesis pathways for compounds with ${inferredFeatures}, leveraging SMILES-based modeling for therapeutic applications targeting ${symptoms}.`,
-        doi: "10.1109/TBME.2020.876543",
-        url: "https://ieeexplore.ieee.org/document/876543",
-        is_simulated: true,
-      },
-    ];
   };
 
   const exportToPDF = (paper) => {
@@ -566,7 +732,7 @@ Make sure all metadata is accurate and based on **real-time** web search or API/
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl sm:text-4xl font-heading font-bold text-accent mb-6 text-center transform transition-all duration-500 ease-out animate-slide-down">
           AI Research Generator
-         <p className="text-sm text-accent-secondary font-mono">(POWERED BY GEMINI)</p>
+          <p className="text-sm text-accent-secondary font-mono">(POWERED BY GEMINI)</p>
         </h1>
 
         <div className="flex flex-col sm:flex-row justify-center mb-6 space-y-2 sm:space-y-0 sm:space-x-4">
@@ -689,61 +855,119 @@ Make sure all metadata is accurate and based on **real-time** web search or API/
                     Related Research Information
                   </h3>
 
-                  {researchSummary && (
-                    <div className="mb-6 sm:mb-8 transform transition-all duration-500 delay-100 animate-slide-up">
-                      <h4 className="text-md sm:text-lg font-heading font-semibold text-text-primary mb-2">
-                        Research Context
-                      </h4>
-                      <p className="text-sm sm:text-base leading-relaxed text-text-secondary font-body">
-                        {researchSummary}
-                      </p>
-                    </div>
-                  )}
-
                   {researchPapers.length > 0 && (
                     <div className="mb-6 sm:mb-8">
                       <h4 className="text-md sm:text-lg font-heading font-semibold text-text-primary mb-4">
-                        Newly Fetched Research Papers
+                        Research Papers ({researchPapers.length} found)
                       </h4>
-                      <div className="space-y-6 sm:space-y-8">
-                        {researchPapers.map((paper, index) => (
-                          <div
-                            key={index}
-                            className="border-l-4 border-accent pl-4 transform transition-all duration-500 animate-slide-up"
-                            style={{ animationDelay: `${index * 100}ms` }}
-                          >
-                            <h5 className="text-lg sm:text-xl font-heading font-bold text-text-primary mb-2 uppercase">
-                              {paper.title}
-                            </h5>
-                            <p className="text-text-secondary font-body text-sm sm:text-base mb-1">
-                              <span className="font-bold">Authors:</span> {paper.authors}
-                            </p>
-                            <p className="text-text-secondary font-body text-sm sm:text-base mb-1">
-                              <span className="font-bold">Published:</span> {paper.year}
-                            </p>
-                            <p className="text-text-secondary font-body text-sm sm:text-base mb-1">
-                              <span className="font-bold">Abstract:</span> {paper.abstract}
-                            </p>
-                            {paper.doi && paper.url !== "No URL available" && (
-                              <p className="text-accent font-body text-sm sm:text-base">
-                                <span className="font-bold">DOI:</span>{" "}
-                                <a
-                                  href={paper.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="underline hover:text-accent-secondary transition-colors duration-300"
-                                >
-                                  {paper.doi}
-                                </a>
-                              </p>
-                            )}
-                            {paper.is_simulated && (
-                              <p className="text-text-secondary font-body text-sm sm:text-base italic">
-                                Note: This is a simulated paper generated for illustrative purposes.
-                              </p>
-                            )}
-                          </div>
-                        ))}
+                      <div className="overflow-x-auto">
+                        <table className="min-w-full bg-primary border border-accent-secondary rounded-lg overflow-hidden">
+                          <thead>
+                            <tr className="bg-accent text-primary text-left">
+                              <th className="px-4 py-3 font-label">#</th>
+                              <th className="px-4 py-3 font-label">Title</th>
+                              <th className="px-4 py-3 font-label">Authors</th>
+                              <th className="px-4 py-3 font-label">Year</th>
+                              <th className="px-4 py-3 font-label">Link</th>
+                              <th className="px-4 py-3 font-label">Details</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {researchPapers.map((paper, index) => (
+                              <tr key={index} className="border-t border-accent-secondary hover:bg-secondary/50 transition-colors duration-200">
+                                <td className="px-4 py-3 text-text-primary font-body">
+                                  {paper.number || (index + 1)}
+                                </td>
+                                <td className="px-4 py-3 text-text-primary font-body max-w-xs">
+                                  <div className="truncate" title={paper.title}>
+                                    {paper.title}
+                                  </div>
+                                </td>
+                                <td className="px-4 py-3 text-text-secondary font-body max-w-xs">
+                                  <div className="truncate" title={paper.authors}>
+                                    {paper.authors}
+                                  </div>
+                                </td>
+                                <td className="px-4 py-3 text-text-secondary font-body">
+                                  {paper.year}
+                                </td>
+                                <td className="px-4 py-3">
+                                  {paper.url && paper.url !== "No URL available" ? (
+                                    <a
+                                      href={paper.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-accent hover:text-accent-secondary underline transition-colors duration-300 font-label text-sm"
+                                    >
+                                      View Paper
+                                    </a>
+                                  ) : (
+                                    <span className="text-text-secondary font-body text-sm">No Link</span>
+                                  )}
+                                </td>
+                                <td className="px-4 py-3">
+                                  <details className="group cursor-pointer">
+                                    <summary className="flex items-center gap-2 text-accent hover:text-accent-secondary font-label text-sm transition-all duration-300 hover:scale-105">
+                                      <svg 
+                                        className="w-4 h-4 transition-transform duration-300 group-open:rotate-180" 
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                      </svg>
+                                      <span className="font-semibold">View Details</span>
+                                    </summary>
+                                    <div className="mt-4 p-6 bg-gradient-to-br from-primary to-secondary rounded-xl border border-accent-secondary shadow-lg backdrop-blur-sm max-w-2xl transform transition-all duration-500 ease-out animate-slide-up">
+                                      <div className="space-y-4">
+                                        {paper.abstract && (
+                                          <div className="bg-white/5 p-4 rounded-lg border border-accent-secondary/30">
+                                            <div className="flex items-center gap-2 mb-3">
+                                              <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                              </svg>
+                                              <h4 className="text-accent font-heading font-semibold text-lg">Abstract</h4>
+                                            </div>
+                                            <p className="text-text-secondary leading-relaxed text-sm bg-white/5 p-3 rounded-lg border-l-4 border-accent">
+                                              {paper.abstract}
+                                            </p>
+                                          </div>
+                                        )}
+                                        
+                                        {paper.rawContent && (
+                                          <div className="bg-white/5 p-4 rounded-lg border border-accent-secondary/30">
+                                            <div className="flex items-center gap-2 mb-3">
+                                              <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                              </svg>
+                                              <h4 className="text-accent font-heading font-semibold text-lg">Full Research Details</h4>
+                                            </div>
+                                            <div className="text-sm text-text-secondary max-h-60 overflow-y-auto bg-white/5 p-4 rounded-lg border border-accent-secondary/20 research-details-scroll">
+                                              <FormattedText text={paper.rawContent} />
+                                            </div>
+                                          </div>
+                                        )}
+
+                                        <div className="flex items-center justify-between pt-2 border-t border-accent-secondary/30">
+                                          <div className="flex items-center gap-2 text-xs text-text-secondary">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <span>Research Paper #{paper.number || (index + 1)}</span>
+                                          </div>
+                                          <div className="flex items-center gap-1">
+                                            <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                                            <span className="text-xs text-accent font-medium">Active Research</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </details>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   )}
@@ -779,42 +1003,7 @@ Make sure all metadata is accurate and based on **real-time** web search or API/
                         </h3>
                         <div className="space-y-6 sm:space-y-8">
                           {entry.papers.map((paper, paperIndex) => (
-                            <div
-                              key={paperIndex}
-                              className="border-l-4 border-accent pl-4 transform transition-all duration-500 animate-slide-up"
-                              style={{ animationDelay: `${paperIndex * 100}ms` }}
-                            >
-                              <h5 className="text-lg sm:text-xl font-heading font-bold text-text-primary mb-2 uppercase">
-                                {paper.title || "Untitled"}
-                              </h5>
-                              <p className="text-text-secondary font-body text-sm sm:text-base mb-1">
-                                <span className="font-bold">Authors:</span> {paper.authors || "Unknown Authors"}
-                              </p>
-                              <p className="text-text-secondary font-body text-sm sm:text-base mb-1">
-                                <span className="font-bold">Published:</span> {paper.year || "Unknown Year"}
-                              </p>
-                              <p className="text-text-secondary font-body text-sm sm:text-base mb-1">
-                                <span className="font-bold">Abstract:</span> {paper.abstract || "Abstract not available"}
-                              </p>
-                              {paper.doi && paper.url && paper.url !== "No URL available" && (
-                                <p className="text-accent font-body text-sm sm:text-base">
-                                  <span className="font-bold">DOI:</span>{" "}
-                                  <a
-                                    href={paper.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="underline hover:text-accent-secondary transition-colors duration-300"
-                                  >
-                                    {paper.doi}
-                                  </a>
-                                </p>
-                              )}
-                              {paper.is_simulated && (
-                                <p className="text-text-secondary font-body text-sm sm:text-base italic">
-                                  Note: This is a simulated paper generated for illustrative purposes.
-                                </p>
-                              )}
-                            </div>
+                            <ResearchPaperCard key={paperIndex} paper={paper} index={paperIndex} />
                           ))}
                         </div>
                       </div>

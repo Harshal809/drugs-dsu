@@ -377,12 +377,12 @@ const navElements = [
     path: "/dashboard/ai-research-paper-generator",
     roles: ["admin", "citizen", "guest"],
   },
-  {
-    name: "Toxicity & Side Effects Prediction",
-    icon: <AlertTriangle size={20} />, // Warning sign for toxicity
-    path: "/dashboard/sideeffect-prediction",
-    roles: ["admin", "citizen", "guest"],
-  },
+  // {
+  //   name: "Toxicity & Side Effects Prediction",
+  //   icon: <AlertTriangle size={20} />, // Warning sign for toxicity
+  //   path: "/dashboard/sideeffect-prediction",
+  //   roles: ["admin", "citizen", "guest"],
+  // },
   {
     name: "Audio Note Capture",
     icon: <Mic size={20} />, // Microphone for audio input

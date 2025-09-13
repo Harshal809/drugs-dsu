@@ -298,7 +298,7 @@ const StructureDetails = ({ structure, rdkitLoaded }) => {
     try {
       setLoadingVariantInfo(true);
       setVariantInfoError(null);
-      const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+      const GEMINI_API_KEY = 'AIzaSyABAk3NKj4eqXhP9SkZIX8lYhfiZINP6ZQ';
       if (!GEMINI_API_KEY) throw new Error('Gemini API key not set');
       const response = await axios.post(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`,

@@ -1,0 +1,3522 @@
+
+
+Appendix 
+  
+
+Table	2.	Estimated	API	price	per	kilogram,	current	prices,	and	estimated	generic	prices,	by	
+WHO	EML	therapeutic	category.	
+Medicine	Unit	API	price/kg	
+UK	unit	price	
+(ratio	to	estimated	
+generic	price)	
+SA	unit	price	
+(USD	cents)	
+India	unit	
+price	(USD	
+cents)	
+Estimated	
+generic	price	
+(USD	cents)	
+Anaesthetics												
+midazolam	tablet	(7.5mg)	$5,256		11.6¢	51.8¢	
+P
+	5.6¢	
+midazolam	tablet	(15mg)	$5,256		23.3¢	10.4¢	
+P
+	10.0¢	
+Medicines	for	pain	and	palliative	care										
+acetylsalicylic	acid	tablet	(100mg)	$5			0.2¢	
+P
+	1.2¢	
+acetylsalicylic	acid	tablet	(200mg)	$5				1.4¢	
+acetylsalicylic	acid	tablet	(300mg)	$5	1.0¢*	(0.7x)
+BNF
+		0.5¢	
+TN
+	1.5¢	
+acetylsalicylic	acid	tablet	(400mg)	$5				1.6¢	
+acetylsalicylic	acid	tablet	(500mg)	$5			0.6¢	
+P
+	1.7¢	
+amitriptyline	tablet	(10mg)	$49	0.7¢*	(0.5x)
+EMIT
+	1.8¢	0.4¢	
+P
+	1.2¢	
+amitriptyline	tablet	(25mg)	$49	0.9¢*	(0.7x)
+EMIT
+	0.7¢	0.3¢	
+TN
+	1.3¢	
+amitriptyline	tablet	(75mg)	$49	2.6¢*	(1.6x)
+EMIT
+	2.2¢	0.8¢	
+TN
+	1.6¢	
+codeine	tablet	(30mg)		4.5¢
+BNF
+	23.0¢	7.5¢	
+P
+		
+cyclizine	tablet	(50mg)	$84	6.1¢*	(3.8x)
+EMIT
+			1.6¢	
+dexamethasone	tablet	(2mg)	$1,482	18.5¢*	(12.7x)
+BNF
+		0.7¢	
+TN
+	1.5¢	
+dexamethasone	tablet	(4mg)	$1,482	37.0¢*	(20.6x)
+BNF
+		1.4¢	
+TN
+	1.8¢	
+diazepam	tablet	(5mg)	$131	0.8¢*	(0.7x)
+EMIT
+	0.7¢	0.2¢	
+TN
+	1.2¢	
+diazepam	tablet	(10mg)	$131	1.1¢*	(0.8x)
+EMIT
+	1.4¢	0.4¢	
+TN
+	1.3¢	
+docusate	sodium	capsule	(100mg)	$11	9.1¢*	(6.9x)
+BNF
+		1.5¢	
+P
+	1.3¢	
+fluoxetine	SODF	(20mg)	$71	1.2¢*	(0.9x)
+EMIT
+	1.0¢	0.4¢	
+TN
+	1.3¢	
+haloperidol	SODF	(0.5mg)	$331	5.1¢*	(4.5x)
+BNF
+	7.6¢	1.2¢	
+P
+	1.1¢	
+haloperidol	SODF	(2mg)	$331		30.5¢	2.9¢	
+P
+	1.2¢	
+haloperidol	SODF	(5mg)	$331	4.6¢*	(3.5x)
+EMIT
+	1.5¢	0.3¢	
+TN
+	1.3¢	
+ibuprofen	tablet	(200mg)	$10	0.8¢*	(0.5x)
+EMIT
+	0.7¢	0.3¢	
+TN
+	1.5¢	
+ibuprofen	tablet	(400mg)	$10	2.4¢*	(1.3x)
+BNF
+	1.4¢	0.6¢	
+TN
+	1.8¢	
+ibuprofen	tablet	(600mg)	$10	1.5¢*	(0.7x)
+EMIT
+	2.1¢	0.9¢	
+TN
+	2.2¢	
+loperamide	SODF	(2mg)	$234	7.0¢*	(5.9x)
+EMIT
+	1.1¢	0.2¢	
+TN
+	1.2¢	
+metoclopramide	SODF	(10mg)	$77	1.3¢*	(1.0x)
+EMIT
+	0.4¢	0.4¢	
+P
+	1.2¢	
+midazolam	SODF	(7.5mg)	$5,256		46.5¢	51.8¢	
+P
+	5.6¢	
+midazolam	SODF	(15mg)	$5,256		23.3¢	10.4¢	
+P
+	10.0¢	
+morphine		
+slow-release	tablet	
+(10mg)		8.3¢
+BNF
+	12.0¢	4.6¢	
+P
+		
+morphine		
+slow-release	tablet	
+(100mg)		61.8¢
+BNF
+	64.1¢	97.5¢	
+P
+		
+morphine		
+slow-release	tablet	
+(200mg)		176.2¢
+BNF
+	128.3¢	195.0¢	
+P
+		
+morphine		tablet	(30mg)		20.0¢
+BNF
+	36.1¢	8.3¢	
+P
+		
+morphine		tablet	(60mg)		39.1¢
+BNF
+	120.5¢	30.0¢	
+P
+		
+morphine		
+immediate-release	
+tablet	(10mg)		12.3¢
+BNF
+		4.6¢	
+P
+		
+ondansetron	SODF	(4mg)	$990	3.4¢*	(2.1x)
+EMIT
+	12.8¢	0.3¢	
+TN
+	1.6¢	
+ondansetron	SODF	(8mg)	$990	11.4¢*	(5.4x)
+EMIT
+	192.4¢	0.5¢	
+TN
+	2.1¢	
+paracetamol	tablet	(100mg)	$4				1.2¢	
+paracetamol	tablet	(200mg)	$4				1.3¢	
+paracetamol	tablet	(300mg)	$4				1.4¢	
+paracetamol	tablet	(400mg)	$4				1.5¢	
+paracetamol	tablet	(500mg)	$4	0.4¢*	(0.3x)
+BNF
+	0.5¢	0.3¢	
+TN
+	1.6¢	
+Antiallergics	and	medicines	used	in	anaphylaxis						
+loratadine	tablet	(10mg)	$281	1.7¢*	(1.2x)
+EMIT
+		2.9¢	
+P
+	1.4¢	
+prednisolone	tablet	(5mg)	$962	2.0¢*	(1.2x)
+EMIT
+	1.0¢	0.5¢	
+TN
+	1.7¢	
+prednisolone	tablet	(25mg)	$962	9.8¢*	(2.5x)
+EMIT
+	5.1¢	2.7¢	
+TN
+	3.8¢	
+Antidotes	and	other	substances	used	in	poisonings						
+penicillamine	SODF	(250mg)	$1,724	23.1¢*	(0.5x)
+BNF
+		14.9¢	
+TN
+	49.8¢	
+succimer	SODF	(100mg)						
+
+Table	2	continued.	
+Medicine	Unit	
+API	
+price/kg	
+UK	unit	price	
+(ratio	to	
+estimated	
+generic	
+price)	SA	unit	price	India	unit	price	Estimated	generic	price	
+Anticonvulsants/antiepileptics										
+carbamazepine	tablet	(100mg)	$52	
+2.9¢*	
+(1.6x)
+EMIT
+	0.9¢	0.5¢	
+TN
+	1.8¢	
+carbamazepine	tablet	(200mg)	$52	
+5.1¢*	
+(2.1x)
+EMIT
+	1.8¢	1.1¢	
+TN
+	2.4¢	
+ethosuximide	tablet	(250mg)		169.9¢
+BNF
+				
+phenobarbital	tablet	(15mg)	$36	
+10.4¢*	
+(8.7x)
+EMIT
+	0.4¢	0.1¢	
+TN
+	1.2¢	
+phenobarbital	tablet	(30mg)	$36	
+0.9¢*	
+(0.7x)
+EMIT
+	0.8¢	0.3¢	
+TN
+	1.3¢	
+phenobarbital	tablet	(60mg)	$36	
+4.3¢*	
+(3.1x)
+EMIT
+	0.4¢	0.6¢	
+TN
+	1.4¢	
+phenobarbital	tablet	(100mg)	$36				1.6¢	
+phenytoin	SODF	(25mg)	$17	
+69.9¢*	
+(58.4x)
+EMIT
+		1.8¢	
+P
+	1.2¢	
+phenytoin	SODF	(50mg)	$17	
+70.5¢*	
+(55.7x)
+EMIT
+	2.2¢	0.2¢	
+TN
+	1.3¢	
+phenytoin	SODF	(100mg)	$17	
+62.0¢*	
+(44.1x)
+EMIT
+	3.3¢	0.3¢	
+TN
+	1.4¢	
+valproic	acid	(sodium	
+valproate)	tablet	(100mg)	$26		5.6¢	1.1¢	
+P
+	1.5¢	
+valproic	acid	(sodium	
+valproate)	tablet	(200mg)	$26			0.9¢	
+TN
+	1.8¢	
+valproic	acid	(sodium	
+valproate)	tablet	(500mg)	$26	
+10.2¢*	
+(3.5x)
+BNF
+		5.1¢	
+P
+	2.9¢	
+Antihelminthics												
+diethylcarbamazine	tablet	(50mg)	$13			0.1¢	
+TN
+	1.3¢	
+diethylcarbamazine	tablet	(100mg)	$13			0.2¢	
+TN
+	1.5¢	
+ivermectin	tablet	(3mg)				9.5¢	
+P
+		
+levamisole	tablet	(50mg)	$28			2.1¢	
+P
+	1.3¢	
+levamisole	tablet	(150mg)	$28				1.8¢	
+oxamniquine	capsule	(250mg)						
+praziquantel	tablet	(150mg)	$148			57.6¢	
+P
+	3.7¢	
+praziquantel	tablet	(600mg)	$148		288.9¢	61.9¢	
+P
+	11.5¢	
+triclabendazole	tablet	(250mg)	$44				2.5¢	
+Antibacterials												
+amoxicillin	SODF	(250mg)	$25	
+1.8¢*	
+(0.8x)
+EMIT
+	2.7¢	1.0¢	
+TN
+	2.1¢	
+amoxicillin	SODF	(500mg)	$25	
+3.2¢*	
+(1.0x)
+EMIT
+	4.1¢	2.0¢	
+TN
+	3.1¢	
+amoxicillin	+	clavulanic	
+acid	
+tablet	
+(500mg+125mg)	FDC	12.9¢
+BNF
+		31.5¢	
+P
+		
+azithromycin	capsule	(250mg)	$193	
+58.8¢*	
+(8.8x)
+EMIT
+	23.8¢	1.7¢	
+P
+	6.7¢	
+azithromycin	capsule	(500mg)	$193	
+117.7¢*	
+(9.6x)
+EMIT
+	47.6¢	1.1¢	
+P
+	12.3¢	
+bedaquiline	tablet	(100mg)		12930.9¢
+BNF
+				
+cefalexin	SODF	(250mg)	$49	
+3.4¢*	
+(1.2x)
+EMIT
+		1.6¢	
+TN
+	2.7¢	
+cefixime	capsule	(400mg)	$162	
+491.4¢	
+(51.3x)
+BNF
+		22.4¢	
+P
+	9.6¢	
+chloramphenicol	capsule	(250mg)	$234	
+816.8¢*	
+(103.7x)
+BNF
+		1.3¢	
+P
+	7.9¢	
+ciprofloxacin	tablet	(250mg)	$27	
+2.4¢*	
+(1.1x)
+EMIT
+	3.6¢	0.8¢	
+TN
+	2.1¢	
+clarithromycin	SODF	(500mg)	$249	
+14.8¢*	
+(1.0x)
+EMIT
+	35.9¢	3.3¢	
+TN
+	15.5¢	
+clindamycin	capsule	(150mg)	$213	
+7.0¢*	
+(1.4x)
+EMIT
+	24.4¢	22.5¢	
+P
+	5.1¢	
+
+Table	2	continued.	
+Medicine	Unit	
+API	
+price/kg	
+UK	unit	price	
+(ratio	to	
+estimated	
+generic	
+price)	SA	unit	price	India	unit	price	
+Estimated	generic	
+price	
+clofazimine	capsule	(50mg)	$239			1.6¢	
+P
+	2.5¢	
+clofazimine	capsule	(100mg)	$239			2.9¢	
+P
+	3.9¢	
+cloxacillin	capsule	(500mg)	$24			2.5¢	
+TN
+	2.9¢	
+cloxacillin	capsule	(1000mg)	$24			5.0¢	
+TN
+	4.6¢	
+cycloserine	SODF	(250mg)	$805	
+523.4¢*	
+(21.8x)
+BNF
+		61.9¢	
+P
+	24.0¢	
+dapsone	tablet	(25mg)	$30	
+37.4¢*	
+(30.5x)
+EMIT
+		0.05¢	
+P
+	1.2¢	
+dapsone	tablet	(50mg)	$30	
+74.8¢*	
+(56.5x)
+EMIT
+		0.1¢	
+P
+	1.3¢	
+dapsone	tablet	(100mg)	$30	
+132.7¢	
+(87.2x)
+EMIT
+		0.5¢	
+P
+	1.5¢	
+delamanid	tablet	(50mg)		3385.4¢
+BNF
+				
+doxycycline	SODF	(50mg)	$144	
+3.4¢*	
+(1.6x)
+EMIT
+		2.3¢	
+P
+	2.1¢	
+doxycycline	SODF	(100mg)	$144	
+4.6¢*	
+(1.5x)
+EMIT
+	2.4¢	0.8¢	
+TN
+	3.1¢	
+erythromycin	SODF	(250mg)	$41	
+9.5¢*	
+(3.2x)
+BNF
+		1.6¢	
+TN
+	3.0¢	
+ethambutol	tablet	(100mg)	$42	
+8.0¢*	
+(4.3x)
+EMIT
+		0.3¢	
+P
+	1.9¢	
+ethambutol	tablet	(200mg)	$42	
+16.1¢*	
+(6.2x)
+EMIT
+	2.3¢	0.6¢	
+P
+	2.6¢	
+ethambutol	tablet	(300mg)	$42	
+24.1¢*	
+(7.3x)
+EMIT
+		1.7¢	
+P
+	3.3¢	
+ethambutol	tablet	(400mg)	$42	
+23.1¢*	
+(5.7x)
+EMIT
+	4.6¢	1.0¢	
+P
+	4.0¢	
+ethambutol	+	isoniazid		
+tablet	(400mg	+	
+150mg)	FDC				4.3¢	
+ethambutol	+	isoniazid	
++	pyrazinamide	+	
+rifampicin	
+tablet	
+(275/75/400/150mg	
+FDC)	FDC	
+85.6¢	
+(13.2x)
+BNF
+	10.1¢	5.1¢	
+P
+	6.5¢	
+ethambutol	+	isoniazid	
++	rifampicin	
+tablet	
+(275/75/150mg	
+FDC)	FDC				5.2¢	
+ethionamide	tablet	(125mg)			4.7¢	4.5¢	
+P
+		
+ethionamide	tablet	(250mg)			9.5¢	9.0¢	
+P
+		
+isoniazid	tablet	(50mg)	$16	
+44.7¢*	
+(35.8x)
+BNF
+	0.9¢	0.04¢	
+P
+	1.2¢	
+isoniazid	tablet	(100mg)	$16	
+89.3¢*	
+(65.3x)
+BNF
+	1.7¢	0.1¢	
+P
+	1.4¢	
+isoniazid	tablet	(200mg)	$16	
+178.7¢*	
+(111.1x)
+BNF
+	3.4¢	0.2¢	
+P
+	1.6¢	
+isoniazid	tablet	(300mg)	$16	
+268.0¢*	
+(145.0x)
+BNF
+	5.1¢	0.7¢	
+P
+	1.8¢	
+isoniazid	+	
+pyrazinamide	+	
+rifampicin		
+tablet	
+(75/400/150mg	
+FDC)	FDC			4.4¢	
+P
+	4.5¢	
+isoniazid	+	
+pyrazinamide	+	
+rifampicin		
+tablet	
+(150/500/150mg	
+FDC)	FDC			5.6¢	
+P
+	5.0¢	
+isoniazid	+	rifampicin	
+tablet	(60/60mg	
+FDC)	FDC		4.5¢		2.1¢	
+isoniazid	+	rifampicin	
+tablet	(75/150mg	
+FDC)	FDC		4.1¢	2.3¢	
+P
+	3.3¢	
+isoniazid	+	rifampicin	
+tablet	(150/150mg	
+FDC)	FDC				3.5¢	
+isoniazid	+	rifampicin	
+tablet	(150/300mg	
+FDC)	FDC	
+58.5¢	
+(10.8x)
+BNF
+	8.1¢	5.8¢	
+P
+	5.4¢	
+	
+Table	2	continued.	
+
+levofloxacin	tablet	(250mg)	$142	
+15.9¢*	
+(3.0x)
+EMIT
+	14.7¢	1.3¢	
+TN
+	5.3¢	
+levofloxacin	tablet	(500mg)	$142	
+21.5¢*	
+(2.3x)
+EMIT
+	27.6¢	2.6¢	
+TN
+	9.4¢	
+levofloxacin	tablet	(750mg)	$142	
+47.6¢*	
+(3.5x)
+EMIT
+	44.1¢	4.0¢	
+TN
+	13.5¢	
+linezolid	tablet	(400mg)	$690			52.5¢	
+P
+	32.5¢	
+linezolid	tablet	(600mg)	$690	
+2975.2¢*	
+(61.8x)
+BNF
+	741.3¢	44.9¢	
+P
+	48.1¢	
+metronidazole	tablet	(200mg)	$12	
+2.4¢*	
+(1.6x)
+EMIT
+	0.7¢	0.4¢	
+TN
+	1.5¢	
+metronidazole	tablet	(300mg)	$12	
+3.6¢*	
+(2.1x)
+EMIT
+	1.1¢	0.6¢	
+TN
+	1.7¢	
+metronidazole	tablet	(400mg)	$12	
+2.5¢*	
+(1.3x)
+EMIT
+	1.2¢	0.8¢	
+TN
+	1.9¢	
+metronidazole	tablet	(500mg)	$12	
+6.0¢*	
+(2.9x)
+EMIT
+	1.8¢	1.0¢	
+TN
+	2.1¢	
+nitrofurantoin	tablet	(100mg)	$295	
+11.9¢	
+(2.6x)
+EMIT
+	23.7¢	1.5¢	
+P
+	4.5¢	
+p-aminosalicylic	acid	tablet	(500mg)						
+phenoxymethylpenicillin	tablet	(250mg)		1.9¢
+EMIT
+		1.3¢	
+TN
+		
+pyrazinamide	tablet	(400mg)	$22				2.4¢	
+pyrazinamide	tablet	(150mg)	$22			2.7¢	
+P
+	1.6¢	
+rifabutin	capsule	(150mg)	$2,077	
+391.6¢	
+(10.8x)
+BNF
+		63.0¢	
+P
+	36.3¢	
+rifampicin	capsule	(150mg)	$112	
+8.9¢*	
+(2.9x)
+EMIT
+	7.8¢	2.1¢	
+TN
+	3.1¢	
+rifampicin	capsue	(300mg)	$112	
+14.8¢*	
+(2.9x)
+EMIT
+	15.6¢	4.1¢	
+TN
+	5.1¢	
+rifampicin	SODF	(150mg)	$112	
+8.9¢*	
+(2.9x)
+EMIT
+	7.8¢	2.1¢	
+TN
+	3.1¢	
+rifampicin	SODF	(300mg)	$112	
+14.8¢*	
+(2.9x)
+EMIT
+	15.6¢	4.1¢	
+TN
+	5.1¢	
+rifapentine	tablet	(150mg)						
+sulfamethoxazole	+	
+trimethoprim	
+tablet	
+(100mg+20mg)	FDC			0.3¢	
+P
+	1.4¢	
+sulfamethoxazole	+	
+trimethoprim	
+tablet	
+(400mg+80mg)	FDC	
+10.7¢*	
+(5.0x)
+BNF
+		0.5¢	
+P
+	2.2¢	
+sulfamethoxazole	+	
+trimethoprim	
+tablet	
+(800mg+150mg)	FDC	
+30.4¢*	
+(9.6x)
+BNF
+		1.4¢	
+P
+	3.2¢	
+trimethoprim	tablet	(100mg)	$30	
+1.2¢*	
+(0.8x)
+EMIT
+			1.5¢	
+trimethoprim	tablet	(200mg)	$30	
+8.3¢*	
+(4.3x)
+EMIT
+			1.9¢	
+Antifungal	medicines										
+fluconazole	capsule	(50mg)	$142	
+3.9¢*	
+(2.0x)
+EMIT
+	4.7¢	0.9¢	
+P
+	2.0¢	
+flucytosine	capsule	(250mg)	$1,377				40.1¢	
+griseofulvin	tablet	(125mg)	$115	
+125.7¢*	
+(44.6x)
+BNF
+		1.2¢	
+TN
+	2.8¢	
+griseofulvin	tablet	(250mg)	$115	
+251.3¢*	
+(55.8x)
+BNF
+		2.4¢	
+TN
+	4.5¢	
+nystatin	tablet	(20mg)						
+nystatin	tablet	(100mg)						
+	
+		
+
+Table	2	continued.	
+Medicine	Unit	
+API	
+price/kg	
+UK	unit	price	
+(ratio	to	
+estimated	
+generic	price)	SA	unit	price	India	unit	price	
+Estimated	
+generic	price	
+Antiviral	medicines												
+abacavir	(ABC)	tablet	(300mg)	$538	
+384.8¢	
+(17.0x)
+BNF
+	20.0¢	70.5¢	
+P
+	22.6¢	
+aciclovir	tablet	(200mg)	$81	7.3¢*	(2.4x)
+BNF
+	3.8¢	5.1¢	
+P
+	3.1¢	
+atazanavir	SODF	(100mg)	$1,189			42.8¢	
+P
+	16.5¢	
+atazanavir	SODF	(150mg)	$1,189	
+657.3¢	
+(27.3x)
+BNF
+	33.2¢	62.5¢	
+P
+	24.1¢	
+atazanavir	SODF	(300mg)	$1,189	
+1314.6¢	
+(27.9x)
+BNF
+	66.4¢	105.0¢	
+P
+	47.1¢	
+daclatasvir	tablet	(30mg)	$852	
+37944.3¢	
+(8802.6x)
+BNF
+			4.3¢	
+daclatasvir	tablet	(60mg)	$852	
+37944.3¢	
+(5062.9x)
+BNF
+			7.5¢	
+darunavir	tablet	(75mg)	$1,588	
+121.0¢	
+(8.3x)
+BNF
+			14.6¢	
+darunavir	tablet	(400mg)	$1,588	
+645.2¢	
+(8.9x)
+BNF
+			72.9¢	
+darunavir	tablet	(600mg)	$1,588	
+967.9¢	
+(8.9x)
+BNF
+	117.1¢	237.5¢	
+P
+	108.8¢	
+darunavir	tablet	(800mg)	$1,588	
+1290.5¢	
+(8.9x)
+BNF
+			144.7¢	
+dasabuvir	tablet	(250mg)		2166.7¢
+BNF
+				
+efavirenz	capsule	(50mg)	$109	
+72.5¢*	
+(41.0x)
+BNF
+	4.5¢		1.8¢	
+efavirenz	capsule	(100mg)	$109	
+144.8¢*	
+(60.0x)
+BNF
+	9.0¢	19.5¢	
+P
+	2.4¢	
+efavirenz	capsule	(200mg)	$109	
+289.3¢*	
+(78.2x)
+BNF
+	5.2¢	39.0¢	
+P
+	3.7¢	
+efavirenz	tablet	(200mg)	$109	
+289.3¢	
+(78.2x)
+BNF
+	5.2¢	39.0¢	
+P
+	3.7¢	
+efavirenz	tablet	(600mg)	$109	
+88.3¢*	
+(10.0x)
+EMIT
+	11.4¢	11.9¢	
+P
+	8.8¢	
+efavirenz	+	
+emtricitabine	+	
+tenofovir	
+tablet	
+(600/200/300mg	
+FDC)	FDC	
+2309.1¢	
+(130.3x)
+BNF
+	34.2¢	190.0¢	
+P
+	17.7¢	
+emtricitabine	+	
+tenofovir	
+tablet	
+(200/300mg	
+FDC)	FDC	
+1541.5¢	
+(105.6x)
+BNF
+	20.3¢	70.0¢	
+P
+	14.6¢	
+entecavir	tablet	(0.5mg)	$669,376	
+1574.1¢	
+(40.5x)
+BNF
+		10.8¢	
+TN
+	38.8¢	
+entecavir	tablet	(1mg)	$669,376	
+1574.1¢	
+(20.6x)
+BNF
+		5.4¢	
+TN
+	76.5¢	
+lamivudine	(3TC)	tablet	(150mg)	$241	
+31.4¢*	
+(5.9x)
+EMIT
+	2.4¢	11.7¢	
+TN
+	5.3¢	
+lamivudine	+	
+nevirapine	+	
+stavudine	
+tablet	
+(150/200/30mg	
+FDC)	FDC			30.5¢	
+P
+	9.8¢	
+lamivudine	+	
+nevirapine	+	
+zidovudine	
+tablet	
+(30/50/60mg	
+FDC)	FDC				4.7¢	
+lamivudine	+	
+nevirapine	+	
+zidovudine	
+tablet	
+(150/200/300mg	
+FDC)	FDC			31.9¢	
+P
+	17.8¢	
+lamivudine	+	
+zidovudine		
+tablet	(30/60mg	
+FDC)	FDC				3.7¢	
+lamivudine	+	
+zidovudine		
+tablet	
+(150/300mg	
+FDC)	FDC	
+53.2¢*	
+(3.8x)
+EMIT
+	13.4¢	29.7¢	
+P
+	14.0¢	
+ledipasvir	+	
+sofosbuvir	
+tablet	
+(90/400mg	FDC)	FDC	
+60326.2¢	
+(593.4x)
+BNF
+			101.7¢	
+	
+Table	2	continued.	
+
+Medicine	Unit	
+API	
+price/kg	
+UK	unit	price	(ratio	
+to	estimated	
+generic	price)	
+SA	unit	
+price	
+India	unit	
+price	
+Estimated	
+generic	price	
+lopinavir	+	ritonavir	
+(LPV/r)	
+tablet	(100/25mg	
+FDC)	FDC	166.5¢	(13.7x)
+BNF
+	8.2¢		12.1¢	
+lopinavir	+	ritonavir	
+(LPV/r)	
+tablet	(200/50mg	
+FDC)	FDC	309.2¢	(13.4x)
+BNF
+	13.9¢	72.5¢	
+P
+	23.2¢	
+nevirapine	(NVP)	tablet	(200mg)	$165	32.3¢*	(6.5x)
+EMIT
+	4.5¢	21.5¢	
+P
+	5.0¢	
+ombitasvir	+	
+paritaprevir	+	ritonavir		
+tablet	
+(12.5/75/50mg	
+FDC)	FDC	24916.7¢
+BNF
+				
+oseltamivir		capsule	(30mg)	$1,860	100.2¢	(10.7x)
+BNF
+		37.5¢	
+P
+	9.4¢	
+oseltamivir		capsule	(45mg)	$1,860	200.3¢	(14.8x)
+BNF
+		48.8¢	
+P
+	13.5¢	
+oseltamivir		capsule	(75mg)	$1,860			62.9¢	
+TN
+	21.8¢	
+ribavirin	SODF	(200mg)	$122	95.5¢*	(23.9x)
+EMIT
+	26.9¢	13.8¢	
+TN
+	4.0¢	
+ribavirin	SODF	(400mg)	$122	266.5¢*	(38.8x)
+EMIT
+	53.7¢	27.6¢	
+TN
+	6.9¢	
+ribavirin	SODF	(600mg)	$122	286.4¢*	(29.4x)
+EMIT
+	80.6¢	41.4¢	
+TN
+	9.7¢	
+ritonavir	tablet	(25mg)	$1,665				5.8¢	
+ritonavir	tablet	(100mg)	$1,665	84.2¢	(4.2x)
+BNF
+			19.9¢	
+saquinavir	(SQV)	SODF	(200mg)	$898				24.4¢	
+saquinavir	(SQV)	SODF	(500mg)	$898	272.2¢	(4.6x)
+BNF
+		75.0¢	
+P
+	59.3¢	
+simeprevir	capsule	(150mg)		34663.6¢
+BNF
+				
+sofosbuvir	tablet	(400mg)	$1,224	
+54140.3¢	
+(958.1x)
+BNF
+			56.5¢	
+stavudine	(d4T)	capsule	(15mg)	$193		2.4¢	2.9¢	
+P
+	1.5¢	
+stavudine	(d4T)	capsule	(20mg)	$193	323.7¢	(205.7x)
+BNF
+	2.7¢	3.2¢	
+P
+	1.6¢	
+stavudine	(d4T)	capsule	(30mg)	$193	339.5¢	(188.9x)
+BNF
+	2.6¢	5.7¢	
+P
+	1.8¢	
+tenofovir	disoproxil	
+fumarate	(TDF)	tablet	(300mg)	$182	885.7¢	(119.0x)
+BNF
+	9.1¢	18.0¢	
+TN
+	7.4¢	
+tenofovir	disoproxil	
+fumarate	(TDF)	tablet	(300mg)	$182	885.7¢	(119.0x)
+BNF
+	9.1¢	18.0¢	
+TN
+	7.4¢	
+valganciclovir	tablet	(450mg)	$2,391	2343.2¢	(19.1x)
+BNF
+	1285.0¢	220.2¢	
+TN
+	122.6¢	
+zidovudine	(ZDV	or	
+AZT)	capsule	(100mg)	$252	69.0¢*	(17.1x)
+EMIT
+	5.3¢	9.5¢	
+P
+	4.0¢	
+zidovudine	(ZDV	or	
+AZT)	capsule	(250mg)	$252	104.0¢*	(12.4x)
+EMIT
+		378.0¢	
+P
+	8.4¢	
+zidovudine	(ZDV	or	
+AZT)	tablet	(300mg)	$252		11.5¢	23.0¢	
+P
+	9.8¢	
+Antiprotozoal	medicines									
+amodiaquine	tablet	(200mg)	$28			0.8¢	
+P
+	2.0¢	
+artemether	+	
+lumefantrine	
+tablet	
+(20mg+120mg)	FDC	121.9¢	(52.5x)
+BNF
+	11.7¢	18.6¢	
+P
+	2.3¢	
+artesunate	tablet	(50mg)	$282			1.8¢	
+P
+	2.7¢	
+artesunate	+	
+amodiaquine	
+tablet	
+(25mg+67.5mg)	FDC				2.2¢	
+artesunate	+	
+amodiaquine	
+tablet	
+(50mg+135mg)	FDC				3.3¢	
+artesunate	+	
+amodiaquine	
+tablet	
+(100mg+270mg)	FDC				5.5¢	
+artesunate	+	
+mefloquine	
+tablet	
+(25mg+55mg)	FDC				7.8¢	
+artesunate	+	
+mefloquine	
+tablet	
+(100mg+220mg)	FDC				27.9¢	
+		
+
+Table	2	continued.	
+Medicine	Unit	
+API	
+price/kg	
+UK	unit	price	
+(ratio	to	
+estimated	
+generic	
+price)	SA	unit	price	India	unit	price	
+Estimated	generic	
+price	
+benznidazole	tablet	(12.5mg)						
+benznidazole	tablet	(50mg)						
+benznidazole	tablet	(100mg)						
+chloroquine	tablet	(100mg)	$20			0.9¢	
+P
+	1.5¢	
+chloroquine	tablet	(150mg)	$20			0.9¢	
+P
+	1.7¢	
+diloxanide	tablet	(500mg)	$22	
+405.2¢*	
+(122.4x)
+BNF
+		0.4¢	
+P
+	3.3¢	
+doxycycline	SODF	(100mg)	$144	
+4.6¢*	
+(1.5x)
+EMIT
+	2.4¢	0.8¢	
+TN
+	3.1¢	
+mefloquine	tablet	(250mg)	$861	
+236.1¢	
+(8.5x)
+BNF
+		41.7¢	
+P
+	27.9¢	
+metronidazole	tablet	(200mg)	$12	
+2.4¢*	
+(1.6x)
+EMIT
+	0.7¢	0.4¢	
+TN
+	1.5¢	
+metronidazole	tablet	(300mg)	$12	
+3.6¢*	
+(2.1x)
+EMIT
+	1.1¢	0.6¢	
+TN
+	1.7¢	
+metronidazole	tablet	(400mg)	$12	
+2.5¢*	
+(1.3x)
+EMIT
+	1.2¢	0.8¢	
+TN
+	1.9¢	
+metronidazole	tablet	(500mg)	$12	
+6.0¢*	
+(2.9x)
+EMIT
+	1.8¢	1.0¢	
+TN
+	2.1¢	
+miltefosine	SODF	(10mg)						
+miltefosine	SODF	(50mg)						
+nifurtimox	tablet	(30mg)						
+nifurtimox	tablet	(120mg)						
+nifurtimox	tablet	(250mg)						
+pentamidine	tablet	(200mg)						
+pentamidine	tablet	(300mg)						
+primaquine	tablet	(7.5mg)	$381			1.9¢	
+P
+	1.7¢	
+primaquine	tablet	(15mg)	$381			3.2¢	
+P
+	2.3¢	
+proguanil	tablet	(100mg)	$264	
+15.9¢	
+(3.5x)
+BNF
+		3.7¢	
+P
+	4.6¢	
+pyrimethamine	tablet	(25mg)	$53	
+56.3¢	
+(43.6x)
+BNF
+			1.3¢	
+quinine	tablet	(300mg)	$111	
+5.5¢*	
+(0.9x)
+EMIT
+		3.5¢	
+P
+	5.9¢	
+sulfadiazine	tablet	(500mg)	$292	
+185.3¢*	
+(10.4x)
+BNF
+			17.9¢	
+sulfadoxine	+	
+pyrimethamine	
+tablet	(500mg	
++25mg)	FDC			3.0¢	
+P
+	6.3¢	
+sulfamethoxazole	+	
+trimethoprim	
+tablet	
+(100mg+20mg)	FDC			0.3¢	
+P
+	1.4¢	
+sulfamethoxazole	+	
+trimethoprim	
+tablet	
+(400mg+80mg)	FDC	
+10.7¢*	
+(5.0x)
+BNF
+		0.5¢	
+P
+	2.2¢	
+Antimigraine	medicines										
+acetylsalicylic	acid	tablet	(300mg)	$5	
+1.0¢*	
+(0.7x)
+BNF
+		0.5¢	
+TN
+	1.5¢	
+acetylsalicylic	acid	tablet	(400mg)	$5				1.6¢	
+acetylsalicylic	acid	tablet	(500mg)	$5			0.6¢	
+P
+	1.7¢	
+ibuprofen	tablet	(200mg)	$10	
+0.8¢*	
+(0.5x)
+EMIT
+	0.7¢	0.3¢	
+TN
+	1.5¢	
+ibuprofen	tablet	(400mg)	$10	
+2.4¢*	
+(1.3x)
+BNF
+	1.4¢	0.6¢	
+TN
+	1.8¢	
+paracetamol	tablet	(300mg)	$4				1.4¢	
+paracetamol	tablet	(400mg)	$4				1.5¢	
+paracetamol	tablet	(500mg)	$4	
+0.4¢*	
+(0.3x)
+BNF
+	0.5¢	0.3¢	
+TN
+	1.6¢	
+propranolol	tablet	(20mg)	$36	
+2.1¢*	
+(1.7x)
+BNF
+	15.4¢	1.0¢	
+P
+	1.2¢	
+propranolol	tablet	(40mg)	$36	
+1.4¢*	
+(1.0x)
+EMIT
+	7.7¢	1.1¢	
+P
+	1.3¢	
+		
+
+Table	2	continued.	
+Medicine	Unit	
+API	
+price/kg	
+UK	unit	price	
+(ratio	to	
+estimated	
+generic	price)	
+SA	unit	
+price	
+India	unit	
+price	
+Estimated	
+generic	price	
+Antineoplastics	and	immunosuppressives										
+all-trans	retinoid	acid	
+(ATRA)	capsule	(10mg)		312.0¢
+BNF
+				
+allopurinol	tablet	(100mg)	$34	0.9¢*	(0.6x)
+EMIT
+	4.6¢	0.8¢	
+TN
+	1.6¢	
+allopurinol	tablet	(300mg)	$34	1.6¢*	(0.6x)
+EMIT
+	3.3¢	2.4¢	
+TN
+	2.4¢	
+anastrozole	tablet	(1mg)	$48,669	3.5¢*	(0.5x)
+EMIT
+	12.2¢		6.6¢	
+azathioprine	tablet	(50mg)	$390	5.3¢*	(1.6x)
+BNF
+	6.8¢	1.9¢	
+TN
+	3.4¢	
+bicalutamide	tablet	(50mg)	$1,066	7.3¢*	(1.0x)
+EMIT
+	21.5¢	18.6¢	
+TN
+	7.2¢	
+calcium	folinate	tablet	(15mg)		233.9¢
+EMIT
+	127.8¢	57.0¢	
+P
+		
+capecitabine	tablet	(150mg)	$393	16.7¢*	(2.1x)
+EMIT
+	41.4¢	108.0¢	
+P
+	7.9¢	
+capecitabine	tablet	(500mg)	$393	32.1¢*	(1.4x)
+EMIT
+	139.1¢	23.7¢	
+TN
+	23.5¢	
+chlorambucil	tablet	(2mg)		222.9¢
+BNF
+	110.7¢	71.2¢	
+P
+		
+ciclosporin	capsule	(25mg)	$1,354	
+56.6¢*	
+(11.4x)
+BNF
+	28.3¢	31.5¢	
+P
+	5.0¢	
+cyclophosphamide	tablet	(25mg)	$1,563	
+90.4¢*	
+(16.3x)
+BNF
+	14.1¢	1.3¢	
+TN
+	5.5¢	
+etoposide	capsule	(100mg)	$8,463	
+1134.0¢	
+(11.7x)
+BNF
+		150.0¢	
+TN
+	96.5¢	
+fludarabine	tablet	(10mg)		2621.5¢
+BNF
+	2157.8¢	2486.3¢	
+P
+		
+hydroxycarbamide	SODF	(200mg)		433.3¢
+BNF
+				
+hydroxycarbamide	SODF	(250mg)		541.7¢
+BNF
+		5.3¢	
+P
+		
+hydroxycarbamide	SODF	(300mg)		650.0¢
+BNF
+				
+hydroxycarbamide	SODF	(400mg)		866.7¢
+BNF
+				
+hydroxycarbamide	SODF	(500mg)		11.4¢
+EMIT
+		10.6¢	
+P
+		
+hydroxycarbamide	SODF	(1000mg)		22.9¢
+EMIT
+		21.2¢	
+P
+		
+imatinib	tablet	(100mg)	$2,284	
+2108.9¢	
+(78.4x)
+BNF
+	65.6¢	135.0¢	
+P
+	26.9¢	
+imatinib	tablet	(400mg)	$2,284	
+8435.6¢	
+(80.9x)
+BNF
+	262.4¢	21.7¢	
+TN
+	104.3¢	
+mercaptopurine	tablet	(50mg)	$292	
+255.6¢*	
+(91.3x)
+BNF
+	297.5¢	2.8¢	
+TN
+	2.8¢	
+mesna	tablet	(400mg)	$666	
+1745.9¢*	
+(55.7x)
+BNF
+			31.4¢	
+mesna	tablet	(600mg)	$666	
+2477.8¢*	
+(53.3x)
+BNF
+			46.5¢	
+methotrexate	tablet	(2.5mg)	$77,181	6.0¢*	(0.3x)
+EMIT
+	5.3¢	0.9¢	
+TN
+	23.9¢	
+prednisolone	tablet	(5mg)	$962	2.0¢*	(1.2x)
+EMIT
+	1.0¢	0.5¢	
+TN
+	1.7¢	
+prednisolone	tablet	(25mg)	$962	9.8¢*	(2.5x)
+EMIT
+	5.1¢	2.7¢	
+TN
+	3.8¢	
+procarbazine	capsule	(50mg)		883.9¢
+BNF
+		50.0¢	
+P
+		
+tamoxifen	tablet	(10mg)	$271	
+21.0¢*	
+(13.1x)
+EMIT
+	1.9¢	0.5¢	
+TN
+	1.6¢	
+tamoxifen	tablet	(20mg)	$271	7.0¢*	(3.4x)
+EMIT
+	3.9¢	1.1¢	
+TN
+	2.1¢	
+tioguanine	SODF	(40mg)		569.8¢
+BNF
+		45.0¢	
+P
+		
+Antiparkinsonism	medicines										
+biperiden	tablet	(2mg)	$2,677				1.8¢	
+levodopa	+	carbidopa	
+tablet	(100/10mg	
+FDC)	FDC	9.5¢*	(2.7x)
+BNF
+		1.5¢	
+P
+	3.5¢	
+levodopa	+	carbidopa	
+tablet	(100/25mg	
+FDC)	FDC	16.7¢*	(3.9x)
+BNF
+	5.3¢	3.1¢	
+P
+	4.3¢	
+levodopa	+	carbidopa	
+tablet	(250/25mg	
+FDC)	FDC	23.8¢*	(3.4x)
+BNF
+	9.0¢	3.6¢	
+P
+	7.1¢	
+	
+		
+
+Table	2	continued.	
+Medicine	Unit	
+API	
+price/kg	
+UK	unit	price	
+(ratio	to	
+estimated	
+generic	price)	
+SA	unit	
+price	India	unit	price	
+Estimated	
+generic	price	
+Medicines	affecting	the	blood										
+ferrous	salt	tablet	(60mg	iron)		1.7¢
+EMIT
+				
+ferrous	salt	+	folic	acid	
+tablet	(60mg	iron	
++	0.4mg)	FDC				1.2¢	
+folic	acid	tablet	(400mcg)	$462	0.9¢*	(0.7x)
+BNF
+			1.1¢	
+folic	acid	tablet	(1mg)	$462			1.1¢	
+P
+	1.2¢	
+folic	acid	tablet	(5mg)	$462	1.3¢*	(0.9x)
+EMIT
+	0.9¢	0.2¢	
+TN
+	1.4¢	
+hydroxycarbamide	SODF	(200mg)		433.3¢
+BNF
+				
+hydroxycarbamide	SODF	(500mg)		11.4¢
+EMIT
+		10.6¢	
+P
+		
+hydroxycarbamide	SODF	(1000mg)		22.9¢
+EMIT
+		21.2¢	
+P
+		
+phytomenadione	tablet	(10mg)						
+warfarin		tablet	(0.5mg)	$519	0.5¢*	(0.5x)
+EMIT
+	1.0¢	0.8¢	
+P
+	1.2¢	
+warfarin		tablet	(1mg)	$519	1.1¢*	(0.9x)
+EMIT
+	2.1¢	1.5¢	
+P
+	1.2¢	
+warfarin		tablet	(2mg)	$519	2.1¢*	(1.7x)
+EMIT
+	4.2¢	1.8¢	
+P
+	1.3¢	
+warfarin		tablet	(5mg)	$519	1.2¢*	(0.8x)
+EMIT
+	2.4¢	3.0¢	
+P
+	1.4¢	
+Cardiovascular	medicines										
+acetylsalicylic	acid	tablet	(100mg)	$5			0.2¢	
+P
+	1.2¢	
+amiodarone	tablet	(100mg)	$128	1.8¢*	(0.7x)
+EMIT
+	3.0¢	3.8¢	
+TN
+	2.7¢	
+amiodarone	tablet	(200mg)	$128	3.9¢*	(0.9x)
+EMIT
+	5.9¢	7.6¢	
+TN
+	4.3¢	
+amiodarone	tablet	(400mg)	$128	7.7¢*	(1.0x)
+EMIT
+	11.8¢	11.4¢	
+TN
+	7.5¢	
+amlodipine	tablet	(5mg)	$143	0.7¢*	(0.6x)
+EMIT
+	0.7¢	0.1¢	
+TN
+	1.2¢	
+bisoprolol	tablet	(1.25mg)	$435	1.5¢*	(1.3x)
+EMIT
+		1.3¢	
+P
+	1.2¢	
+bisoprolol	tablet	(5mg)	$435	1.2¢*	(0.8x)
+EMIT
+		3.1¢	
+P
+	1.4¢	
+clopidogrel	tablet	(75mg)	$176	6.9¢*	(2.0x)
+BNF
+	7.6¢	0.8¢	
+TN
+	3.4¢	
+clopidogrel	tablet	(300mg)	$176	
+617.7¢*	
+(60.3x)
+BNF
+		3.2¢	
+TN
+	10.3¢	
+digoxin	tablet	(62.5mcg)	$7,081	2.1¢*	(1.8x)
+BNF
+			1.2¢	
+digoxin	tablet	(250mcg)	$7,081	1.3¢*	(1.0x)
+EMIT
+	2.8¢	0.4¢	
+TN
+	1.3¢	
+digoxin	tablet	(62.5mcg)	$7,081	2.1¢*	(1.8x)
+BNF
+			1.2¢	
+digoxin	tablet	(250mcg)	$7,081	1.3¢*	(1.0x)
+EMIT
+	2.8¢	0.4¢	
+TN
+	1.3¢	
+enalapril	tablet	(2.5mg)	$152	2.3¢*	(2.0x)
+EMIT
+	0.4¢	0.2¢	
+TN
+	1.2¢	
+enalapril	tablet	(5mg)	$152	1.3¢*	(1.0x)
+EMIT
+	0.8¢	0.4¢	
+TN
+	1.2¢	
+enalapril	tablet	(2.5mg)	$152	2.3¢*	(2.0x)
+EMIT
+	1.6¢	0.2¢	
+TN
+	1.2¢	
+enalapril	tablet	(5mg)	$152	1.3¢*	(1.0x)
+EMIT
+	0.8¢	0.4¢	
+TN
+	1.2¢	
+furosemide	tablet	(40mg)	$37	0.6¢*	(0.5x)
+EMIT
+	0.5¢	4.0¢	
+P
+	1.3¢	
+glyceryl	trinitrate	tablet	(500mcg)	$39	1.8¢*	(1.6x)
+EMIT
+		1.4¢	
+P
+	1.1¢	
+hydralazine	tablet	(25mg)	$316	5.2¢*	(2.3x)
+BNF
+	2.9¢		2.2¢	
+	
+		
+
+Table	2	continued.	
+Medicine	Unit	
+API	
+price/kg	
+UK	unit	price	
+(ratio	to	estimated	
+generic	price)	
+SA	unit	
+price	India	unit	price	
+Estimated	generic	
+price	
+hydralazine	tablet	(50mg)	$316	30.1¢*	(9.0x)
+BNF
+	4.7¢		3.4¢	
+hydrochlorothiazide	SODF	(12.5mg)	$25		0.7¢	0.9¢	
+P
+	1.2¢	
+hydrochlorothiazide	SODF	(25mg)	$25		0.7¢	1.4¢	
+P
+	1.2¢	
+hydrochlorothiazide	SODF	(25mg)	$25		0.7¢	1.4¢	
+P
+	1.2¢	
+isosorbide	dinitrate	
+sublingual	tablet	
+(5mg)				0.6¢	
+P
+		
+methyldopa	tablet	(250mg)		5.3¢
+EMIT
+	4.0¢	2.7¢	
+TN
+		
+simvastatin	tablet	(5mg)	$246	0.4¢	(0.3x)
+EMIT
+	0.7¢	1.5¢	
+P
+	1.3¢	
+simvastatin	tablet	(10mg)	$246	0.7¢*	(0.5x)
+EMIT
+	1.4¢	3.0¢	
+P
+	1.4¢	
+simvastatin	tablet	(20mg)	$246	1.1¢*	(0.7x)
+EMIT
+	2.0¢	4.5¢	
+P
+	1.7¢	
+simvastatin	tablet	(40mg)	$246	1.7¢*	(0.7x)
+EMIT
+	4.0¢	11.3¢	
+P
+	2.3¢	
+spironolactone	tablet	(25mg)		2.1¢
+EMIT
+	2.0¢	2.8¢	
+P
+		
+verapamil	tablet	(40mg)	$73	1.3¢*	(0.8x)
+EMIT
+	2.6¢	0.8¢	
+TN
+	1.5¢	
+verapamil	tablet	(80mg)	$73	2.6¢*	(1.4x)
+EMIT
+	1.3¢	1.7¢	
+TN
+	1.9¢	
+Diuretics												
+amiloride	tablet	(5mg)	$349	2.2¢*	(1.6x)
+EMIT
+			1.4¢	
+furosemide	tablet	(10mg)	$37	0.3¢*	(0.2x)
+EMIT
+			1.2¢	
+furosemide	tablet	(20mg)	$37	0.6¢*	(0.5x)
+EMIT
+	0.3¢	2.0¢	
+P
+	1.2¢	
+furosemide	tablet	(40mg)	$37	0.6¢*	(0.5x)
+EMIT
+	0.5¢	4.0¢	
+P
+	1.3¢	
+hydrochlorothiazide	SODF	(25mg)	$25		0.7¢	1.4¢	
+P
+	1.2¢	
+spironolactone	tablet	(25mg)		2.1¢
+EMIT
+	2.0¢	2.8¢	
+P
+		
+Gastrointestinal	medicines										
+dexamethasone	SODF	(0.5mg)	$1,482	
+177.8¢*	
+(146.9x)
+EMIT
+		0.2¢	
+TN
+	1.2¢	
+dexamethasone	SODF	(0.75mg)	$1,482	
+266.7¢*	
+(213.0x)
+EMIT
+		0.3¢	
+TN
+	1.3¢	
+dexamethasone	SODF	(1.5mg)	$1,482	
+533.5¢*	
+(387.2x)
+EMIT
+		0.5¢	
+TN
+	1.4¢	
+dexamethasone	SODF	(4mg)	$1,482	37.0¢*	(20.6x)
+BNF
+		1.4¢	
+TN
+	1.8¢	
+metoclopramide	tablet	(10mg)	$77	1.3¢*	(1.0x)
+EMIT
+	0.4¢	0.4¢	
+P
+	1.2¢	
+omeprazole	SODF	(10mg)	$14	2.9¢*	(2.5x)
+EMIT
+	9.9¢	2.1¢	
+P
+	1.1¢	
+omeprazole	SODF	(20mg)	$14	2.0¢*	(1.7x)
+EMIT
+	19.9¢	0.4¢	
+TN
+	1.2¢	
+omeprazole	SODF	(40mg)	$14	3.3¢*	(2.7x)
+EMIT
+	39.8¢	0.8¢	
+TN
+	1.2¢	
+ondansetron	SODF	(4mg)	$990	3.4¢*	(2.1x)
+EMIT
+	12.8¢	0.3¢	
+TN
+	1.6¢	
+ondansetron	SODF	(8mg)	$990	11.4¢*	(5.4x)
+EMIT
+	192.4¢	0.5¢	
+TN
+	2.1¢	
+ondansetron	SODF	(24mg)	$990	34.3¢*	(8.3x)
+EMIT
+	577.1¢	0.8¢	
+TN
+	4.2¢	
+ranitidine	tablet	(150mg)	$19	1.1¢*	(0.7x)
+EMIT
+	1.4¢	0.5¢	
+P
+	1.6¢	
+senna	tablet	(7.5mg)		1.9¢
+BNF
+		5.9¢	
+P
+		
+sulfasalazine	tablet	(500mg)	$39	4.5¢*	(1.2x)
+EMIT
+	17.7¢	3.5¢	
+TN
+	3.6¢	
+zinc	sulfate	SODF	(20mg)	$2		0.7¢	4.5¢	
+P
+	1.1¢	
+	
+		
+
+Table	2	continued.	
+Medicine	Unit	API	price/kg	
+UK	unit	price	
+(ratio	to	
+estimated	
+generic	
+price)	SA	unit	price	India	unit	price	Estimated	generic	price	
+Hormones,	other	endocrine	medicines	and	contraceptives						
+clomifene	tablet	(50mg)	$140	
+42.4¢*	
+(21.8x)
+EMIT
+	33.6¢	4.4¢	
+P
+	1.9¢	
+ethinylestradiol	+	
+levonorgestrel	
+tablet	(30mcg	+	
+150mcg)		3.7¢
+BNF
+	0.5¢	1.5¢	
+P
+		
+ethinylestradiol	+	
+norethisterone	
+tablet	(30mcg	+	
+1mg)						
+fludrocortisone	tablet	(100mcg)				17.3¢	
+P
+		
+gliclazide	SODF	(30mg)	$137			2.3¢	
+P
+	1.6¢	
+gliclazide	SODF	(60mg)	$137			3.2¢	
+P
+	2.1¢	
+gliclazide	SODF	(80mg)	$137	
+1.5¢*	
+(0.6x)
+EMIT
+		1.1¢	
+TN
+	2.4¢	
+hydrocortisone	tablet	(5mg)	$691	
+103.6¢	
+(68.2x)
+EMIT
+	3.9¢	2.9¢	
+TN
+	1.5¢	
+hydrocortisone	tablet	(10mg)	$691	
+207.2¢	
+(108.4x)
+EMIT
+	7.8¢	5.8¢	
+TN
+	1.9¢	
+hydrocortisone	tablet	(20mg)	$691	
+267.9¢	
+(99.4x)
+EMIT
+	15.6¢	11.6¢	
+TN
+	2.7¢	
+levonorgestrel	tablet	(30mcg)		3.4¢
+BNF
+	0.6¢			
+levonorgestrel	tablet	(750mcg)		949.0¢
+BNF
+		25.5¢	
+P
+		
+levonorgestrel	tablet	(1.5mg)		361.4¢
+EMIT
+	140.8¢	79.5¢	
+P
+		
+levothyroxine	tablet	(25mcg)		7.7¢
+EMIT
+		0.5¢	
+P
+		
+levothyroxine	tablet	(50mcg)		2.2¢
+BNF
+		0.9¢	
+P
+		
+levothyroxine	tablet	(100mcg)		2.3¢
+BNF
+		1.6¢	
+P
+		
+medroxyprogesterone	
+acetate	tablet	(5mg)		15.2¢
+BNF
+	7.1¢	3.3¢	
+P
+		
+metformin	tablet	(500mg)	$4	
+0.8¢*	
+(0.4x)
+EMIT
+	1.1¢	0.3¢	
+TN
+	1.8¢	
+metformin	tablet	(500mg)	$4	
+0.8¢*	
+(0.4x)
+EMIT
+	1.1¢	0.3¢	
+TN
+	1.8¢	
+potassium	iodide	tablet	(60mg)	$20				1.3¢	
+potassium	iodide	tablet	(60mg)	$20				1.3¢	
+propylthiouracil	tablet	(50mg)		136.2¢
+BNF
+		5.1¢	
+P
+		
+propylthiouracil	tablet	(50mg)		136.2¢
+BNF
+		5.1¢	
+P
+		
+Muscle	relaxants	(peripherally-acting)	and	cholinesterase	inhibitors	
+neostigmine	tablet	(15mg)		92.5¢
+BNF
+		5.5¢	
+P
+		
+pyridostigmine	tablet	(60mg)		29.6¢
+BNF
+	58.3¢	9.0¢	
+P
+		
+Ophthalmological	preparations										
+acetazolamide	tablet	(250mg)	$58	
+70.5¢*	
+(24.3x)
+EMIT
+	3.1¢	1.3¢	
+TN
+	2.9¢	
+Oxytocics	and	antioxytocics										
+mifepristone	-	
+misoprostol	
+tablet	(200mg)	&	
+tablet	(200mcg)	combination	264.7¢
+EMIT
+		748.5¢	
+P
+		
+misoprostol	tablet	(200mcg)		21.7¢
+BNF
+	29.0¢	2.1¢	
+TN
+		
+nifedipine	
+immediate-
+release	capsule	
+(10mg)	$70	
+6.2¢*	
+(5.1x)
+BNF
+	4.2¢	1.1¢	
+TN
+	1.2¢	
+Medicines	for	mental	and	behavioural	disorder						
+amitriptyline	tablet	(25mg)	$49	
+0.9¢*	
+(0.7x)
+EMIT
+	0.7¢	0.3¢	
+TN
+	1.3¢	
+amitriptyline	tablet	(75mg)	$49	
+2.6¢*	
+(1.6x)
+EMIT
+	2.2¢	0.8¢	
+TN
+	1.6¢	
+carbamazepine	tablet	(100mg)	$52	
+2.9¢*	
+(1.6x)
+EMIT
+	0.9¢	0.5¢	
+TN
+	1.8¢	
+carbamazepine	tablet	(200mg)	$52	
+5.1¢*	
+(2.1x)
+EMIT
+	1.8¢	1.1¢	
+TN
+	2.4¢	
+	
+		
+
+Table	2	continued.	
+Medicine	Unit	
+API	
+price/kg	
+UK	unit	price	
+(ratio	to	
+estimated	
+generic	
+price)	SA	unit	price	India	unit	price	
+Estimated	generic	
+price	
+chlorpromazine	tablet	(100mg)	$77	
+5.8¢*	
+(2.7x)
+EMIT
+	4.7¢	0.8¢	
+TN
+	2.2¢	
+chlorpromazine	tablet	(10mg)	$77			2.3¢	
+P
+	1.2¢	
+chlorpromazine	tablet	(25mg)	$77	
+8.4¢*	
+(6.0x)
+BNF
+	1.5¢	0.4¢	
+TN
+	1.4¢	
+chlorpromazine	tablet	(50mg)	$77	
+2.9¢*	
+(1.8x)
+EMIT
+	3.2¢	0.7¢	
+TN
+	1.6¢	
+chlorpromazine	tablet	(100mg)	$77	
+5.8¢*	
+(2.7x)
+EMIT
+	4.7¢	0.8¢	
+TN
+	2.2¢	
+clomipramine	capsule	(10mg)	$329	
+5.4¢*	
+(3.6x)
+EMIT
+		2.3¢	
+P
+	1.5¢	
+clomipramine	capsule	(25mg)	$329	
+5.7¢*	
+(2.7x)
+EMIT
+		4.4¢	
+P
+	2.1¢	
+clozapine	SODF	(25mg)	$189	
+9.4¢*	
+(5.6x)
+EMIT
+	2.9¢	0.9¢	
+TN
+	1.7¢	
+clozapine	SODF	(50mg)	$189	
+18.7¢*	
+(8.4x)
+EMIT
+	5.9¢	1.9¢	
+TN
+	2.2¢	
+clozapine	SODF	(100mg)	$189	
+37.8¢*	
+(11.4x)
+EMIT
+	9.4¢	3.8¢	
+TN
+	3.3¢	
+clozapine	SODF	(200mg)	$189	
+75.7¢*	
+(13.7x)
+EMIT
+	18.9¢	7.5¢	
+TN
+	5.5¢	
+diazepam	tablet	(2mg)	$131	
+0.8¢*	
+(0.7x)
+EMIT
+		1.1¢	
+P
+	1.2¢	
+diazepam	tablet	(5mg)	$131	
+0.8¢*	
+(0.7x)
+EMIT
+	0.7¢	0.2¢	
+TN
+	1.2¢	
+fluoxetine	SODF	(20mg)	$71	
+1.2¢*	
+(0.9x)
+EMIT
+	1.0¢	0.4¢	
+TN
+	1.3¢	
+fluoxetine	SODF	(20mg)	$71	
+1.2¢*	
+(0.9x)
+EMIT
+	1.0¢	0.4¢	
+TN
+	1.3¢	
+haloperidol	SODF	(0.5mg)	$331	
+5.1¢*	
+(4.5x)
+BNF
+	7.6¢	1.2¢	
+P
+	1.1¢	
+haloperidol	SODF	(2mg)	$331	
+20.5¢*	
+(17.0x)
+BNF
+	30.5¢	2.9¢	
+P
+	1.2¢	
+haloperidol	SODF	(5mg)	$331	
+4.6¢*	
+(3.5x)
+EMIT
+	1.5¢	0.3¢	
+TN
+	1.3¢	
+lithium	carbonate	SODF	(300mg)	$15			0.6¢	
+TN
+	1.8¢	
+risperidone	SODF	(1mg)	$1,466	
+2.2¢*	
+(1.7x)
+EMIT
+	1.1¢	0.1¢	
+TN
+	1.3¢	
+risperidone	SODF	(2mg)	$1,466	
+1.4¢*	
+(0.9x)
+EMIT
+	1.2¢	0.2¢	
+TN
+	1.5¢	
+risperidone	SODF	(3mg)	$1,466	
+3.6¢*	
+(2.2x)
+EMIT
+	2.0¢	0.3¢	
+TN
+	1.6¢	
+risperidone	SODF	(4mg)	$1,466	
+2.8¢*	
+(1.6x)
+EMIT
+	2.5¢	0.4¢	
+TN
+	1.8¢	
+risperidone	SODF	(6mg)	$1,466	
+5.0¢*	
+(2.3x)
+EMIT
+	4.0¢	0.7¢	
+TN
+	2.1¢	
+risperidone	SODF	(0.25mg)	$1,466	
+1.3¢	
+(1.1x)
+EMIT
+	3.0¢		1.2¢	
+risperidone	SODF	(0.5mg)	$1,466	
+2.5¢*	
+(2.1x)
+EMIT
+	1.5¢	0.5¢	
+P
+	1.2¢	
+valproic	acid	(sodium	
+valproate)	tablet	(200mg)	$26			0.9¢	
+TN
+	1.8¢	
+valproic	acid	(sodium	
+valproate)	tablet	(500mg)	$26	
+10.2¢*	
+(3.5x)
+BNF
+		5.1¢	
+P
+	2.9¢	
+	
+		
+
+Table	2	continued.	
+Medicine	Unit	
+API	
+price/kg	
+UK	unit	price	
+(ratio	to	
+estimated	
+generic	
+price)	SA	unit	price	India	unit	price	Estimated	generic	price	
+Medicines	for	diseases	of	the	joints										
+acetylsalicylic	acid	tablet	(100mg)	$5			0.2¢	
+P
+	1.2¢	
+acetylsalicylic	acid	tablet	(150mg)	$5	
+0.5¢*	
+(0.4x)
+BNF
+		0.3¢	
+TN
+	1.3¢	
+acetylsalicylic	acid	tablet	(200mg)	$5				1.4¢	
+acetylsalicylic	acid	tablet	(300mg)	$5	
+1.0¢*	
+(0.7x)
+BNF
+		0.5¢	
+TN
+	1.5¢	
+acetylsalicylic	acid	tablet	(400mg)	$5				1.6¢	
+acetylsalicylic	acid	tablet	(500mg)	$5			0.6¢	
+P
+	1.7¢	
+allopurinol	tablet	(100mg)	$34	
+0.9¢*	
+(0.6x)
+EMIT
+	4.6¢	0.8¢	
+TN
+	1.6¢	
+azathioprine	tablet	(50mg)	$390	
+5.3¢*	
+(1.6x)
+BNF
+	6.8¢	1.9¢	
+TN
+	3.4¢	
+chloroquine	tablet	(100mg)	$20			0.9¢	
+P
+	1.5¢	
+chloroquine	tablet	(150mg)	$20			0.9¢	
+P
+	1.7¢	
+hydroxychloroquine	SODF	(200mg)	$145	
+6.1¢*	
+(1.3x)
+EMIT
+		2.8¢	
+TN
+	4.5¢	
+methotrexate	tablet	(2.5mg)	$77,181	
+6.0¢*	
+(0.3x)
+EMIT
+	5.3¢	0.9¢	
+TN
+	23.9¢	
+penicillamine	SODF	(250mg)	$1,724	
+23.1¢*	
+(0.5x)
+BNF
+		14.9¢	
+TN
+	49.8¢	
+sulfasalazine	tablet	(500mg)	$39	
+4.5¢*	
+(1.2x)
+EMIT
+	17.7¢	3.5¢	
+TN
+	3.6¢	
+	
+Blank	-	no	data.	
+EMIT
+	-	lowest	price	was	from	the	eMIT	database.	
+BNF
+	-	lowest	price	was	from	the	BNF.	
+API	-	active	pharmaceutical	ingredient.	SA	-	South	Africa.	FDC	-	fixed-dose	combination.	SODF	-	solid	oral	
+dosage	form.	
+*	available	from	multiple	suppliers	in	the	UK.	
+P
+	price	from	database	of	Maximum	Retail	Sales	Prices.	
+TN
+	price	from	Tamil	Nadu	public	tender	database.	
+  
+
+Additional references for Methods 
+ 
+2015 WHO Model List of Essential Medicines.[1] 
+For pharmaceutical manufacture, India and China are similar in cost of labour, infrastructure, and 
+tax.[2,3] 
+WHO prequalification programme currently lists 336 products manufactured in India, but only 23 
+products manufactured in China (WHO database searched for “Manufacturing Site = India” and 
+“Manufacturing Site = China” on 18 Aug 2017).[4] 
+Indian customs regulation requiring publication of export logs: Indian Central Government Notification 
+No. 128/2004-Customs (N.T).[5,6] 
+Typical costs of excipients used in tablets and typical proportion of the FPP.[7,8] 
+Indian drug production cost ‘norms’.[9] 
+Analysis of production costs by Chaudhuri et al (further discussed below).[10]  
+Analysis of production costs by McKinsey.[11] 
+In 2016-2017 tax rates for a domestic company in India ranged from 18.5% to 34.6%.[12,13] 
+Many firms operate out of duty-free ‘special economic zones’.[14,15]  
+The average profit margin for the pharmaceutical industry in India was 8.8% in 1995 and 15.4% in 
+2005.[16]  
+In the United States, the average operating margin is 12%.[17] 
+For South Africa, prices were extracted from the Master Procurement Catalogue, published by the 
+National Department of Health.[18] 
+For Tamil Nadu, India, prices were extracted from a list of a tendered medicines published by Tamil 
+Nadu Medical Services Corporation Limited.[19,20] For medicines whose prices were not available in 
+this Tamil Nadu database, prices were taken from an online database of Indian Maximum Retail Sales 
+Prices.[21] 
+For the United Kingdom, prices were extracted from the British National Formulary and the drugs and 
+pharmaceutical electronic market information tool (eMit).[22,23]  
+
+Included and excluded formulations, by terms used in WHO MLEM. 
+  
+Included: 
+Tablet, capsule, immediate release capsule, solid oral dosage form, tablet (chewable), tablet 
+(crushable), tablet (enteric-coated), tablet (heat stable), tablet (immediate release), tablet (scored), 
+tablet (slow release), tablet (sublingual), tablet (sugar-coated) 
+Excluded: 
+Ampoule, aqueous solution, aqueous suspension, chewing gum, concentrate for injection, 
+concentrate for oral liquid, cream, dental cartridges, depot injection, detergent-based suspension, eye 
+drops, eye ointment, gel or rectal solution, granules, “any appropriate topical formulation”, implantable 
+contraceptive, infusion, inhalation, inhalation (aerosol), inhalation (medical gas), injection, injection for 
+intravenous administration, injection for IV administration, injection for spinal anaesthesia, injection in 
+oil, injection: ampoule or pre-filled syringes, intramuscular administration, intrauterine system, 
+intravaginal contraceptive, intravenous administration, lotion, lozenge, metered dose inhaler (aerosol), 
+nasal spray, oily injection, oily solution, oily suspension for injection, ointment, oral liquid, oral oily 
+solution, oral powder, parenteral formulation, pessary, powder, powder for dilution, powder for 
+injection, powder for oral administration, powder for oral liquid, powder for solution, powder for 
+reconstitution with water, rectal dosage form, rectal solution, respirator solution for use in nebulizers, 
+retention enema, saturated solution, solution, solution (eye drops), solution for dilution, solution for 
+injection, solution for intramuscular injection, solution for IV infusion, solution for IV infusion injection, 
+solution for oromucosal administration, solution or gel, subcutaneous administration, suppository, 
+suspension for intratracheal instillation, tablet (dispersible), tablet (dispersible, scored), topical, topical 
+forms, transdermal patch, vaginal cream, vaginal tablet, vial or prefilled syringe, water-miscible 
+injection 
+
+Table. Search terms and timeframes used in database of Indian exports, API price per kilogram 
+predicted by weighted linear regression, and the average rate of change of the linear 
+regression model, alphabetically by drug name. 
+ 
+Average rates of change in API price per kilogram were increasing in 69 cases, decreasing in 107 
+cases, with salt sub-analyses counted as individual “cases”. 
+ 
+Drug name 
+API data 
+timeframe 
+start date 
+API data 
+timeframe 
+end date Search term(s) used 
+Predicted 
+API price 
+on 1 Jul 
+2016 
+(USD/kg) 
+Average 
+rate of 
+change 
+over 30 
+days (USD) 
+abacavir (ABC) 01-Jul-14 01-Jul-16 abacavir $538 $2.30 
+acetazolamide 01-Jul-14 01-Jul-16 acetazolamide $58 $0.15 
+acetylsalicylic acid 01-Jul-14 01-Jul-16 acetylsalicylic acid OR aspirin $5 $0.02 
+aciclovir 01-Jul-10 01-Jul-16 aciclovir $81 $0.48 
+aciclovir sodium sterile 
+manually 
+subset from 
+main drug 
+exim data     $851 $10.40 
+albendazole 01-Jul-14 01-Jul-16 albendazole $28 $0.06 
+all-trans retinoid acid 
+(ATRA) 
+Insufficient 
+data 
+Insufficient 
+data 
+all-trans retinoic acid OR 
+tretinoin     
+allopurinol 01-Jul-14 01-Jul-16 allopurinol $34 $0.23 
+amiloride 01-Jul-14 01-Jul-16 amiloride $349 -$0.79 
+amiodarone 01-Jul-14 01-Jul-16 amiodarone $128 -$1.34 
+amitriptyline 01-Jul-14 01-Jul-16 amitriptyline $49 -$0.32 
+amlodipine 01-Jul-14 01-Jul-16 amlodipine $143 -$0.83 
+amodiaquine 01-Jul-12 01-Jul-16 amodiaquine $28 $0.09 
+amoxicillin 01-Jul-14 01-Jul-16 amoxicillin $25 -$0.32 
+amoxicillin + clavulanic 
+acid 
+Drug 
+combination 
+Drug 
+combination       
+anastrozole 01-Jul-14 01-Jul-16 anastrozole $48,669 $1,023.06 
+artemether 01-Jul-14 01-Jul-16 artemether $274 -$5.97 
+artemether + 
+lumefantrine 
+Drug 
+combination 
+Drug 
+combination 
+separate searches for 
+artemether, lumefantrine     
+artesunate 01-Jul-14 01-Jul-16 artesunate $282 -$7.65 
+artesunate + 
+amodiaquine 
+Drug 
+combination 
+Drug 
+combination       
+artesunate + 
+mefloquine 
+Drug 
+combination 
+Drug 
+combination       
+atazanavir 01-Jul-10 01-Jul-16 atazanavir $1,189 -$19.77 
+azathioprine 01-Jul-10 01-Jul-16 azathioprine $390 $2.07 
+bedaquiline 
+Insufficient 
+data 
+Insufficient 
+data bedaquiline     
+benznidazole 
+Insufficient 
+data 
+Insufficient 
+data benznidazole     
+bevacizumab 
+Insufficient 
+data 
+Insufficient 
+data bevacizumab     
+bicalutamide 01-Jul-14 01-Jul-16 bicalutamide $1,066 $7.32 
+biperiden 01-Jul-14 01-Jul-16 biperiden 
+$2,677 
+(HCl salt) 
+-$25.02 
+(HCl salt) 
+bisoprolol 01-Jul-14 01-Jul-16 bisoprolol $435 -$2.63 
+calcium folinate 
+Insufficient 
+data 
+Insufficient 
+data calcium folinate     
+capecitabine 01-Jul-14 01-Jul-16 capecitabine $393 -$7.65 
+carbamazepine 01-Jul-14 01-Jul-16 carbamazepine $52 $0.22 
+carbidopa 01-Jul-14 01-Jul-16 carbidopa $445 -$1.84 
+cefalexin 01-Jul-12 01-Jul-16 cefalexin OR cephalexin $49 -$0.03 
+cefixime 01-Jul-14 01-Jul-16 cefixime $162 -$1.08 
+chlorambucil 
+Insufficient 
+data 
+Insufficient 
+data chlorambucil     
+chloroquine 01-Jul-14 01-Jul-16 
+chloroquine [results of 
+hydroxychloroquine manually 
+censored after download] $20 $0.02 
+chloroquine phosphate 
+manually 
+subset from 
+main drug 
+exim data     $20 $0.02 
+chloroquine sulphate 
+manually 
+subset from     $43 $0.19 
+
+main drug 
+exim data 
+chlorpromazine 01-Jul-12 01-Jul-16 chlorpromazine $77 -$0.01 
+ciclosporin 01-Jul-12 01-Jul-16 ciclosporin OR cyclosporine $1,354 -$4.77 
+cilastatin 
+Insufficient 
+data 
+Insufficient 
+data cilastatin     
+ciprofloxacin 01-Jul-14 01-Jul-16 
+ciprofloxacin (hcl and base 
+manually separated) $27 -$0.29 
+ciprofloxacin base 
+manually 
+subset from 
+main drug 
+exim data     $119 $0.66 
+ciprofloxacin HCl 01-Jul-14 01-Jul-16 
+ciprofloxacin (hcl and base 
+manually separated) $27 -$0.29 
+ciprofloxacin lactate 01-Jul-10 01-Jul-16 ciprofloxacin lactate $200 $1.88 
+clarithromycin 01-Jul-14 01-Jul-16 clarithromycin $249 -$1.07 
+clavulanic acid 
+Insufficient 
+data 
+Insufficient 
+data clavulanic acid OR clavulanate     
+clindamycin 01-Jul-12 01-Jul-16 clindamycin $213 $1.07 
+clindamycin HCl 
+manually 
+subset from 
+main drug 
+exim data     $213 $1.07 
+clindamycin palmitate 
+manually 
+subset from 
+main drug 
+exim data     $1,594 -$0.42 
+clindamycin phosphate 
+manually 
+subset from 
+main drug 
+exim data         
+clofazimine 01-Jul-10 01-Jul-16 clofazimine $239 -$0.23 
+clomifene 01-Jul-14 01-Jul-16 clomifene OR clomiphene $140 -$0.66 
+clomipramine 01-Jul-14 01-Jul-16 clomipramine $329 -$0.67 
+clopidogrel 01-Jul-14 01-Jul-16 clopidogrel $176 -$5.99 
+clopidogrel besylate 
+manually 
+subset from 
+main drug 
+exim data     $176 -$5.99 
+clopidogrel bisulfate 
+manually 
+subset from 
+main drug 
+exim data     $230 -$2.91 
+cloxacillin 01-Jul-14 01-Jul-16 cloxacillin $24 -$0.28 
+clozapine 01-Jul-10 01-Jul-16 clozapine $189 -$0.55 
+codeine 
+Insufficient 
+data 
+Insufficient 
+data 
+codeine AND (NOT ibuprofen) 
+AND (NOT paracetamol) AND 
+(NOT caffeine)     
+cyclizine 01-Jul-10 01-Jul-16 cyclizine $84 -$0.52 
+cyclophosphamide 01-Jul-10 01-Jul-16 cyclophosphamide $1,563 $44.18 
+cycloserine 01-Jul-10 01-Jul-16 cycloserine $805 -$5.50 
+daclatasvir 01-Jul-14 01-Jul-16 daclatasvir $852 -$145.52 
+dapsone 01-Jul-14 01-Jul-16 dapsone $30 $0.91 
+darunavir 01-Jul-14 01-Jul-16 darunavir $1,588 -$41.76 
+dasabuvir 
+Insufficient 
+data 
+Insufficient 
+data dasabuvir     
+delamanid 
+Insufficient 
+data 
+Insufficient 
+data delamanid     
+dexamethasone 01-Jul-10 01-Jul-16 
+dexamethasone (split into 
+dexamethasone alone and 
+dexamethasone sodium 
+phosphate) $1,501 -$3.50 
+dexamethasone (no 
+salt) 
+manually 
+subset from 
+main drug 
+exim data     $1,482 -$7.17 
+dexamethasone 
+sodium phosphate 
+manually 
+subset from 
+main drug 
+exim data     $1,501 -$3.50 
+diazepam 01-Jul-10 01-Jul-16 diazepam $131 $1.16 
+diethylcarbamazine 01-Jul-10 01-Jul-16 diethylcarbamazine $13 -$0.22 
+digoxin 01-Jul-10 01-Jul-16 digoxin $7,081 $34.14 
+
+diloxanide 01-Jul-14 01-Jul-16 diloxanide $22 -$0.09 
+docusate sodium 01-Jul-14 01-Jul-16 docusate sodium $11 -$0.01 
+doxorubicin 01-Jul-14 01-Jul-16 doxorubicin $36,550 -$425.07 
+doxycycline 01-Jul-10 01-Jul-16 doxycycline $283 -$2.30 
+doxycycline hyclate 
+manually 
+subset from 
+main drug 
+exim data     $144 -$0.73 
+doxycycline 
+monohydrate 
+manually 
+subset from 
+main drug 
+exim data     $283 -$2.30 
+efavirenz (EFV or EFZ) 01-Jul-14 01-Jul-16 efavirenz $109 -$1.08 
+efavirenz + 
+emtricitabine + 
+tenofovir 
+Drug 
+combination 
+Drug 
+combination       
+emtricitabine 01-Jul-14 01-Jul-16   $312 $0.28 
+emtricitabine + 
+tenofovir 
+Drug 
+combination 
+Drug 
+combination       
+enalapril 01-Jul-14 01-Jul-16 enalapril $152 $0.22 
+entecavir 01-Jul-10 01-Jul-16 entecavir $669,376 -$25,754.81 
+erythromycin 
+Salts sub-
+analysed 
+separately 
+Salts sub-
+analysed 
+separately erythromycin     
+erythromycin estolate 
+manually 
+subset from 
+main drug 
+exim data     $41 -$0.70 
+erythromycin ethyl 
+succinate 
+manually 
+subset from 
+main drug 
+exim data     $69 $0.06 
+erythromycin phospate 
+manually 
+subset from 
+main drug 
+exim data     $91 -$0.06 
+erythromycin 
+propionate 
+Insufficient 
+data 
+Insufficient 
+data       
+erythromycin stearate 
+manually 
+subset from 
+main drug 
+exim data     $41 -$0.03 
+estradiol cypionate 
+Insufficient 
+data 
+Insufficient 
+data       
+ethambutol 01-Jul-14 01-Jul-16 ethambutol $42 $0.08 
+ethambutol + isoniazid  
+Drug 
+combination 
+Drug 
+combination       
+ethambutol + isoniazid 
++ pyrazinamide + 
+rifampicin 
+Drug 
+combination 
+Drug 
+combination       
+ethambutol + isoniazid 
++ rifampicin 
+Drug 
+combination 
+Drug 
+combination       
+ethinylestradiol 01-Jul-10 01-Jul-16 
+ethinyl estradiol OR 
+ethinylestradiol OR 
+ethinyloestradiol     
+ethinylestradiol + 
+levonorgestrel 
+Drug 
+combination 
+Drug 
+combination       
+ethinylestradiol + 
+norethisterone 
+Drug 
+combination 
+Drug 
+combination       
+ethionamide 
+Insufficient 
+data 
+Insufficient 
+data ethionamide     
+ethosuximide 
+Insufficient 
+data 
+Insufficient 
+data ethosuximide     
+etoposide 01-Jul-10 01-Jul-16 etoposide $8,463 -$15.83 
+ferrous salt + folic acid 
+Drug 
+combination 
+Drug 
+combination       
+fluconazole 01-Jul-14 01-Jul-16 fluconazole $142 -$1.15 
+flucytosine 01-Jul-10 01-Jul-16 flucytosine $1,377 -$5.62 
+fludarabine 
+Insufficient 
+data 
+Insufficient 
+data fludarabine     
+fludrocortisone 
+Insufficient 
+data 
+Insufficient 
+data fludrocortisone     
+fluoxetine 01-Jul-14 01-Jul-16 fluoxetine $71 $0.67 
+
+folic acid 01-Jul-14 01-Jul-16 folic acid OR folate $462 $18.93 
+furosemide 01-Jul-14 01-Jul-16 furosemide OR frusemide $37 $0.02 
+gliclazide 01-Jul-14 01-Jul-16 gliclazide $137 $0.80 
+glyceryl trinitrate 01-Jul-10 01-Jul-16 glyceryl trinitrate $39 -$0.16 
+griseofulvin 01-Jul-10 01-Jul-16 griseofulvin $115 $0.25 
+haloperidol 01-Jul-14 01-Jul-16 haloperidol $331 -$0.28 
+hydralazine 01-Jul-12 01-Jul-16 hydralazine $316 $2.12 
+hydrochlorothiazide 01-Jul-14 01-Jul-16 hydrochlorothiazide $25 -$0.10 
+hydrocortisone 01-Jul-14 01-Jul-16 hydrocortisone OR cortisol $691 -$8.65 
+hydrocortisone (salt 
+agnostic) 
+manually 
+subset from 
+main drug 
+exim data     $691 -$8.78 
+hydrocortisone acetate 
+manually 
+subset from 
+main drug 
+exim data     $960 $1.09 
+hydrocortisone 
+succinate 
+manually 
+subset from 
+main drug 
+exim data     $691 -$8.65 
+hydroxycarbamide 
+Insufficient 
+data 
+Insufficient 
+data 
+hydroxycarbamide OR 
+hydroxyurea     
+hydroxychloroquine 01-Jul-12 01-Jul-16 hydroxychloroquine $145 -$0.51 
+ibuprofen 01-Jul-14 01-Jul-16 
+ibuprofen AND NOT tablet AND 
+(NOT (paracetamol OR codeine 
+OR caffeine)) $10 -$0.01 
+imatinib 01-Jul-14 01-Jul-16 imatinib $2,284 -$6.36 
+imipenem 
+Insufficient 
+data 
+Insufficient 
+data imipenem     
+isoniazid 01-Jul-14 01-Jul-16 isoniazid $16 -$0.01 
+isoniazid + 
+pyrazinamide + 
+rifampicin  
+Drug 
+combination 
+Drug 
+combination       
+isoniazid + rifampicin 
+Drug 
+combination 
+Drug 
+combination       
+isosorbide dinitrate 
+Insufficient 
+data 
+Insufficient 
+data isosorbide dinitrate     
+ivermectin 
+Insufficient 
+data 
+Insufficient 
+data ivermectin     
+lamivudine (3TC) 01-Jul-14 01-Jul-16 lamivudine $241   
+lamivudine + nevirapine 
++ stavudine 
+Drug 
+combination 
+Drug 
+combination       
+lamivudine + nevirapine 
++ zidovudine 
+Drug 
+combination 
+Drug 
+combination       
+lamivudine + 
+zidovudine  
+Drug 
+combination 
+Drug 
+combination       
+ledipasvir 01-Jul-10 01-Jul-16 ledipasvir $4,448 -$1,290.61 
+ledipasvir + sofosbuvir 
+Drug 
+combination 
+Drug 
+combination       
+levamisole 01-Jul-10 01-Jul-16 levamisole $28 -$0.08 
+levodopa 01-Jul-10 01-Jul-16 levodopa $161 $0.22 
+levodopa + carbidopa 
+Drug 
+combination 
+Drug 
+combination       
+levofloxacin 01-Jul-14 01-Jul-16 levofloxacin $142 -$2.67 
+levonorgestrel 
+Insufficient 
+data 
+Insufficient 
+data levonorgestrel     
+levothyroxine 
+Insufficient 
+data 
+Insufficient 
+data levothyroxine     
+linezolid 01-Jul-14 01-Jul-16 linezolid $690 $0.27 
+lithium carbonate 01-Jul-10 01-Jul-16 lithium carbonate $15 $0.12 
+loperamide 01-Jul-14 01-Jul-16 loperamide $234 -$3.09 
+lopinavir 01-Jul-10 01-Jul-16 lopinavir $555 -$15.80 
+lopinavir + ritonavir 
+(LPV/r) 
+Drug 
+combination 
+Drug 
+combination       
+loratadine 01-Jul-14 01-Jul-16 loratadine AND (NOT tablets) $281 -$0.51 
+lumefantrine 01-Jul-14 01-Jul-16 lumefantrine $36 -$0.28 
+mebendazole 01-Jul-14 01-Jul-16 mebendazole $22 -$0.31 
+medroxyprogesterone 
+acetate 
+Insufficient 
+data 
+Insufficient 
+data medroxyprogesterone acetate     
+mefloquine 01-Jul-10 01-Jul-16 mefloquine $861 $3.56 
+meglumine antimoniate 
+Insufficient 
+data 
+Insufficient 
+data       
+
+mercaptopurine 01-Jul-10 01-Jul-16 mercaptopurine $292 $1.64 
+mesna 01-Jul-10 01-Jul-16 mesna $666 -$1.91 
+metformin 01-Jul-15 01-Jul-16 metformin $4 $0.00 
+methotrexate 01-Jul-10 01-Jul-16 methotrexate $77,181 $956.26 
+methyldopa 
+Insufficient 
+data 
+Insufficient 
+data methyldopa     
+metoclopramide 01-Jul-14 01-Jul-16 metoclopramide $77 $0.00 
+metronidazole 01-Jul-14 01-Jul-16 metronidazole $12 -$0.06 
+metronidazole 
+(benzoate) 
+manually 
+subset from 
+main drug 
+exim data     $11 $0.00 
+metronidazole (no salt) 
+manually 
+subset from 
+main drug 
+exim data     $12 -$0.06 
+midazolam 01-Jul-14 01-Jul-16 midazolam $5,256 $110.37 
+mifepristone 01-Jul-10 01-Jul-16 skipped, no mifepristone alone $4,812 -$16.89 
+mifepristone - 
+misoprostol 
+Drug 
+combination 
+Drug 
+combination       
+miltefosine 
+Insufficient 
+data 
+Insufficient 
+data miltefosine     
+misoprostol 
+Insufficient 
+data 
+Insufficient 
+data misoprostol     
+morphine 
+Insufficient 
+data 
+Insufficient 
+data morphine     
+morphine  
+Insufficient 
+data 
+Insufficient 
+data morphine     
+neostigmine 01-Jul-10 01-Jul-16 neostigmine $18,050 $259.72 
+nevirapine (NVP) 01-Jul-10 01-Jul-16 nevirapine $165 $0.05 
+niclosamide 01-Jul-10 01-Jul-16 niclosamide $9 -$0.25 
+niclosamide (no salt) 01-Jul-10 01-Jul-16 
+manually subset from main drug 
+exim data     
+niclosamide anhydrous 01-Jul-10 01-Jul-16 
+manually subset from main drug 
+exim data $9 -$0.25 
+niclosamide piperazine 01-Jul-10 01-Jul-16 
+manually subset from main drug 
+exim data $9 -$0.13 
+nifedipine 01-Jul-14 01-Jul-16 nifedipine $70 $1.35 
+nifurtimox 
+Insufficient 
+data 
+Insufficient 
+data nifurtimox     
+nitrofurantoin 01-Jul-12 01-Jul-16 nitrofurantoin $295 -$7.90 
+norethisterone 
+Salts sub-
+analysed 
+separately 
+Salts sub-
+analysed 
+separately 
+(norethisterone OR 
+norethindrone) AND NOT 
+(enantate OR enanthate)     
+norethisterone (no salt) 01-Jul-10 01-Jul-16   $1,235 $0.02 
+norethisterone acetate 01-Jul-10 01-Jul-16   $1,272 -$0.98 
+nystatin 
+Insufficient 
+data 
+Insufficient 
+data nystatin     
+ofloxacin 01-Jul-14 01-Jul-16 ofloxacin $107 -$0.21 
+ombitasvir 01-Jul-10 01-Jul-16 ombitasvir     
+ombitasvir + 
+paritaprevir + ritonavir  
+Drug 
+combination 
+Drug 
+combination       
+omeprazole 01-Jul-15 01-Jul-16 omeprazole $14 -$0.15 
+ondansetron 01-Jul-14 01-Jul-16 
+ondansetron AND (NOT tablets) 
+AND (NOT tabs) $990 $11.97 
+ondansetron base 01-Jul-10 02-Jul-16 
+manually subset from main drug 
+exim data $2,101 $17.99 
+ondansetron 
+hydrochloride 
+manually 
+subset from 
+main drug 
+exim data     $990 $11.97 
+oseltamivir  01-Jul-14 01-Jul-16 oseltamivir $1,860 -$34.25 
+oxaliplatin 01-Jul-10 01-Jul-16 oxaliplatin $63,857 -$141.54 
+oxamniquine 
+Insufficient 
+data 
+Insufficient 
+data oxamniquine     
+oxytocin 01-Jul-14 01-Jul-16 oxytocin $53,450 -$555.86 
+p-aminosalicylic acid 
+Insufficient 
+data 
+Insufficient 
+data 
+p-aminosalicylic acid OR p-
+aminosaicylate OR para-
+aminosalicylic acid OR para-
+aminosalicylate OR 4-
+aminosalicylic acid OR 4-
+aminosalicylate     
+paracetamol 01-Jul-15 01-Jul-16 paracetamol $4 -$0.07 
+
+paritaprevir 
+Insufficient 
+data 
+Insufficient 
+data       
+penicillamine 01-Jul-10 01-Jul-16 penicillamine $1,724 $9.47 
+pentamidine 
+Insufficient 
+data 
+Insufficient 
+data pentamidine     
+phenobarbital 01-Jul-14 01-Jul-16 
+phenobarbital OR 
+phenobarbitone OR phenobarb $76 $0.42 
+phenobarbital (no salt) 01-Jul-14 01-Jul-16 
+phenobarbital OR 
+phenobarbitone OR phenobarb $36 $0.26 
+phenobarbital (sodium) 01-Jul-10 01-Jul-16 
+(phenobarbital OR 
+phenobarbitone OR phenobarb) 
+AND sodium $76 $0.42 
+phenoxymethylpenicillin 
+Insufficient 
+data 
+Insufficient 
+data 
+phenoxymethylpenicillin OR 
+penicillin V     
+phenytoin 01-Jul-14 01-Jul-16 phenytoin $17 -$0.04 
+phenytoin (no salt) 
+manually 
+subset from 
+main drug 
+exim data     $17 $0.05 
+phenytoin (sodium) 
+manually 
+subset from 
+main drug 
+exim data     $17 -$0.04 
+potassium iodide 01-Jul-14 01-Jul-16 potassium iodide $20 -$0.43 
+praziquantel 01-Jul-14 01-Jul-16 praziquantel $148 $0.89 
+prednisolone 01-Jul-14 01-Jul-16 prednisolone $962 -$31.03 
+prednisolone (no salt) 
+manually 
+subset from 
+main drug 
+exim data     $707 -$6.98 
+prednisolone acetate 01-Jul-10 01-Jul-16 
+manually subset from main drug 
+exim data $1,349 $4.25 
+prednisolone 
+hemisuccinate 01-Jul-10 01-Jul-16 
+manually subset from main drug 
+exim data $1,247 $2.20 
+prednisolone sodium 
+phosphate 01-Jul-12 01-Jul-16 
+manually subset from main drug 
+exim data $1,261 -$11.08 
+prednisolone valerate 
+acetate 01-Jul-10 01-Jul-16 
+manually subset from main drug 
+exim data     
+primaquine 01-Jul-10 01-Jul-16 primaquine $381 -$2.15 
+procarbazine 
+Insufficient 
+data 
+Insufficient 
+data procarbazine     
+proguanil 01-Jul-10 01-Jul-16 proguanil $264 $2.05 
+propranolol 01-Jul-14 01-Jul-16 propranolol $36 $0.16 
+propylthiouracil 
+Insufficient 
+data 
+Insufficient 
+data propylthiouracil     
+pyrantel 01-Jul-14 01-Jul-16 pyrantel $31 -$0.11 
+pyrazinamide 01-Jul-14 01-Jul-16 pyrazinamide $22 $0.09 
+pyridostigmine 
+Insufficient 
+data 
+Insufficient 
+data pyridostigmine     
+pyrimethamine 01-Jul-14 01-Jul-16 pyrimethamine $53 $0.03 
+quinine 01-Jul-14 01-Jul-16 quinine $116 $0.00 
+quinine (bi)sulfate 
+manually 
+subset from 
+main drug 
+exim data     $111 -$0.02 
+quinine HCl 
+manually 
+subset from 
+main drug 
+exim data     $116 $0.00 
+ranitidine 01-Jul-15 01-Jul-16 ranitidine $19 -$0.04 
+ribavirin 01-Jul-10 01-Jul-16 ribavirin $122 -$5.40 
+rifabutin 01-Jul-10 01-Jul-16 rifabutin $2,077 $2.01 
+rifampicin 01-Jul-14 01-Jul-16 rifampicin OR rifampin $112 -$0.20 
+rifapentine 
+Insufficient 
+data 
+Insufficient 
+data rifapentine     
+risperidone 01-Jul-14 01-Jul-16 risperidone $1,466 $28.42 
+ritonavir 01-Jul-12 01-Jul-16 ritonavir $1,665 -$3.22 
+saquinavir (SQV) 01-Jul-10 01-Jul-16 saquinavir $898 -$5.10 
+senna 
+Insufficient 
+data 
+Insufficient 
+data senna     
+simeprevir 
+Insufficient 
+data 
+Insufficient 
+data simeprevir     
+simvastatin 01-Jul-14 01-Jul-16 simvastatin $246 -$1.32 
+
+sodium stibogluconate 
+Insufficient 
+data 
+Insufficient 
+data       
+sofosbuvir 01-Jul-14 01-Jul-16 sofosbuvir $1,224   
+spironolactone 
+Insufficient 
+data 
+Insufficient 
+data spironolactone     
+stavudine (d4T) 01-Jul-10 01-Jul-16 stavudine $193 -$1.72 
+succimer 
+Insufficient 
+data 
+Insufficient 
+data succimer     
+sulfadiazine 01-Jul-14 01-Jul-16 sulfadiazine $292 $0.23 
+sulfadoxine 01-Jul-10 01-Jul-16   $83 $1.01 
+sulfadoxine + 
+pyrimethamine 
+Drug 
+combination 
+Drug 
+combination       
+sulfamethoxazole 01-Jul-14 01-Jul-16 sulfamethoxazole $10 $0.01 
+sulfamethoxazole + 
+trimethoprim 
+Drug 
+combination 
+Drug 
+combination       
+sulfasalazine 01-Jul-10 01-Jul-16 sulfasalazine $39 -$0.39 
+tamoxifen 01-Jul-10 01-Jul-16 tamoxifen $271 -$0.96 
+tenofovir disoproxil 
+fumarate (TDF) 01-Jul-14 01-Jul-16 
+tenofovir disoproxil fumarate 
+(TDF) $182 -$1.84 
+tetracaine 01-Jul-12 01-Jul-16 tetracaine $157 -$0.26 
+tetracycline 01-Jul-10 01-Jul-16 tetracycline $32 $0.17 
+tioguanine 
+Insufficient 
+data 
+Insufficient 
+data thioguanine, tioguanine     
+triclabendazole 01-Jul-14 01-Jul-16 triclabendazole $44 -$0.76 
+trimethoprim 01-Jul-14 01-Jul-16 trimethoprim $30 -$0.07 
+valganciclovir 01-Jul-10 01-Jul-16 valganciclovir $2,391 $8.83 
+valproic acid (sodium 
+valproate) 01-Jul-14 01-Jul-16 valproic acid OR valproate $26 $0.05 
+verapamil 01-Jul-12 01-Jul-16 verapamil $73 $0.18 
+warfarin  01-Jul-14 01-Jul-16 warfarin  $519 -$3.37 
+zidovudine (ZDV or 
+AZT) 01-Jul-14 01-Jul-16 
+zidovudine OR azidothymidine 
+AND NOT tablet AND NOT 
+lamivudine AND NOT 
+nevirapine $252 -$7.38 
+zinc sulfate 01-Jul-10 01-Jul-16 zinc sulfate $2 -$0.12 
+  
+
+Criteria used for cleaning export data. 
+ 
+Reason for censoring Example of product description that would trigger 
+censoring 
+Incorrect substance identified “DIAMORPHINE” (in a search for “morphine”) 
+Item is part of a mix of products “ABACAVIR, LOPINAVIR, LAMIVUDINE API”  
+Quantity of shipment < 1.0 kg, with exceptions made for very 
+low-dose medicines 
+Value listed in “quantity” variable greater than 1.0kg 
+Finished Pharmaceutical Product (FPP), for example tablets “ABACAVIR SULFATE TABLETS 600MG” 
+Impurity “ABACAVIR SULPHATE IMPURITY” 
+Unclear quantity of API “ABACAVIR GRANULES 10%” 
+(In this example, the percentage descriptor could refer to a 
+variety of parameters, for example, moisture content. As this 
+is not specified, the true amount of API is unknown.) 
+Free sample or ‘no commercial value’ “ABACAVIR SULPHATE FREE SAMPLE” 
+“ABACAVIR SULPHATE N.C.V.” 
+For veterinary use “IVERMECTIN VETERINARY” 
+Reference/working standard “ABACAVIR WORKING STANDARD” 
+ 
+ 
+  
+
+Costs of excipients used in solid oral formulations, and typical proportion of total FPP weight 
+made up by each excipient. 
+ 
+Data on excipient costs and typical proportion of FPP weight from Fortunak et al and Rowe et al.[7,8] 
+Midpoints of the percentage ranges for typical proportions of FPP weight represented by various 
+excipients reported by Rowe et al summate to more than 100%, while excipients typically represent 
+about half of the finished pill weight, with API representing the other half. This is likely because 
+multiple alternative excipients serving the same function have been included – for example, both 
+cellulose and calcium phosphate are diluents. To calculate an average cost, all percentages were 
+scaled to summate to 50% (a typical proportion of FPP weight made up of excipients), and the 
+average total cost of all excipients listed was calculated for 1kg of FPP. In other words, we estimate 
+1kg of FPP in tablets would contain 500 grams of API, and 500 grams of excipients costing $2.63/kg 
+(see table). 
+ 
+Excipient 
+Typical % 
+of weight 
+FPP 
+Cost per kg 
+(USD) 
+Midpoint 
+cost/kg 
+Midpoint % 
+of FPP 
+weight 
+Percentage
+s scaled to 
+summate 
+to 50% 
+Cost of 
+excipient 
+per 1 kg of 
+FPP (USD) 
+Sodium benzoate 1%–3% 1.62–2.19 $1.91 2.0% 0.58% $0.01 
+Cellulose or microcrystalline 
+cellulose 10%–60% 2–3.22 $2.61 35.0% 10.22% $0.27 
+Talc 0.2%–2% 2–3.57 $2.79 1.1% 0.32% $0.01 
+Sodium starch glycolate 1%–5% 0.96–4.93 $2.95 3.0% 0.88% $0.03 
+Crospovidone 2%–5% 3.03–3.03 $3.03 3.5% 1.02% $0.03 
+Lactose 5%–40% 3.03–3.77 $3.40 22.5% 6.57% $0.22 
+Xylitol 5%–10% 2.2–5.75 $3.98 7.5% 2.19% $0.09 
+Calcium phosphate, dibasic 5%–50% 2.46–5.7 $4.08 27.5% 8.03% $0.33 
+Carboxymethylcellulose sodium 5%–25% 3.25–5.99 $4.62 15.0% 4.38% $0.20 
+Starch, pregelatinised 5%–35% 2–9 $5.50 20.0% 5.84% $0.32 
+Xanthan gum 5%–15% 5.02–7.44 $6.23 10.0% 2.92% $0.18 
+Croscarmellose sodium 1%–5% 6.56–9.51 $8.04 3.0% 0.88% $0.07 
+Methyl paraben 1%–2% 11.5–11.5 $11.50 1.5% 0.44% $0.05 
+Povidone 5%–20% 8.59–17.11 $12.85 12.5% 3.65% $0.47 
+Magnesium stearate 0.25%–4% 4.3–23.5 $13.90 2.1% 0.62% $0.09 
+Potassium sorbate 0%–2% 18–37 $27.50 1.0% 0.29% $0.08 
+Sodium lauryl sulfate 1%–2% 36–51 $43.50 1.5% 0.44% $0.19 
+Aluminium oxide 0%–5% 
+not 
+available 
+not 
+available 2.5% 0.73% 
+not 
+available 
+Total N/A N/A N/A 171.2% 50.0% $2.63 
+  
+
+Exchange rates 
+ 
+Exchange rates assumed were 1 GBP = 1.3 USD, 1 ZAR = 0.075 USD, 1 INR = 0.015 USD.   
+
+Breakdown of estimated formulating plant costs by Chaudhuri et al, with additional notes on 
+cost of environmental compliance, and quality assurance and control 
+A detailed costing estimate for setting up a pharmaceutical formulating plant was undertaken by 
+Chaudhuri et al in 2015.[10] This analysis was based on interviews with “22 persons from 10 medium 
+and small firms [...] in the cities of Kolkata and Mumbai” and undertaken by a team of a cost 
+accountant, two company production executives, and an economist. The estimation assumed a GMP-
+compliant plant that manufactures (formulates) 5 different finished pharmaceutical products, and does 
+not conduct any API synthesis or R&D. A breakdown of their estimates, and our derivation of a per-
+tablet overall conversion cost estimate, are given below, with notes on their estimates for costs 
+associated with environmental compliance and quality assurance/control. 
+ 
+Table. Estimated capital expenditures to set up for an Indian manufacturing plant, based on 
+estimates by Chaudhuri et al 2015.  
+ 
+Item  Cost (USD) 
+Compression machines (3 units) $44,714 
+Sifters (2 units) $5,589 
+Fluid bed dryer (1 unit) $33,536 
+Multi mill (2 units) $11,179 
+Coating machine (1 unit) $27,946 
+Air handling units $186,309 
+Chillers $74,524 
+Packing machinery:  
+ 1 blister pack machine $14,905 
+ 1 strip pack machine $7,452 
+Ancillary equipment $27,946 
+Electrical installations $93,155 
+Effluent treatment plant (ETP) $18,631 
+Material handling equipment $9,315 
+Office furniture and fixtures $9,315 
+Miscellaneous project expenses $9,315 
+Quality control laboratory $465,773 
+Factory and office building $670,712 
+Total $1,710,317 
+INR values adjusted for inflation using http://calculatorstack.com/inflation-calculator-india.php and converted to USD using 
+exchange rate on 1 Jan 2017. 
+ 
+We consider that the Chaudhuri et al estimated capital costs adequately represent environmental 
+regulation and quality assurance/control costs, as we find that estimates in a 2013 Indian government 
+white paper are similar or lower. The  white paper estimated the capital expenditures relating to 
+pollution control to be US$25,462–$33,949 (INR values adjusted for inflation using 
+http://calculatorstack.com/inflation-calculator-india.php and converted to USD using exchange rate on 
+1 Jan 2017).
+24
+ This is slightly higher than the Chaudhuri et al estimate of US$18,631, but the white 
+paper’s estimate appears to have been for API-manufacturing plants, which are likely to have more 
+challenging waste product profiles compared to a formulating plant. The white paper estimated capital 
+expenditures for quality assurance and control to be US$149,000–$214,000, compared to the 
+significantly higher estimate of US$466,000 by Chaudhuri et al. 
+ 
+  
+
+Table. Estimated yearly operating expenditures for an Indian manufacturing plant, based on 
+estimates by Chaudhuri et al 2015.  
+ 
+Item  INR per annum 
+Fixed costs:  
+Depreciation 13,997,534 
+Interest cost 10,929,938 
+Salaries and wages for permanent employees 13,182,600 
+Repair and maintenance 3,048,000 
+Power and fuel 7,620,000 
+Other running costs 5,020,975 
+Total fixed costs: 53,799,047 
+Variable costs:  
+Wages of casual workers 4,267,200 
+Sales and distribution 50,557,765 
+Total variable costs: 54,824,965 
+Total (fixed + variable) costs: 108,624,012 
+Net of sales and distribution: 58,066,247 
+INR values adjusted for inflation using http://calculatorstack.com/inflation-calculator-india.php. The original analysis by 
+Chaudhuri et al includes material costs and excise duty in their analysis. These components have been excluded here as 
+we calculate our own estimates for these components in this analysis. 
+ 
+ 
+Per-tablet total conversion cost (operating expenditure + depreciation of capital expenditure) 
+derived from Chaudhuri et al 2015, with sales and distribution included versus excluded.  
+ 
+Materials costs and tax-related costs are not included. 
+ 
+ INR USD 
+Plant-wide costs per year Including 
+sales and distribution  
+108,624,012 $1,593,514 
+Plant-wide costs per year not 
+including sales and distribution 
+58,066,247 $851,832 
+Total units manufactured 151,623,000 
+Per-tablet cost including sales and 
+distribution 
+0.72 $0.0105 
+Per-tablet cost not including sales 
+and distribution 
+0.38 $0.0056 
+INR values adjusted for inflation using http://calculatorstack.com/inflation-calculator-india.php and converted to USD using 
+exchange rate 1 INR= 0.01467 USD. 
+ 
+We thus derive from the estimates by Chaudhuri et al that the per-tablet cost of manufacture including 
+operating expenditures and depreciated capital expenditures range from US$0.0056 if sales and 
+distribution costs are not included to US$0.0105 per tablet if they are. 
+  
+
+Costs of environmental compliance paperwork for manufacturing companies in India. 
+ 
+Item Frequency of 
+submission 
+Estimated money spent 
+per year (INR) 
+Estimated money spent 
+per year (USD) 
+Form 4  Yearly  791 $13.43 
+Environment Audit Report 
+(Annexure XXX)-Form-V)  
+Yearly  3,427 $58.17 
+Water Consumed & Prevention of 
+Pollution  
+Monthly 10,404 $176.60 
+Reading of Energy Return – Water 
+Circulation  
+Monthly 8,808 $149.51 
+Hazardous Wastes Return  Monthly 9,492 $161.12 
+SPM & Ambient Air  Quarterly  3,468 $58.87 
+Totals  36,390 $618 
+ 
+Data adapted and inflation adjusted from a 2013 report by Deloitte & the Confederation of Indian 
+Industry.[25]
+ 
+Based on the above values, we consider the cost of environmental compliance 
+paperwork negligible as a proportion of the per-tablet cost of production. 
+  
+
+References 
+ 
+1 WHO Model List of Essential Medicines - 19th List (April 2015, amended November 2015). 
+Available from 
+http://www.who.int/medicines/publications/essentialmedicines/EML_2015_FINAL_amended_N
+OV2015.pdf?ua=1 (accessed 17 Aug 2017). 
+2 PricewaterhouseCoopers. The changing dynamics of pharma outsourcing in Asia: are you 
+readjusting your sights? Available from https://www.pwc.be/en/pharma/the-changing-
+dynamics-of-pharma-outsourcing-in-asia.pdf (accessed 17 Aug 2017). 
+3 Zhang J. Comparing China’s And India’s Pharmaceutical Manufacturing. Pharm. Online. 2012; 
+published online Aug 30. Available from http://www.pharmaceuticalonline.com/doc/comparing-
+china-s-and-india-s-pharmaceutical-manufacturing-0001 (accessed 17 Aug 2017). 
+4 World Health Organization. Medicines/Finished Pharmaceutical Products. Available from 
+https://extranet.who.int/prequal/content/prequalified-lists/medicines (accessed 18 Aug 2017). 
+5 Infodrive India. Available from http://www.infodriveindia.com/ (accessed 18 Aug 2017). 
+6 Central Board of Excise and Customs. Notification No. 128/2004. Available from 
+http://www.cbec.gov.in/htdocs-cbec/customs/cs-act/notifications/notfns-2004/cs-
+nt2004/csnt128-2k4 (accessed 18 Aug 2017). 
+7 Fortunak J, Ngozwana S, Gebre-Mariam T, et al. Raising the Technological Level: The Scope 
+for API, Excipients, and Biologicals Manufacture in Africa. In: Mackintosh M, Banda G, 
+Tibandebage P, Wamae W, editors. Making Medicines in Africa: the political economy of 
+industrializing for local health. Pages 122–43. Palgrave Macmillan, Basingstoke and New 
+York. 2016. 
+8 Rowe R, Sheskey P, Cook W, et al. American Pharmacists Association, editors. Handbook of 
+pharmaceutical excipients, 7th edition. The Pharmaceutical Press, London. 2012. 
+9 National Pharmaceutical Pricing Authority. S.O. 3013(E). Available from 
+http://www.nppaindia.nic.in/norms/press27dec12/so3013e-27-12-12.html (accessed Jan 1, 
+2017). 
+10 Chaudhuri S, West A. Can local producers compete with low-cost imports? A simulation study 
+of pharmaceutical industry in low-income Africa. Innov Dev 2015; 5: 23–38. 
+11 Keeling D, Lösch M, Schrader U. McKinsey & Company. Outlook on pharma operations. 
+Available from 
+http://www.mckinsey.com/~/media/mckinsey/dotcom/client_service/operations/pdfs/outlook_on
+_pharma_operations.ashx (accessed 18 Aug 2017). 
+12 Income Tax Department. Tax Rates. Available from 
+https://web.archive.org/web/20170106164457/http://www.incometaxindia.gov.in/charts%20%2
+0tables/tax%20rates.htm (accessed 18 Aug 2017). 
+13 Income Tax Department. Tax Rates. Available from 
+http://www.incometaxindia.gov.in/Tutorials/2%20Tax%20Rates.pdf (accessed 18 Aug 2017). 
+14  National Investment Promotion Agency. Pharmaceuticals. 2012. Available from 
+http://www.investindia.gov.in/pharmaceuticals-sector/ (accessed 18 Aug 2017). 
+15 Ministry of Commerce & Industry. Incentives and facilities offered to the SEZs. 2017. Available 
+from http://www.sezindia.nic.in/about-fi.asp (accessed 18 Aug 2017). 
+16 Mazumdar M. Performance of pharmaceutical companies in India: a critical analysis of 
+industrial structure, firm specific resources, and emerging strategies. Physica-Verlag, 
+Heidelberg. 2013. 
+17 Karamehic J, Ridic O, Ridic G, et al. Financial aspects and the future of the pharmaceutical 
+industry in the United States of america. Mater Sociomed 2013; 25: 286–90. 
+18 South Africa Department of Health. Master Procurement Catalogue. Available from 
+http://www.health.gov.za/index.php/component/phocadownload/category/196 (accessed May 
+12, 2017). 
+19 Tamil Nadu Medical Services Corporation Limited. Essential Drugs 2016-17. Available from 
+http://www.tnmsc.com/tnmsc/new/user_pages/drugtender.php?drugcat=drug2016 (accessed 
+17 Aug 2017). 
+20 Tamil Nadu Medical Services Corporation Limited. Specialty 2016-17. Available from 
+http://www.tnmsc.com/tnmsc/new/user_pages/drugtender.php?drugcat=sdg2016 (accessed 
+17 Aug 2017). 
+21 Vinod Kumar Memorial Charitable Trust. MedGuideIndia.com. Available from 
+http://www.medguideindia.com/ (accessed Aug 18, 2017). 
+
+22 Royal Pharmaceutical Society. British National Formulary. Available from 
+https://www.medicinescomplete.com/mc/bnf/current/ (accessed 17 Aug 2017). 
+23 Department of Health. Drugs and pharmaceutical electronic market information tool (eMit). 
+Available from https://www.gov.uk/government/publications/drugs-and-pharmaceutical-
+electronic-market-information-emit (accessed 17 Aug 2017). 
+24 Pharmaceutical Technology Upgradation Assistance Scheme (PTUAS): DETAILED PROJECT 
+REPORT. 2013. Available from http://pharmaceuticals.gov.in/pdf/PTUAS10052013.pdf 
+(accessed Aug 17, 2017). 
+25 Deloitte and the Confederation of Indian Industry. Annexure. In: CII - Deloitte Report on Cost 
+of Compliance in Manufacturing. Available from 
+https://www2.deloitte.com/content/dam/Deloitte/in/Documents/manufacturing/cost_of_complian
+ce_in_manufacturing.pdf (accessed 17 Aug 2017). 
+ 
+ 

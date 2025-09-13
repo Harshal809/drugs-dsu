@@ -6,8 +6,7 @@ import twilio from 'twilio';
 import { redis } from '../lib/redis.js';
 
 // Twilio setup
-const accountSid =process.env.ACCOUNT_SID;
-
+const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
 
@@ -16,7 +15,7 @@ const generateOTP = () => Math.floor(100000 + Math.random() * 900000);
 
 // Send OTP via Twilio
 const sendOTP = async (phoneNumber, otp) => {
-  const fromNumber =  process.env.TWILIO_PHONE_NUMBER;
+  const fromNumber = process.env.TWILIO_PHONE_NUMBER;
   if (!fromNumber) {
     console.error('TWILIO_PHONE_NUMBER is not defined in environment variables');
     throw new Error('Server configuration error: Missing Twilio phone number');
@@ -40,10 +39,10 @@ const sendOTP = async (phoneNumber, otp) => {
   }
 };
 
-// Store OTP in Redis
+// Store OTP in Redis (Fixed for Upstash Redis)
 const storeOTP = async (phoneNumber, otp) => {
   try {
-    await redis.set(`otp:${phoneNumber}`, otp, 'EX', 300); // 5 minutes expiry
+    await redis.setex(`otp:${phoneNumber}`, 300, otp); // 5 minutes expiry
     console.log(`OTP stored for ${phoneNumber}`);
   } catch (error) {
     console.error('Failed to store OTP in Redis:', error.message);
@@ -87,11 +86,19 @@ export const signup = async (req, res) => {
     const otp = generateOTP();
 
     try {
-      await redis.set(
+      // Fixed Redis syntax for Upstash Redis
+      await redis.setex(
         `signup:${phoneNumber}`,
-        JSON.stringify({ firstName, lastName, username, email, password: hashedPassword,confirmPassword: hashedPassword, phoneNumber }),
-        'EX',
-        300
+        300, // 5 minutes expiry
+        JSON.stringify({ 
+          firstName, 
+          lastName, 
+          username, 
+          email, 
+          password: hashedPassword,
+          confirmPassword: hashedPassword, 
+          phoneNumber 
+        })
       );
       console.log(`Signup data stored for ${phoneNumber}`);
     } catch (redisError) {

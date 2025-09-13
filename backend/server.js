@@ -32,6 +32,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const allowedOrigins = [
   process.env.CLIENT_URL,
   'https://drugs-10979.firebaseapp.com',
+  'http://localhost:3000',
   'http://localhost:5173',
 ].filter(Boolean);
 

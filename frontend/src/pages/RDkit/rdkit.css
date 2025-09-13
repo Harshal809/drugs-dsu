@@ -1,7 +1,318 @@
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* RDKit Drug Discovery Pipeline Styles */
+
+/* Custom TextField Styles */
+.custom-textfield .MuiOutlinedInput-root {
+  background-color: #0a192f;
+  color: #e0e0e0;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
-.custom-textfield .MuiOutlinedInput-input {
-  cursor: text !important;
+
+.custom-textfield .MuiOutlinedInput-root fieldset {
+  border-color: #5e81f4;
+  border-width: 1px;
+}
+
+.custom-textfield .MuiOutlinedInput-root:hover fieldset {
+  border-color: #00f5d4;
+  border-width: 2px;
+}
+
+.custom-textfield .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #00f5d4;
+  border-width: 2px;
+  box-shadow: 0 0 0 2px rgba(0, 245, 212, 0.1);
+}
+
+.custom-textfield .MuiInputLabel-root {
+  color: #a0a0a0;
+  font-family: "Lato", sans-serif;
+}
+
+.custom-textfield .MuiInputLabel-root.Mui-focused {
+  color: #00f5d4;
+}
+
+/* Animation Keyframes */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(0, 245, 212, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 245, 212, 0.8);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes underlineExpand {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes floatSmall {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-80px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes liquidMove {
+  0%,
+  100% {
+    height: 40%;
+    transform: translateX(-50%) skew(0deg);
+  }
+  50% {
+    height: 45%;
+    transform: translateX(-50%) skew(2deg);
+  }
+}
+
+@keyframes liquidMoveSmall {
+  0%,
+  100% {
+    height: 30%;
+    transform: translateX(-50%) skew(0deg);
+  }
+  50% {
+    height: 35%;
+    transform: translateX(-50%) skew(1deg);
+  }
+}
+
+@keyframes moleculeFloat {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, -5px);
+  }
+  50% {
+    transform: translate(5px, 5px);
+  }
+  75% {
+    transform: translate(-5px, -3px);
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.3;
+  }
+  70% {
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a192f;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5e81f4;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00f5d4;
+}
+
+/* Loading Spinner Customization */
+.MuiCircularProgress-root {
+  animation-duration: 1.5s !important;
+}
+
+/* Table Hover Effects */
+.MuiTableRow-root:hover {
+  background-color: rgba(94, 129, 244, 0.1) !important;
+  transition: background-color 0.3s ease;
+}
+
+/* Card Hover Effects */
+.MuiCard-root:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Button Hover Effects */
+.MuiButton-root:hover {
+  transform: translateY(-1px);
+  transition: transform 0.2s ease;
+}
+
+/* Chip Hover Effects */
+.MuiChip-root:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* Custom Focus Styles */
+.MuiButton-root:focus,
+.MuiIconButton-root:focus {
+  outline: 2px solid #00f5d4;
+  outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .custom-textfield {
+    margin-bottom: 16px;
+  }
+
+  .MuiGrid-container {
+    margin: 0 !important;
+  }
+
+  .MuiGrid-item {
+    padding: 8px !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .MuiButton-root,
+  .MuiIconButton-root {
+    display: none !important;
+  }
+
+  .MuiCollapse-root {
+    height: auto !important;
+  }
+
+  .MuiCollapse-hidden {
+    display: block !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .custom-textfield .MuiOutlinedInput-root fieldset {
+    border-width: 2px;
+  }
+
+  .MuiChip-root {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

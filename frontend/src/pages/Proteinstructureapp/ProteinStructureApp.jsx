@@ -8,7 +8,7 @@ import { toast } from 'react-hot-toast';
 import { useAuthStore } from '../../Store/auth.store.js';
 
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent' // Ensure this is set in environment
-const GEMINI_API_KEY = 'AIzaSyDyujm50dHMYvn1V50dDDqcAhgUqCOuUGU'// Ensure this is set in environment
+const GEMINI_API_KEY = 'AIzaSyABAk3NKj4eqXhP9SkZIX8lYhfiZINP6ZQ'// Ensure this is set in environment
 
 const ProteinStructureApp = () => {
   const [structures, setStructures] = useState([]);

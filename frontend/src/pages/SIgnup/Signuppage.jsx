@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../Store/auth.store.js';
 import toast from 'react-hot-toast';
 import { User, Mail, Phone, Lock, LogIn } from 'lucide-react';
-import signupImage from './meetImage.avif'; // Make sure the image path is correct
+import signupImage from './meetImage.avif';
 
 function Signuppage() {
   const [formData, setFormData] = useState({
@@ -19,36 +19,81 @@ function Signuppage() {
   const { signup, loading } = useAuthStore();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
+  const validateForm = () => {
+    // Check for empty fields
+    const requiredFields = ['firstName', 'lastName', 'username', 'email', 'phoneNumber', 'password', 'confirmPassword'];
+    const emptyFields = requiredFields.filter(field => !formData[field] || formData[field].trim() === '');
     
-    // Other validations can remain as they are robust.
+    if (emptyFields.length > 0) {
+      toast.error(`Please fill in all required fields: ${emptyFields.join(', ')}`);
+      return false;
+    }
+
+    // Username validation (min 3 characters)
+    if (formData.username.trim().length < 3) {
+      toast.error("Username must be at least 3 characters long");
+      return false;
+    }
+
+    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       toast.error("Please enter a valid email address");
-      return;
+      return false;
     }
 
-    const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+    // Phone validation - FIXED to match backend schema
+    const phoneRegex = /^\+\d{10,}$/; // Must start with + and have at least 10 digits
     if (!phoneRegex.test(formData.phoneNumber)) {
-      toast.error("Please enter a valid phone number in international format (e.g., +911234567890)");
+      toast.error("Please enter a valid phone number starting with + and country code (e.g., +911234567890)");
+      return false;
+    }
+
+    // Password validation
+    if (formData.password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return false;
+    }
+
+    // Password match validation
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log('=== FORM SUBMISSION DEBUG ===');
+    console.log('Form data:', formData);
+
+    // Validate form
+    if (!validateForm()) {
       return;
     }
 
     try {
+      console.log('Attempting signup with data:', formData);
       await signup(formData);
       toast.success("Signup successful! Please verify your OTP");
       navigate('/verifyotp');
     } catch (error) {
+      console.error('Signup error in component:', error);
+      
       const errorMessage = error.response?.data?.message || "Signup failed. Please try again.";
-      if (error.response?.status === 400 && errorMessage.includes("User already exists")) {
-        toast.error("User with this email or username already exists. Redirecting to login...");
-        setTimeout(() => navigate("/login"), 2000);
+      
+      if (error.response?.status === 400) {
+        if (errorMessage.includes("Email already exists")) {
+          toast.error("Email already exists. Redirecting to login...");
+          setTimeout(() => navigate("/login"), 2000);
+        } else if (errorMessage.includes("Username already exists")) {
+          toast.error("Username already exists. Please choose a different one.");
+        } else {
+          toast.error(errorMessage);
+        }
       } else {
         toast.error(errorMessage);
       }
@@ -56,7 +101,22 @@ function Signuppage() {
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    
+    // Clean up phone number input
+    if (name === 'phoneNumber') {
+      // Remove any non-digit characters except +
+      let cleanValue = value.replace(/[^\d+]/g, '');
+      
+      // Ensure it starts with + if it has digits
+      if (cleanValue.length > 0 && !cleanValue.startsWith('+')) {
+        cleanValue = '+' + cleanValue;
+      }
+      
+      setFormData({ ...formData, [name]: cleanValue });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const renderInput = (id, name, type, placeholder, icon, value) => (
@@ -73,7 +133,26 @@ function Signuppage() {
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
+        // Add specific validations
+        minLength={name === 'username' ? 3 : name === 'password' || name === 'confirmPassword' ? 6 : undefined}
+        maxLength={name === 'phoneNumber' ? 15 : undefined}
       />
+      {/* Show validation hints */}
+      {name === 'phoneNumber' && (
+        <div className="text-xs text-text-secondary mt-1 ml-2">
+          Format: +[country code][number] (e.g., +911234567890)
+        </div>
+      )}
+      {name === 'username' && (
+        <div className="text-xs text-text-secondary mt-1 ml-2">
+          Minimum 3 characters
+        </div>
+      )}
+      {(name === 'password' || name === 'confirmPassword') && (
+        <div className="text-xs text-text-secondary mt-1 ml-2">
+          Minimum 6 characters
+        </div>
+      )}
     </div>
   );
 
@@ -88,12 +167,12 @@ function Signuppage() {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-primary opacity-60"></div>
-           <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-8">
-                    <h1 className="text-4xl font-bold text-white font-heading">Join the Forefront of Discovery</h1>
-                    <p className="text-text-primary mt-4 text-lg font-body">Accelerate your research with our secure, AI-driven platform. Unlock new possibilities in drug discovery and genetic analysis.</p>
-                </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center p-8">
+              <h1 className="text-4xl font-bold text-white font-heading">Join the Forefront of Discovery</h1>
+              <p className="text-text-primary mt-4 text-lg font-body">Accelerate your research with our secure, AI-driven platform. Unlock new possibilities in drug discovery and genetic analysis.</p>
             </div>
+          </div>
         </div>
 
         {/* Right side with Signup Form */}

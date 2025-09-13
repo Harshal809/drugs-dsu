@@ -3,9 +3,12 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
+// Create Redis instance with better error handling
 export const redis = new Redis({
-  url: 'https://immense-goldfish-16178.upstash.io',
-  token: 'AT8yAAIjcDE5YTI1YWJlN2Q0YmE0NTQ3OWFjNTZmYWMwZDViMjdhMHAxMA',
-})
-
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+  retry: {
+    retries: 3,
+    backoff: (retryCount) => Math.exp(retryCount) * 50,
+  },
+});

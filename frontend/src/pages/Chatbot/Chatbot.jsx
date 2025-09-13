@@ -61,7 +61,7 @@ export default function Chatbot() {
   // Updated dashboard routes with detailed descriptions
  const dashboardRoutes = [
   {
-    path: "/dashboard/protein-structure-mutation",
+    path: "/dashboard/newdrug-discovery",
     name: "New Drug Discovery",
     icon: "FlaskConical",
     description: "Explore and generate new drug compounds",
@@ -108,14 +108,7 @@ export default function Chatbot() {
     details:
       "Generate documentation, experimental reports, and research articles using AI based on your drug discovery inputs.",
   },
-  {
-    path: "/dashboard/toxicityPrediction",
-    name: "Toxicity & Side Effects",
-    icon: "AlertTriangle",
-    description: "Predict toxicology and adverse reactions",
-    details:
-      "Analyze compound structures to identify possible toxic effects and interactions early in the development cycle.",
-  },
+  
   {
     path: "/dashboard/voice-text-notes",
     name: "Audio Note Capture",
@@ -145,7 +138,7 @@ export default function Chatbot() {
 
   const drugDiscoverySteps = [
   {
-    path: "/dashboard/protein-structure-mutation",
+    path: "/dashboard/newdrug-discovery",
     name: "Step 1: New Drug Discovery",
     description: "Use AI and mutation modeling for new compounds",
     icon: "FlaskConical",
@@ -192,14 +185,7 @@ export default function Chatbot() {
     details:
       "Automatically generate structured scientific documents that capture your experimental and AI-generated findings.",
   },
-  {
-    path: "/dashboard/toxicityPrediction",
-    name: "Step 7: Toxicity & Side Effects",
-    description: "Analyze safety and side effects",
-    icon: "AlertTriangle",
-    details:
-      "Predict toxicity levels and adverse reactions based on AI models trained on large molecular and clinical datasets.",
-  },
+  
   {
     path: "/dashboard/voice-text-notes",
     name: "Step 8: Audio Note Capture",
@@ -221,7 +207,7 @@ export default function Chatbot() {
 
   // Enhanced suggested questions per tool/step
 const suggestedQuestions = {
-  "/dashboard/protein-structure-mutation": [
+  "/dashboard/newdrug-discovery": [
     "How does mutation-based drug discovery work?",
     "What inputs are needed for structure mutation?",
     "Can I compare mutated compounds?",
@@ -251,11 +237,7 @@ const suggestedQuestions = {
     "Can I upload datasets to include?",
     "Is citation management automated?",
   ],
-  "/dashboard/toxicityPrediction": [
-    "How is toxicity assessed?",
-    "Which side effects are predicted?",
-    "Can I view molecular reasons for side effects?",
-  ],
+  
   "/dashboard/voice-text-notes": [
     "Can I record multiple audio notes?",
     "How accurate is the transcription?",
@@ -566,7 +548,7 @@ const suggestedQuestions = {
 
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDyujm50dHMYvn1V50dDDqcAhgUqCOuUGU`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBUB_JYncrqpo-BZF_PcqqkA4EE1t0Yj9E`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

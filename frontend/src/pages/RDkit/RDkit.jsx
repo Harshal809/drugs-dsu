@@ -205,7 +205,66 @@ const RDkit = () => {
   const { user } = useAuthStore()
   const userId = user?._id
 
+const [comparisonResult, setComparisonResult] = useState(null);
+const [comparisonLoading, setComparisonLoading] = useState(false);
+const [showComparison, setShowComparison] = useState(false);
 
+// Add this state to track the raw input value
+const [symptomInput, setSymptomInput] = useState("")
+
+const handleCompareWithDataset = async () => {
+  if (!reactionResult || !result) {
+    toast.error("No drug prediction results available for comparison.", { 
+      id: "compare-error", 
+      ...toastOptions 
+    });
+    return;
+  }
+
+  setComparisonLoading(true);
+  setError("");
+  
+  try {
+    toast("Analyzing generated compounds against reference dataset...", {
+      id: "compare-start",
+      duration: 3000,
+      ...toastOptions,
+    });
+
+    const response = await axiosInstance.post(
+      `/newdrug/compareDrugs/${userId}`,
+      { reactionResult },
+      {
+        headers: { 
+          Authorization: `Bearer ${localStorage.getItem("token")}` 
+        },
+        timeout: 120000, // 2 minutes timeout for complex analysis
+      }
+    );
+
+    setComparisonResult(response.data.comparison);
+    setShowComparison(true);
+    
+    toast.success(
+      `Comparison completed! Overall accuracy: ${response.data.comparison.overall_accuracy}`, 
+      { 
+        id: "compare-success", 
+        duration: 5000,
+        ...toastOptions 
+      }
+    );
+
+  } catch (err) {
+    console.error("Comparison Error:", err.message);
+    setError("Failed to compare drugs with dataset: " + (err.response?.data?.error || err.message));
+    toast.error("Failed to compare drugs with dataset.", { 
+      id: "compare-error", 
+      ...toastOptions 
+    });
+  } finally {
+    setComparisonLoading(false);
+  }
+};
 
   // Save state to localStorage whenever it changes
   // useEffect(() => {
@@ -412,6 +471,183 @@ const RDkit = () => {
       )
     }
   }, [reactionResult, retryAttempts.noReactions, loading, maxRetries])
+
+
+
+const renderComparisonResults = () => {
+  if (!comparisonResult) return null;
+
+  return (
+    <Collapse in={showComparison} timeout="auto" unmountOnExit>
+      <Box sx={{ mt: 2 }}>
+        <Card
+          sx={{
+            bgcolor: "#0A192F",
+            border: "2px solid #70E000",
+            color: "#E0E0E0",
+            mb: 2,
+          }}
+        >
+          <CardHeader
+            title={
+              <Box display="flex" alignItems="center" gap={1}>
+                <Science sx={{ color: "#70E000" }} />
+                <Typography variant="h6" sx={{ color: "#70E000" }}>
+                  Drug Similarity Analysis Results
+                </Typography>
+                <Chip
+                  label={`Accuracy: ${comparisonResult.overall_accuracy}`}
+                  sx={{
+                    bgcolor: "#70E000",
+                    color: "#0A192F",
+                    fontWeight: 600,
+                  }}
+                />
+              </Box>
+            }
+            subheader={
+              <Typography variant="body2" sx={{ color: "#A0A0A0", mt: 1 }}>
+                Comprehensive comparison with reference drug dataset
+              </Typography>
+            }
+          />
+          
+          <CardContent>
+            {/* Overall Summary */}
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="h6" sx={{ color: "#00F5D4", mb: 1 }}>
+                Analysis Summary
+              </Typography>
+              <Typography variant="body2" sx={{ color: "#E0E0E0", mb: 2 }}>
+                {comparisonResult.comparison_summary}
+              </Typography>
+            </Box>
+
+            {/* Individual Compound Analysis */}
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="h6" sx={{ color: "#00F5D4", mb: 2 }}>
+                Individual Compound Analysis ({comparisonResult.individual_compounds?.length || 0} compounds)
+              </Typography>
+              
+              {comparisonResult.individual_compounds?.map((compound, index) => (
+                <Card
+                  key={index}
+                  sx={{
+                    bgcolor: "#172A45",
+                    border: "1px solid #5E81F4",
+                    mb: 2,
+                  }}
+                >
+                  <CardContent>
+                    <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
+                      <Typography variant="subtitle1" sx={{ color: "#70E000", fontWeight: 600 }}>
+                        {compound.compound_id}
+                      </Typography>
+                      <Chip
+                        label={`Similarity: ${compound.similarity_score}`}
+                        size="small"
+                        sx={{
+                          bgcolor: compound.similarity_score >= "45%" ? "#70E000" : "#FFD700",
+                          color: "#0A192F",
+                          fontWeight: 600,
+                        }}
+                      />
+                    </Box>
+                    
+                    <Typography variant="body2" sx={{ color: "#A0A0A0", mb: 1, fontFamily: 'monospace' }}>
+                      SMILES: {compound.smiles}
+                    </Typography>
+
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <Typography variant="body2" sx={{ color: "#E0E0E0", mb: 1 }}>
+                          <strong>Property Match:</strong> {compound.property_match}
+                        </Typography>
+                        <Typography variant="body2" sx={{ color: "#E0E0E0", mb: 1 }}>
+                          <strong>Structural Analysis:</strong> {compound.structural_analysis}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                        <Typography variant="body2" sx={{ color: "#E0E0E0", mb: 1 }}>
+                          <strong>Drug-Likeness:</strong> {compound.drug_likeness_assessment}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+
+                    {compound.key_similarities?.length > 0 && (
+                      <Box sx={{ mt: 2 }}>
+                        <Typography variant="body2" sx={{ color: "#00F5D4", mb: 1 }}>
+                          <strong>Key Similarities:</strong>
+                        </Typography>
+                        <Box display="flex" flexWrap="wrap" gap={0.5}>
+                          {compound.key_similarities.map((similarity, idx) => (
+                            <Chip
+                              key={idx}
+                              label={similarity}
+                              size="small"
+                              sx={{
+                                bgcolor: "#5E81F4",
+                                color: "#E0E0E0",
+                                fontSize: "0.75rem",
+                              }}
+                            />
+                          ))}
+                        </Box>
+                      </Box>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </Box>
+
+            {/* Dataset Analysis */}
+            {comparisonResult.dataset_analysis && (
+              <Box sx={{ mb: 3 }}>
+                <Typography variant="h6" sx={{ color: "#00F5D4", mb: 2 }}>
+                  Dataset Analysis
+                </Typography>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="body2" sx={{ color: "#E0E0E0", mb: 1 }}>
+                      <strong>Property Distributions:</strong> {comparisonResult.dataset_analysis.property_distributions}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: "#E0E0E0", mb: 1 }}>
+                      <strong>Chemical Space Coverage:</strong> {comparisonResult.dataset_analysis.chemical_space_coverage}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="body2" sx={{ color: "#E0E0E0", mb: 1 }}>
+                      <strong>Novelty Assessment:</strong> {comparisonResult.dataset_analysis.novelty_assessment}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: "#E0E0E0", mb: 1 }}>
+                      <strong>Drug-Likeness Comparison:</strong> {comparisonResult.dataset_analysis.drug_likeness_comparison}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+            )}
+
+            {/* Recommendations */}
+            {comparisonResult.recommendations?.length > 0 && (
+              <Box>
+                <Typography variant="h6" sx={{ color: "#00F5D4", mb: 2 }}>
+                  Optimization Recommendations
+                </Typography>
+                <Box component="ul" sx={{ color: "#E0E0E0", pl: 2 }}>
+                  {comparisonResult.recommendations.map((recommendation, index) => (
+                    <Typography component="li" key={index} variant="body2" sx={{ mb: 1 }}>
+                      {recommendation}
+                    </Typography>
+                  ))}
+                </Box>
+              </Box>
+            )}
+          </CardContent>
+        </Card>
+      </Box>
+    </Collapse>
+  );
+};
 
   const validateSymptoms = (symptomList) => {
     if (!Array.isArray(symptomList) || symptomList.length === 0) {
@@ -1288,7 +1524,7 @@ const RDkit = () => {
               variant="subtitle1"
               sx={{ color: "#A0A0A0", maxWidth: 800, mx: "auto", fontFamily: "'Roboto', 'Open Sans', sans-serif" }}
             >
-              Advanced New Drug Discovery Pipeline powered by <span style={{ color: "#00F5D4" ,fontWeight: 300 }}>Gemini, RDKit, Pubchem and many more Datasets</span> with  <span style={{ color: "#00F5D4" ,fontWeight: 600 }}>Accuracy of 82.4% to 86.2%</span>
+              Advanced New Drug Discovery Pipeline powered by <span style={{ color: "#00F5D4" ,fontWeight: 300 }}>Gemini, RDKit, Pubchem and many more Datasets</span> with  <span style={{ color: "#00F5D4" ,fontWeight: 600 }}>Accuracy of 46.7%</span>
             </Typography>
             {/* {(result || reactionResult || symptoms.length > 0) && (
               <Alert
@@ -1316,52 +1552,68 @@ const RDkit = () => {
               <Box component="form" onSubmit={handleSubmit}>
                 <Grid container spacing={2} alignItems="center">
                   <Grid item xs={12} md={6}> {/* changed md={6} to md={12} */}
-                    <TextField
-                      fullWidth
-                      label="Enter Symptoms"
-                      value={symptoms.join(", ")}
-                      onChange={(e) => {
-                        const inputValue = e.target.value;
-                        if (inputValue.length <= 500) {
-                          setSymptoms(
-                            inputValue
-                              ? inputValue
-                                .split(",")
-                                .map((s) => s.trim())
-                                .filter((s) => s)
-                              : []
-                          );
-                        }
-                      }}
-                      placeholder="Enter Symptoms"
-                      type="text"
-                      name="symptoms"
-                      variant="outlined"
-                      className="custom-textfield"
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          bgcolor: "#0A192F",
-                          color: "#E0E0E0",
-                          "& fieldset": { borderColor: "#5E81F4" },
-                          "&:hover fieldset": { borderColor: "#00F5D4" },
-                          "&.Mui-focused fieldset": { borderColor: "#00F5D4" },
-                        },
-                        "& .MuiOutlinedInput-input": {
-                          cursor: "text !important",
-                        },
-                        "& .MuiInputLabel-root": {
-                          color: "#A0A0A0",
-                          fontFamily: "'Lato', sans-serif",
-                        },
-                        "& .MuiInputLabel-root.Mui-focused": {
-                          color: "#00F5D4",
-                        },
-                      }}
-                      InputProps={{
-                        startAdornment: <LocalHospital sx={{ mr: 1, color: "#A0A0A0" }} />,
-                        inputProps: { maxLength: 500 }, // Correct way to set maxLength
-                      }}
-                    />
+<TextField
+  fullWidth
+  label="Enter Symptoms"
+  value={symptomInput}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+    
+    // Prevent input if exceeds 500 characters
+    if (inputValue.length > 500) {
+      toast.error("Maximum 500 characters allowed", { id: "max-length" });
+      return;
+    }
+    
+    // Update the raw input value
+    setSymptomInput(inputValue);
+    
+    // Process symptoms array for validation and storage
+    const processedSymptoms = inputValue
+      ? inputValue
+          .split(",")
+          .map((s) => s.trim())
+          .filter((s) => s !== "")
+      : [];
+    
+    setSymptoms(processedSymptoms);
+  }}
+  onBlur={() => {
+    // Clean up the input on blur (optional)
+    const cleanedInput = symptoms
+      .filter((s) => s.trim() !== "")
+      .join(", ");
+    setSymptomInput(cleanedInput);
+  }}
+  placeholder="Enter symptoms separated by commas (e.g., fever, cough, fatigue)"
+  type="text"
+  name="symptoms"
+  variant="outlined"
+  className="custom-textfield"
+  sx={{
+    "& .MuiOutlinedInput-root": {
+      bgcolor: "#0A192F",
+      color: "#E0E0E0",
+      "& fieldset": { borderColor: "#5E81F4" },
+      "&:hover fieldset": { borderColor: "#00F5D4" },
+      "&.Mui-focused fieldset": { borderColor: "#00F5D4" },
+    },
+    "& .MuiOutlinedInput-input": {
+      cursor: "text !important",
+    },
+    "& .MuiInputLabel-root": {
+      color: "#A0A0A0",
+      fontFamily: "'Lato', sans-serif",
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#00F5D4",
+    },
+  }}
+  InputProps={{
+    startAdornment: <LocalHospital sx={{ mr: 1, color: "#A0A0A0" }} />,
+  }}
+  // helperText={`${symptomInput.length}/500 characters | ${symptoms.length} symptoms entered`}
+/>
                   </Grid>
 
                   <Grid item xs={12} md={6}>
@@ -2551,6 +2803,34 @@ const RDkit = () => {
                 </Button>
               </Box>
             )}
+
+
+            {/* Compare with Dataset Button - Add this after PDF button */}
+{reactionResult && 
+ reactionResult.reactionResults?.length > 0 && 
+ !is100PercentMatch && 
+ !is0PercentMatch && (
+  <Button
+    onClick={handleCompareWithDataset}
+    disabled={comparisonLoading}
+    startIcon={comparisonLoading ? <CircularProgress size={20} /> : <Sync />}
+    sx={{
+      bgcolor: "#5E81F4",
+      color: "#E0E0E0",
+      "&:hover": { bgcolor: "#00F5D4", color: "#0A192F" },
+      textTransform: "none",
+      fontFamily: "'Lato', sans-serif",
+      fontWeight: 600,
+      mb: 2,
+    }}
+  >
+    {comparisonLoading ? "Analyzing..." : "Compare with Dataset"}
+  </Button>
+)}
+
+{/* Comparison Results - Add this after the Compare button */}
+{renderComparisonResults()}
+
 
             {/* Disease Prediction Results Section */}
             {result?.disease && (
@@ -3989,4 +4269,6 @@ const RDkit = () => {
   )
 }
 
-export default RDkit
+export default RDkit;
+
+

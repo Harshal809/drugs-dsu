@@ -48,31 +48,52 @@ const StructureForm = ({ onSubmit, loading }) => {
 
   const handleNameChange = (e) => {
     const value = e.target.value;
-    setFormData({ ...formData, name: value, smiles: '' });
+    setFormData({ ...formData, name: value });
     debouncedFetchSuggestions(value);
   };
 
   const handleSuggestionSelect = async (selectedName) => {
-    try {
-      setIsFetchingSmiles(true);
-      const response = await fetch(
-        `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(selectedName)}/property/CanonicalSMILES/JSON`
-      );
-      const data = await response.json();
-      if (data.PropertyTable && data.PropertyTable.Properties[0]) {
-        const smiles = data.PropertyTable.Properties[0].CanonicalSMILES;
-        setFormData({ ...formData, name: selectedName, smiles });
-      } else {
-        setFormData({ ...formData, name: selectedName, smiles: '' });
-      }
-    } catch (error) {
-      console.error('Error fetching SMILES:', error);
-      setFormData({ ...formData, name: selectedName, smiles: '' });
-    } finally {
-      setIsFetchingSmiles(false);
-      setShowSuggestions(false);
+  console.log('Selected compound:', selectedName);
+  setFormData(prev => ({ ...prev, name: selectedName }));
+  
+  try {
+    setIsFetchingSmiles(true);
+    const apiUrl = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(selectedName)}/property/CanonicalSMILES,IsomericSMILES,ConnectivitySMILES/JSON`;
+    console.log('Fetching SMILES from:', apiUrl);
+    
+    const response = await fetch(apiUrl);
+    
+    if (!response.ok) {
+      throw new Error(`PubChem API error: ${response.status}`);
     }
-  };
+    
+    const data = await response.json();
+    console.log('PubChem response:', data);
+    
+    if (data.PropertyTable?.Properties?.[0]) {
+      const props = data.PropertyTable.Properties[0];
+      // Try to get SMILES from different possible fields
+      const smiles = props.CanonicalSMILES || props.ConnectivitySMILES || props.IsomericSMILES || '';
+      
+      if (smiles) {
+        console.log('Found SMILES:', smiles);
+        setFormData(prev => ({
+          ...prev,
+          smiles: smiles
+        }));
+      } else {
+        console.warn('No SMILES found in response');
+      }
+    } else {
+      console.warn('No properties found in response');
+    }
+  } catch (error) {
+    console.error('Error fetching SMILES:', error);
+  } finally {
+    setIsFetchingSmiles(false);
+    setShowSuggestions(false);
+  }
+};
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -86,6 +107,7 @@ const StructureForm = ({ onSubmit, loading }) => {
     e.preventDefault();
     onSubmit(formData);
   };
+
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">

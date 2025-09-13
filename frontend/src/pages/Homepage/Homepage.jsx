@@ -119,7 +119,7 @@ function Homepage() {
         }, 16)
       }
 
-      animateCounter(84.5, "stat1")
+      animateCounter(57, "stat1")
       animateCounter(60, "stat2")
       animateCounter(3, "stat3")
       setTimeout(() => setCounters((prev) => ({ ...prev, stat4: 24 })), 1000)
@@ -306,7 +306,7 @@ function Homepage() {
                 <br />
                 <span className="gradient-text animate-text-glow">Drug Discovery</span>
                 <br />
-                <span className="text-text-primary">with AI</span>
+                <span className="text-text-primary">with Gen AI</span>
               </h1>
 
               <p
@@ -367,7 +367,7 @@ function Homepage() {
       </section>
 
       {/* Stats Section */}
-      <section id="stats" ref={statsRef} className="py-16 lg:py-20 bg-secondary">
+      {/* <section id="stats" ref={statsRef} className="py-16 lg:py-20 bg-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
@@ -418,7 +418,7 @@ function Homepage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Features Section */}
       <section id="features" ref={featuresRef} className="py-16 lg:py-20 bg-primary">

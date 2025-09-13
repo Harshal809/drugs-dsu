@@ -45,7 +45,7 @@ function DashboardHome() {
     title: 'New Drug Discovery',
     description: 'Explore New Drugs Discovery',
     icon: <Science sx={{ fontSize: 28 }} />, // Changed from AutoAwesome
-    link: '/dashboard/protein-structure-mutation',
+    link: '/dashboard/newdrug-discovery',
     gradient: 'linear-gradient(135deg, #00F5D4 0%, #5E81F4 100%)',
     bgColor: 'rgba(0, 245, 212, 0.1)',
   },
@@ -89,14 +89,14 @@ function DashboardHome() {
     gradient: 'linear-gradient(135deg, #00F5D4 0%, #5E81F4 100%)',
     bgColor: 'rgba(0, 245, 212, 0.1)',
   },
-  {
-    title: 'Toxicity & Side Effects',
-    description: 'Predict drug toxicity and side effects',
-    icon: <GppBad sx={{ fontSize: 28 }} />, // Changed from Dangerous
-    link: '/dashboard/toxicityPrediction',
-    gradient: 'linear-gradient(135deg, #FF4D6D 0%, #5E81F4 100%)',
-    bgColor: 'rgba(255, 77, 109, 0.1)',
-  },
+  // {
+  //   title: 'Toxicity & Side Effects',
+  //   description: 'Predict drug toxicity and side effects',
+  //   icon: <GppBad sx={{ fontSize: 28 }} />, // Changed from Dangerous
+  //   link: '/dashboard/toxicityPrediction',
+  //   gradient: 'linear-gradient(135deg, #FF4D6D 0%, #5E81F4 100%)',
+  //   bgColor: 'rgba(255, 77, 109, 0.1)',
+  // },
   {
     title: 'Audio Note Capture',
     description: 'Voice-to-text note taking system',
