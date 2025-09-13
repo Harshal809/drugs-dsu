@@ -11,9 +11,12 @@ Knowledge Integration: Aggregation of relevant pharmaceutical news and research
 A comprehensive full-stack application for AI-powered drug discovery and pharmaceutical research, featuring molecular visualization, predictive analytics, and real-time collaboration tools.
 
 ![image](https://github.com/user-attachments/assets/a770845b-aefb-4295-9480-196e4e219bbe)
+<img width="947" height="760" alt="image" src="https://github.com/user-attachments/assets/b634fff6-f6c8-47ce-902a-114758486a1a" />
+<img width="391" height="1017" alt="image" src="https://github.com/user-attachments/assets/c8cb4750-4609-4707-8ecd-0598a8889c52" />
+<img width="767" height="862" alt="image" src="https://github.com/user-attachments/assets/b1117025-bc34-4e1d-9fd7-be2fa3aded52" />
+<img width="1280" height="655" alt="image" src="https://github.com/user-attachments/assets/a0f80941-d9f6-4944-8f51-9c9f85062cd4" />
+<img width="657" height="945" alt="image" src="https://github.com/user-attachments/assets/595dbc3c-20f8-4a88-9962-785a3e2b29ea" />
 
-
-https://drugs-10979.firebaseapp.com/ (Live Link)
 
 Use below login cerdentials [Since we have use Twilio Demo so otp will come to only registered phone number so use below credentials ]
 - Email - test@gmail.com
