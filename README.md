@@ -1,6 +1,8 @@
 # Drugs Assistant - Full Stack Application
 **Problem Statement**
 
+https://devfolio.co/projects/accelerating-drug-discovery-using-generative-ai-44d5
+
 The process of drug discovery is time-consuming, expensive, and often inefficient, with a high rate of failure in clinical trials. Traditional methods rely heavily on trial and error, requiring years of research and significant financial investment. Additionally, the complexity of biological systems and the vast chemical space make it challenging to identify promising drug candidates efficiently.
 Generative AI, with its ability to analyze large datasets, predict molecular interactions, and generate novel compounds, has the potential to revolutionize this process. However, there is a lack of accessible, user-friendly tools that leverage generative AI to assist researchers in accelerating drug discovery while reducing costs and improving success rates.
 This application addresses these challenges by providing:
